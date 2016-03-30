@@ -1,4 +1,5 @@
-endeca_instance_id = 204
+attr_dict = {'endeca_instance_id' : '204',
+			 'attribute_name' :'accounting_date'}
 
 sql_statement = """
 SET DEFINE OFF;
@@ -40,14 +41,15 @@ Insert into APPS.FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INS
 
 
 COMMIT;
-
+"""
+group_update_statment = """
 SET DEFINE OFF;
 
 UPDATE APPS.FND_EID_ATTR_GROUPS
 SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1
-WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_date';
+WHERE EID_INSTANCE_ID = {0} AND EID_INSTANCE_ATTRIBUTE = {1};
 
 COMMIT;
-""" % endeca_instance_id
+""".format(attr_dict['endeca_instance_id'], attr_dict['attribute_name'])
 
-print sql_statement
+print group_update_statment
