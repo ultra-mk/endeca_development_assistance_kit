@@ -18,6 +18,7 @@ class SQL(object):
 		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, self.eid_instance_attribute, self.datatype, self.profile_id)
 		self.insert_attrs_tl = self.insert_attrs_tl(self.eid_instance_attribute, self.display_name)
 
+
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
     	rem_insert_statment = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n'
     	insert_statement = 'Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE, EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG, DIM_ENABLE_REFINEMENTS_FLAG,DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG, MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE, LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG, VALUE_SET_NAME,ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n'
@@ -25,9 +26,14 @@ class SQL(object):
     	statement = DEFINE_OFF + rem_insert_statment + insert_statement + values + COMMIT
     	return statement
 
+
     def insert_attrs_tl(self, eid_instance_attribute, display_name):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
-    	statement = DEFINE_OFF
+    	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n'
+    	insert_statement = 'Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
+    	#need to update this string to take the values
+    	values = "(204,'accounting_date','D','US','Accounting Date','Accounting Date','Accounting Date','Accounting Date',0,SYSDATE,0,SYSDATE,0);" 
+    	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values
     	return statement
 
 

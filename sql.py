@@ -1,7 +1,7 @@
-attr_dict = {'endeca_instance_id' : '204',
-			 'attribute_name' :'accounting_date'}
+# attr_dict = {'endeca_instance_id' : '204',
+# 			 'attribute_name' :'accounting_date'}
 
-sql_statement = """
+# sql_statement = """
 SET DEFINE OFF;
 
 -- define Accounting Date attr and ensure that it is associated with EID Instance ID 9
