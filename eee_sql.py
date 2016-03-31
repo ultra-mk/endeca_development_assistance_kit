@@ -16,7 +16,7 @@ class SQL(object):
 		self.profile_id = str(profile_id)
 		self.display_name = display_name
 		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, self.eid_instance_attribute, self.datatype, self.profile_id)
-		self.insert_attrs_tl = self.insert_attrs_tl(self.eid_instance_attribute, self.display_name)
+		self.insert_attrs_tl = self.insert_attrs_tl(self.eid_instance_id, self.eid_instance_attribute, self.display_name)
 
 
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
@@ -27,12 +27,12 @@ class SQL(object):
     	return statement
 
 
-    def insert_attrs_tl(self, eid_instance_attribute, display_name):
+    def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, display_name):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n'
     	insert_statement = 'Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
     	#need to update this string to take the values
-    	values = "(204,'accounting_date','D','US','Accounting Date','Accounting Date','Accounting Date','Accounting Date',0,SYSDATE,0,SYSDATE,0);" 
+    	values = "(" + eid_instance_id + ",'accounting_date','D','US','Accounting Date','Accounting Date','Accounting Date','Accounting Date',0,SYSDATE,0,SYSDATE,0);" 
     	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values
     	return statement
 
