@@ -12,7 +12,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_b_values = slice(632,770)
 		EEE_SQL_TEST.attrs_tl_rem_insert = slice(16, 61)
 		EEE_SQL_TEST.attrs_tl_insert = slice(61,309)
-		EEE_SQL_TEST.attrs_tl_values = slice(309, 436)
+		EEE_SQL_TEST.attrs_tl_values = slice(309, 446)
 
 
 	def test_init_SQL_attribute(self):
@@ -30,10 +30,11 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual("(204,'accounting_period','mdex:string',1,'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);", EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.attrs_b_values])
 
 	def test_insert_attrs_tl(self):
-		self.assertEqual('SET DEFINE OFF;\n', EEE_SQL_TEST.sql.insert_attrs_tl[EEE_SQL_TEST.define_clause])
-		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', EEE_SQL_TEST.sql.insert_attrs_tl[EEE_SQL_TEST.attrs_tl_rem_insert])
-		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', EEE_SQL_TEST.sql.insert_attrs_tl[EEE_SQL_TEST.attrs_tl_insert])
-		self.assertEqual("(204,'accounting_date','D','US','Accounting Date','Accounting Date','Accounting Date','Accounting Date',0,SYSDATE,0,SYSDATE,0);", EEE_SQL_TEST.sql.insert_attrs_tl[EEE_SQL_TEST.attrs_tl_values])
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
+		self.assertEqual('SET DEFINE OFF;\n', insert_statement[EEE_SQL_TEST.define_clause])
+		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_rem_insert])
+		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', insert_statement[EEE_SQL_TEST.attrs_tl_insert])
+		self.assertEqual("(204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
 
 
 
