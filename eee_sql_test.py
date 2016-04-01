@@ -13,6 +13,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_tl_insert = slice(0,248)
 		EEE_SQL_TEST.attrs_tl_values = slice(248, 400)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
+		EEE_SQL_TEST.attr_groups_insert = slice(60, 385)
 
 
 	def test_init_SQL_attribute(self):
@@ -40,6 +41,10 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_all_rem_insert])
 		self.assertEqual(3937, len(EEE_SQL_TEST.sql.insert_attrs_tl_all))
 		self.assertEqual('COMMIT;', EEE_SQL_TEST.sql.insert_attrs_tl_all[-7:])
+
+	def test_insert_attrs_groups(self):
+		self.assertEqual('SET DEFINE OFF;\n', EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.define_clause])
+		self.assertEqual('Insert into APPS.FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values ', EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.attr_groups_insert])
 
 
 
