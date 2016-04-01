@@ -33,7 +33,10 @@ class SQL(object):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
         rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n'
         statement = DEFINE_OFF + rem_insert_statement
-        return statement
+        for l in ebs_language_codes:
+        	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
+        	statement += language_statement + '\n'
+        return statement + '\n' + COMMIT 
 
 
 

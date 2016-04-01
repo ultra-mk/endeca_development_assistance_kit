@@ -38,6 +38,8 @@ class EEE_SQL_TEST(unittest.TestCase):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
 		self.assertEqual('SET DEFINE OFF;\n', insert_statement[EEE_SQL_TEST.define_clause])
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_all_rem_insert])
+		self.assertEqual(3937, len(EEE_SQL_TEST.sql.insert_attrs_tl_all))
+		self.assertEqual('COMMIT;', EEE_SQL_TEST.sql.insert_attrs_tl_all[-7:])
 
 
 
