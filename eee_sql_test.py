@@ -9,7 +9,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.define_clause = slice(0,16)
 		EEE_SQL_TEST.attrs_b_rem_insert = slice(16, 60)
 		EEE_SQL_TEST.attrs_b_insert = slice(60,632)
-		EEE_SQL_TEST.attrs_b_values = slice(632,770)
+		EEE_SQL_TEST.attrs_b_values = slice(639,777)
 		EEE_SQL_TEST.attrs_tl_insert = slice(0,248)
 		EEE_SQL_TEST.attrs_tl_values = slice(248, 400)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
