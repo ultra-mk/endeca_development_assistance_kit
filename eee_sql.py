@@ -15,6 +15,7 @@ class SQL(object):
 		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, self.eid_instance_attribute, self.datatype, self.profile_id)
 		self.insert_attrs_tl_all = self.insert_attrs_tl_all(self.eid_instance_id, self.eid_instance_attribute, self.display_name)
 		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, self.eid_instance_attribute)
+		self.update_attr_groups = self.update_attr_groups(self.eid_instance_attribute)
 
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n'
@@ -43,10 +44,18 @@ class SQL(object):
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_ATTR_GROUPS\n'
     	insert_statement = 'Insert into APPS.FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
-    	values = "(14,'Categories','sales_order',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);"
-    	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values
+    	values = "("+ eid_instance_id + ",'Categories','" +eid_instance_attribute + "',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);"
+    	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values + COMMIT
+    	return statement
+
+    def update_attr_groups(self, eid_instance_attribute):
+    	update = "UPDATE APPS.FND_EID_ATTR_GROUPS "
+    	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 14 AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
+    	statement = DEFINE_OFF + update +  set_statement + COMMIT
     	return statement
 
 
 
+sql = SQL(204, 'accounting_period', 'mdex:string', 1, 'Accounting Period')
 
+print sql.update_attr_groups

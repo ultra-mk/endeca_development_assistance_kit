@@ -14,6 +14,8 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_tl_values = slice(248, 400)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 		EEE_SQL_TEST.attr_groups_insert = slice(60, 385)
+		EEE_SQL_TEST.attr_groups_values = slice(385, 470)
+		EEE_SQL_TEST.update_attr_groups_set = slice(48, 194)
 
 
 	def test_init_SQL_attribute(self):
@@ -45,8 +47,11 @@ class EEE_SQL_TEST(unittest.TestCase):
 	def test_insert_attrs_groups(self):
 		self.assertEqual('SET DEFINE OFF;\n', EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.define_clause])
 		self.assertEqual('Insert into APPS.FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values ', EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.attr_groups_insert])
+		self.assertEqual("(204,'Categories','accounting_period',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);", EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.attr_groups_values])
 
 
+	def test_update_attr_groups(self):
+		self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 14 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';", EEE_SQL_TEST.sql.update_attr_groups[EEE_SQL_TEST.update_attr_groups_set])
 
 if __name__ == '__main__':
 	unittest.main()
