@@ -10,9 +10,9 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_b_rem_insert = slice(16, 60)
 		EEE_SQL_TEST.attrs_b_insert = slice(60,632)
 		EEE_SQL_TEST.attrs_b_values = slice(632,770)
-		EEE_SQL_TEST.attrs_tl_rem_insert = slice(16, 61)
-		EEE_SQL_TEST.attrs_tl_insert = slice(61,309)
-		EEE_SQL_TEST.attrs_tl_values = slice(309, 446)
+		EEE_SQL_TEST.attrs_tl_insert = slice(0,248)
+		EEE_SQL_TEST.attrs_tl_values = slice(248, 400)
+		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 
 
 	def test_init_SQL_attribute(self):
@@ -31,11 +31,13 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_insert_attrs_tl(self):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
-		self.assertEqual('SET DEFINE OFF;\n', insert_statement[EEE_SQL_TEST.define_clause])
-		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_rem_insert])
 		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', insert_statement[EEE_SQL_TEST.attrs_tl_insert])
 		self.assertEqual("(204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
 
+	def test_insert_attrs_tl_all(self):
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
+		self.assertEqual('SET DEFINE OFF;\n', insert_statement[EEE_SQL_TEST.define_clause])
+		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_all_rem_insert])
 
 
 
