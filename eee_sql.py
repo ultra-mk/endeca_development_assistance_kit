@@ -1,3 +1,5 @@
+import openpyxl
+
 
 DEFINE_OFF = 'SET DEFINE OFF;\n'
 COMMIT = 'COMMIT;'
@@ -58,10 +60,19 @@ class SQL(object):
     	text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
     	with open('attribute.txt', 'w') as f:
     		f.write(text)
-    	# return text
 
 
+class Excel_Reader(object):
 
-sql = SQL(204, 'accounting_period', 'mdex:string', 1, 'Accounting Period')
+    def __init__(self):
+        wb = openpyxl.load_workbook('endeca_attributes.xlsx')
+        sheet = wb.get_sheet_by_name('endeca_attributes')
+        highest_row = str(sheet.get_highest_row())
+        self.attribute_data = []
+        for rowOfCellObjects in sheet['A2': 'E'+ highest_row]:
+            for cellObj in rowOfCellObjects:
+                self.attribute_data.append(cellObj.value)
 
-print sql.save_sql()
+reader = Excel_Reader();
+
+print reader.attribute_data
