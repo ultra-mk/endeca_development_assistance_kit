@@ -15,7 +15,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 		EEE_SQL_TEST.attr_groups_insert = slice(60, 385)
 		EEE_SQL_TEST.attr_groups_values = slice(385, 470)
-		EEE_SQL_TEST.update_attr_groups_set = slice(48, 194)
+		EEE_SQL_TEST.update_attr_groups_set = slice(48, 195)
 
 
 	def test_init_SQL_attribute(self):
@@ -51,7 +51,16 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 
 	def test_update_attr_groups(self):
-		self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 14 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';", EEE_SQL_TEST.sql.update_attr_groups[EEE_SQL_TEST.update_attr_groups_set])
+		self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';", EEE_SQL_TEST.sql.update_attr_groups[EEE_SQL_TEST.update_attr_groups_set])
+
+class EEE_EXCEL_TEST(unittest.TestCase):
+
+	@classmethod
+	def setUpClass(EEE_EXCEL_TEST):
+		EEE_EXCEL_TEST.reader = e.Excel_Reader()
+
+	def test_init(self):
+		self.assertEqual("<class 'eee_sql.Excel_Reader'>", str(type(EEE_EXCEL_TEST.reader)))
 
 if __name__ == '__main__':
 	unittest.main()

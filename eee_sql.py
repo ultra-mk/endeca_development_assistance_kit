@@ -17,7 +17,7 @@ class SQL(object):
 		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, self.eid_instance_attribute, self.datatype, self.profile_id)
 		self.insert_attrs_tl_all = self.insert_attrs_tl_all(self.eid_instance_id, self.eid_instance_attribute, self.display_name)
 		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, self.eid_instance_attribute)
-		self.update_attr_groups = self.update_attr_groups(self.eid_instance_attribute)
+		self.update_attr_groups = self.update_attr_groups(self.eid_instance_id, self.eid_instance_attribute)
 
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n'
@@ -50,15 +50,15 @@ class SQL(object):
     	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values + COMMIT
     	return statement
 
-    def update_attr_groups(self, eid_instance_attribute):
+    def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
     	update = "UPDATE APPS.FND_EID_ATTR_GROUPS "
-    	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 14 AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
-    	statement = DEFINE_OFF + update +  set_statement + COMMIT
+    	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
+    	statement = DEFINE_OFF + update +  set_statement + COMMIT + '\n'
     	return statement
 
     def save_sql(self):
     	text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
-    	with open('attribute.txt', 'w') as f:
+    	with open('attribute_sql.txt', 'a') as f:
     		f.write(text)
 
 
@@ -70,9 +70,11 @@ class Excel_Reader(object):
         highest_row = str(sheet.get_highest_row())
         self.attribute_data = []
         for rowOfCellObjects in sheet['A2': 'E'+ highest_row]:
-            for cellObj in rowOfCellObjects:
-                self.attribute_data.append(cellObj.value)
+            cell_data = [c.value for c in rowOfCellObjects]
+            self.attribute_data.append(cell_data)
 
-reader = Excel_Reader();
+reader = Excel_Reader()
 
-print reader.attribute_data
+for r in reader.attribute_data:
+    sql = SQL(*r)
+    sql.save_sql()
