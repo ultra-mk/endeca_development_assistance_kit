@@ -20,10 +20,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_init_SQL_attribute(self):
 		self.assertEqual('204', EEE_SQL_TEST.sql.eid_instance_id)
-		self.assertEqual('accounting_period', EEE_SQL_TEST.sql.eid_instance_attribute) 
-		self.assertEqual('mdex:string', EEE_SQL_TEST.sql.datatype)
 		self.assertEqual('1', EEE_SQL_TEST.sql.profile_id)
-		self.assertEqual('Accounting Period', EEE_SQL_TEST.sql.display_name)
 		
 
 	def test_insert_attrs_b(self):

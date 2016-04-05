@@ -10,14 +10,11 @@ class SQL(object):
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
 		self.eid_instance_id = str(eid_instance_id)
-		self.eid_instance_attribute = eid_instance_attribute
-		self.datatype = datatype
 		self.profile_id = str(profile_id)
-		self.display_name = display_name
-		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, self.eid_instance_attribute, self.datatype, self.profile_id)
-		self.insert_attrs_tl_all = self.insert_attrs_tl_all(self.eid_instance_id, self.eid_instance_attribute, self.display_name)
-		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, self.eid_instance_attribute)
-		self.update_attr_groups = self.update_attr_groups(self.eid_instance_id, self.eid_instance_attribute)
+		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, eid_instance_attribute, datatype, self.profile_id)
+		self.insert_attrs_tl_all = self.insert_attrs_tl_all(self.eid_instance_id, eid_instance_attribute, display_name)
+		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, eid_instance_attribute)
+		self.update_attr_groups = self.update_attr_groups(self.eid_instance_id, eid_instance_attribute)
 
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n'
