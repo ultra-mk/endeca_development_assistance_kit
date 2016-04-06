@@ -1,11 +1,9 @@
 import openpyxl
 
-# it makes more sense to include these in the SQL class.
-DEFINE_OFF = 'SET DEFINE OFF;\n'
-COMMIT = 'COMMIT;'
-
 
 class SQL(object):
+    DEFINE_OFF = 'SET DEFINE OFF;\n'
+    COMMIT = 'COMMIT;'
 #need to add an attribute source as a parameter
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
@@ -20,7 +18,7 @@ class SQL(object):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n'
     	insert_statement = 'Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE, EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG, DIM_ENABLE_REFINEMENTS_FLAG,DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG, MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE, LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG, VALUE_SET_NAME,ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n values'
     	values =  "("+ eid_instance_id +",'" + eid_instance_attribute + "','" + datatype + "'," + profile_id + ",'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);\n"
-    	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values + COMMIT
+    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
 
 
@@ -34,24 +32,24 @@ class SQL(object):
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
         rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n'
-        statement = DEFINE_OFF + rem_insert_statement
+        statement = SQL.DEFINE_OFF + rem_insert_statement
         for l in ebs_language_codes:
         	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
         	statement += language_statement + '\n'
-        return statement + '\n' + COMMIT 
+        return statement + '\n' + SQL.COMMIT 
 
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
     	rem_insert_statement = 'REM INSERTING into APPS.FND_EID_ATTR_GROUPS\n'
     	insert_statement = 'Insert into APPS.FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
     	values = "("+ eid_instance_id + ",'Categories','" +eid_instance_attribute + "',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);"
-    	statement = DEFINE_OFF + rem_insert_statement + insert_statement + values + COMMIT
+    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
     	update = "UPDATE APPS.FND_EID_ATTR_GROUPS "
     	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
-    	statement = DEFINE_OFF + update +  set_statement + COMMIT + '\n'
+    	statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
     	return statement
 
     def save_sql(self):
