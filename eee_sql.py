@@ -1,6 +1,6 @@
 import openpyxl
 
-
+# it makes more sense to include these in the SQL class.
 DEFINE_OFF = 'SET DEFINE OFF;\n'
 COMMIT = 'COMMIT;'
 
@@ -10,8 +10,8 @@ class SQL(object):
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
 		self.eid_instance_id = str(eid_instance_id)
-		self.profile_id = str(profile_id)
-		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, eid_instance_attribute, datatype, self.profile_id)
+		profile_id = str(profile_id)
+		self.insert_attrs_b = self.insert_attrs_b(self.eid_instance_id, eid_instance_attribute, datatype, profile_id)
 		self.insert_attrs_tl_all = self.insert_attrs_tl_all(self.eid_instance_id, eid_instance_attribute, display_name)
 		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, eid_instance_attribute)
 		self.update_attr_groups = self.update_attr_groups(self.eid_instance_id, eid_instance_attribute)
@@ -30,6 +30,7 @@ class SQL(object):
     	statement = insert_statement + values 
     	return statement
 
+#this method could use some TLC.
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
         rem_insert_statement = 'REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n'

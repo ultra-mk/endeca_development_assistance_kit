@@ -20,8 +20,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_init_SQL_attribute(self):
 		self.assertEqual('204', EEE_SQL_TEST.sql.eid_instance_id)
-		self.assertEqual('1', EEE_SQL_TEST.sql.profile_id)
-		
+	
 
 	def test_insert_attrs_b(self):
 		self.assertEqual('SET DEFINE OFF;\n', EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.define_clause])
