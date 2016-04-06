@@ -70,7 +70,16 @@ class Excel_Reader(object):
             cell_data = [c.value for c in rowOfCellObjects]
             self.attribute_data.append(cell_data)
 
+#not crazy about this at all. The idea is to clear the file prior to appending the sql statements
+#totally a stopgap at the moment
+    def clear_attribute_sql_file(self):
+        open('attribute_sql.txt', 'w').close()
+
+
 reader = Excel_Reader()
+
+reader.clear_attribute_sql_file()
+
 
 for r in reader.attribute_data:
     sql = SQL(*r)
