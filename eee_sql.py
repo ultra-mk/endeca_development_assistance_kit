@@ -46,7 +46,7 @@ class SQL(object):
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
     	rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
-    	insert_statement = 'Insert into '+ SQL.SCHEMA +'.'+ table+' (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
+    	insert_statement = 'Insert into '+ SQL.SCHEMA +'.'+ table +' (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
     	values = "("+ eid_instance_id + ",'Categories','" +eid_instance_attribute + "',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);"
     	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
@@ -60,6 +60,11 @@ class SQL(object):
     def rem_insert_statement(self, schema, table):
         statement = 'REM INSERTING into ' + schema + '.' + table + '\n'
         return statement
+
+
+    def generate_schema_table(self, schema, table):
+        return schema + '.' + table
+        
 
     def save_sql(self):
     	text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
@@ -84,11 +89,11 @@ class Excel_Reader(object):
         open('attribute_sql.txt', 'w').close()
 
 
-reader = Excel_Reader()
+# reader = Excel_Reader()
 
-reader.clear_attribute_sql_file()
+# reader.clear_attribute_sql_file()
 
 
-for r in reader.attribute_data:
-    sql = SQL(*r)
-    sql.save_sql()
+# for r in reader.attribute_data:
+#     sql = SQL(*r)
+#     sql.save_sql()
