@@ -54,7 +54,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n', EEE_SQL_TEST.sql.rem_insert_statement('APPS', 'FND_EID_PDR_ATTRS_B'))
 
 	def test_generate_schema_table(self):
-		self.assertEqual('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.sql.generate_schema_table('APPS', 'FND_EID_ATTRS_B'))
+		self.assertEqual('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.sql.schema_table('APPS', 'FND_EID_ATTRS_B'))
 
 class EEE_EXCEL_TEST(unittest.TestCase):
 
