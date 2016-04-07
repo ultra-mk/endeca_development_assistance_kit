@@ -49,6 +49,10 @@ class EEE_SQL_TEST(unittest.TestCase):
 	def test_update_attr_groups(self):
 		self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';", EEE_SQL_TEST.sql.update_attr_groups[EEE_SQL_TEST.update_attr_groups_set])
 
+
+	def test_rem_insert(self):
+		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n', EEE_SQL_TEST.sql.rem_insert_statement('APPS', 'FND_EID_PDR_ATTRS_B'))
+
 class EEE_EXCEL_TEST(unittest.TestCase):
 
 	@classmethod
