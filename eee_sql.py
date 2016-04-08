@@ -17,16 +17,18 @@ class SQL(object):
 
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
         table = 'FND_EID_PDR_ATTRS_B'
+        column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE, EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG, DIM_ENABLE_REFINEMENTS_FLAG,DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG, MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE, LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG, VALUE_SET_NAME,ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n values'
         rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
-    	insert_statement = 'Insert into '+ self.schema_table(SQL.SCHEMA, table) +' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE, EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG, DIM_ENABLE_REFINEMENTS_FLAG,DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG, MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE, LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG, VALUE_SET_NAME,ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n values'
-    	values =  "("+ eid_instance_id +",'" + eid_instance_attribute + "','" + datatype + "'," + profile_id + ",'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);\n"
+    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
+        values =  "("+ eid_instance_id +",'" + eid_instance_attribute + "','" + datatype + "'," + profile_id + ",'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);\n"
     	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
 
 
     def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, language_code, display_name):
         table = 'FND_EID_PDR_ATTRS_TL'
-    	insert_statement = 'Insert into '+ self.schema_table(SQL.SCHEMA, table) +' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
+        column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
+    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
     	values = "(" + eid_instance_id + ",'"+eid_instance_attribute+"','" + language_code + "','US','" + display_name + "','" + display_name +"','" + display_name + "','" + display_name + "',0,SYSDATE,0,SYSDATE,0);" 
     	statement = insert_statement + values 
     	return statement
@@ -46,7 +48,8 @@ class SQL(object):
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
     	rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
-    	insert_statement = 'Insert into '+ self.schema_table(SQL.SCHEMA, table) +' (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
+        column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values '
+    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
     	values = "("+ eid_instance_id + ",'Categories','" +eid_instance_attribute + "',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);"
     	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
@@ -58,12 +61,16 @@ class SQL(object):
     	return statement
 
     def rem_insert_statement(self, schema, table):
-        statement = 'REM INSERTING into ' + self.schema_table(schema, table) + '\n'
+        statement = 'REM INSERTING into ' + self.concat_schema_table(schema, table) + '\n'
         return statement
 
 
-    def schema_table(self, schema, table):
+    def concat_schema_table(self, schema, table):
         return schema + '.' + table
+
+#eventually column_name_string should turn into it's own method
+    def insert_into_statement(self, schema_table, column_name_string):
+        return 'Insert into ' + schema_table + column_name_string
 
 
     def save_sql(self):

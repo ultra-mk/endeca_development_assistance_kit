@@ -16,6 +16,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attr_groups_insert = slice(60, 385)
 		EEE_SQL_TEST.attr_groups_values = slice(385, 470)
 		EEE_SQL_TEST.update_attr_groups_set = slice(48, 195)
+		EEE_SQL_TEST.column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
 
 
 	def test_init_SQL_attribute(self):
@@ -53,8 +54,11 @@ class EEE_SQL_TEST(unittest.TestCase):
 	def test_rem_insert(self):
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n', EEE_SQL_TEST.sql.rem_insert_statement('APPS', 'FND_EID_PDR_ATTRS_B'))
 
-	def test_generate_schema_table(self):
-		self.assertEqual('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.sql.schema_table('APPS', 'FND_EID_ATTRS_B'))
+	def test_concat_schema_table(self):
+		self.assertEqual('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.sql.concat_schema_table('APPS', 'FND_EID_ATTRS_B'))
+
+	def test_insert_into_statement(self):
+		self.assertEqual('Insert into APPS.FND_EID_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', EEE_SQL_TEST.sql.insert_into_statement('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.column_name_string))
 
 class EEE_EXCEL_TEST(unittest.TestCase):
 
