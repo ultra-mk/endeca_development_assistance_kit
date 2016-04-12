@@ -70,11 +70,13 @@ class SQL(object):
     def concat_schema_table(self, schema, table):
         return schema + '.' + table
 
-#this is currently failing because the final argument is adding a ',' to the string
+
     def create_column_name_string(self, *args):
         statement = ' ('
         for a in args:
             statement += a +','
+#this line is a bit gnarly.
+        statement = statement[0:-1]
         return statement + ')\n'
 
 
