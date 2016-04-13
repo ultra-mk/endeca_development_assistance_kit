@@ -93,6 +93,11 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.sql.concat_schema_table('APPS', 'FND_EID_ATTRS_B'))
 
 
+	def test_create_column_name_string(self):
+		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_INSTANCE_ATTRIBUTE','EID_INSTANCE_GROUP_ATTR_SEQ']
+		self.assertEqual(' (EID_INSTANCE_ID,EID_INSTANCE_GROUP,EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ)\n', EEE_SQL_TEST.sql.create_column_name_string(*column_headers))
+
+
 	def test_insert_into_statement(self):
 		self.assertEqual('Insert into APPS.FND_EID_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', EEE_SQL_TEST.sql.insert_into_statement('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.column_name_string))
 
