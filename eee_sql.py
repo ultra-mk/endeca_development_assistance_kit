@@ -58,7 +58,8 @@ class SQL(object):
     	return statement
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
-    	update = 'UPDATE '+ SQL.SCHEMA +'.FND_EID_ATTR_GROUPS '
+        table = 'FND_EID_ATTR_GROUPS'
+        update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
     	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
     	statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
     	return statement
