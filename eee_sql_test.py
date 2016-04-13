@@ -27,7 +27,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual('SET DEFINE OFF;\n', EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.define_clause])
 	
 
-	def test_insert_attrs_b_rem_clase(self):
+	def test_insert_attrs_b_rem_clause(self):
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_B\n', EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.attrs_b_rem_insert])
 		
 
@@ -39,17 +39,33 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual("values (204,'accounting_period','mdex:string',1,'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);", EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.attrs_b_values])
 
 
-	def test_insert_attrs_tl(self):
+	def test_insert_attrs_tl_column_headers(self):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
 		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n', insert_statement[EEE_SQL_TEST.attrs_tl_insert])
+
+
+	def test_insert_attrs_tl_values(self):
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
 		self.assertEqual("values (204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
 
 
-	def test_insert_attrs_tl_all(self):
+	def test_insert_attrs_tl_all_define_clause(self):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
 		self.assertEqual('SET DEFINE OFF;\n', insert_statement[EEE_SQL_TEST.define_clause])
+
+
+	def test_insert_attrs_tl_all_rem_clause(self):
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
 		self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n', insert_statement[EEE_SQL_TEST.attrs_tl_all_rem_insert])
+
+
+	def test_insert_attrs_tl_length(self):
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
 		self.assertEqual(3947, len(EEE_SQL_TEST.sql.insert_attrs_tl_all))
+
+
+	def test_insert_attrs_tl_all_commit(self):
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
 		self.assertEqual('COMMIT;', EEE_SQL_TEST.sql.insert_attrs_tl_all[-7:])
 
 
