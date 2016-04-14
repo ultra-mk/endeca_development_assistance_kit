@@ -99,8 +99,8 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 
 	def test_create_values_string(self):
-		values = ['values go in this list']
-		self.assertEqual('IS THIS THING ON?', EEE_SQL_TEST.sql.create_values_string(*values))
+		values = ['204', 'accounting_period', 'mdex:string', '4']
+		self.assertEqual("values ( '204','accounting_period','mdex:string','4');", EEE_SQL_TEST.sql.create_values_string(*values))
 
 
 	def test_insert_into_statement(self):

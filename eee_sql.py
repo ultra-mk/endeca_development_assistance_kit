@@ -24,8 +24,10 @@ class SQL(object):
 #then this could really slim down. Just pass in a dict and route the keys one way and the values another - could probably do the same "to_str" type method that I'm using for columns right now.
 #but for now, let's just get the two lists working. Resist the urge toward premature optimization.
 
-        # values_list = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null' ]
+        values_list = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null' ]
         
+        value_string = self.create_values_string(*values_list)
+
         column_name_string = self.create_column_name_string(*column_headers)
         rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
     	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
@@ -90,7 +92,11 @@ class SQL(object):
         return statement + ')\n'
 
     def create_values_string(self, *args):
-        return 'IS THIS THING ON?'
+        statement = 'values ( '
+        for a in args:
+            statement += "'" + a +"'" + ','
+        statement = statement[0:-1]
+        return statement + ');'
 
 
     def insert_into_statement(self, schema_table, column_name_string):
