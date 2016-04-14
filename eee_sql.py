@@ -81,6 +81,9 @@ class SQL(object):
         statement = statement[0:-1]
         return statement + ')\n'
 
+    def create_values_string(self, *args):
+        return 'IS THIS THING ON?'
+
 
     def insert_into_statement(self, schema_table, column_name_string):
         return 'Insert into ' + schema_table + column_name_string
