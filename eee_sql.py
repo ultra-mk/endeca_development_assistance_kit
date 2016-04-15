@@ -31,8 +31,8 @@ class SQL(object):
         column_name_string = self.create_column_name_string(*column_headers)
         rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
     	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
-        values =  "values ("+ eid_instance_id +",'" + eid_instance_attribute + "','" + datatype + "'," + profile_id + ",'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);\n"
-    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
+        # values =  "values ("+ eid_instance_id +",'" + eid_instance_attribute + "','" + datatype + "'," + profile_id + ",'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);\n"
+    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + value_string + SQL.COMMIT
     	return statement
 
 
@@ -82,6 +82,8 @@ class SQL(object):
     def concat_schema_table(self, schema, table):
         return schema + '.' + table
 
+##obviously these two methods can be refactored
+
 
     def create_column_name_string(self, *args):
         statement = ' ('
@@ -97,6 +99,9 @@ class SQL(object):
             statement += "'" + a +"'" + ','
         statement = statement[0:-1]
         return statement + ');'
+
+
+
 
 
     def insert_into_statement(self, schema_table, column_name_string):
