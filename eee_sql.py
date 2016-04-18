@@ -31,8 +31,7 @@ class SQL(object):
         insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
     	values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name, display_name, display_name, display_name,'0', 'SYSDATE', '0', 'SYSDATE','0']
         value_string = self.create_values_string(*values)
-    	statement = insert_statement + value_string 
-    	return statement
+        return self.join_clauses(insert_statement, value_string)
 
 #this method could use some TLC.
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
@@ -43,9 +42,7 @@ class SQL(object):
         for l in ebs_language_codes:
         	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
         	statement += language_statement + '\n'
-        statement = statement + '\n' + SQL.COMMIT
-        return statement
-
+        return self.join_clauses(statement, '\n', SQL.COMMIT)
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
@@ -55,17 +52,15 @@ class SQL(object):
         insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
         values = [eid_instance_id, 'Categories', eid_instance_attribute, '1', '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE','0','SYSDATE','0']
         value_string = self.create_values_string(*values)
-    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + value_string + SQL.COMMIT
-    	return statement
-
+        return self.join_clauses(SQL.DEFINE_OFF, rem_insert_statement, insert_statement, value_string, SQL.COMMIT)
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
         update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
     	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
-    	statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
-    	return statement
-
+    	# statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
+    	# return statement
+        return self.join_clauses(SQL.DEFINE_OFF, update, set_statement, SQL.COMMIT + '\n')
 
     def rem_insert_statement(self, schema, table):
         statement = 'REM INSERTING into ' + self.concat_schema_table(schema, table) + '\n'
