@@ -14,7 +14,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_tl_values = slice(242, 427)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 		EEE_SQL_TEST.attr_groups_insert = slice(60, 377)
-		EEE_SQL_TEST.attr_groups_values = slice(378, 470)
+		EEE_SQL_TEST.attr_groups_values = slice(378, 469)
 		EEE_SQL_TEST.update_attr_groups_set = slice(48, 195)
 		EEE_SQL_TEST.column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
 
@@ -78,7 +78,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	
 	def test_insert_attrs_group_values(self):
-		self.assertEqual("values (204,'Categories','accounting_period',1,1,'MSI','2.3','N','0',0,SYSDATE,0,SYSDATE,0);", EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.attr_groups_values])
+		self.assertEqual("values ( 204,'Categories','accounting_period',1,1,'MSI','2.3','N',0,0,SYSDATE,0,SYSDATE,0);", EEE_SQL_TEST.sql.insert_attr_groups[EEE_SQL_TEST.attr_groups_values])
 
 
 	def test_update_attr_groups(self):
