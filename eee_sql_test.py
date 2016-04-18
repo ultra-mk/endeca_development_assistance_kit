@@ -9,7 +9,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.define_clause = slice(0,16)
 		EEE_SQL_TEST.attrs_b_rem_insert = slice(16, 60)
 		EEE_SQL_TEST.attrs_b_insert = slice(60,627)
-		EEE_SQL_TEST.attrs_b_values = slice(627,799)
+		EEE_SQL_TEST.attrs_b_values = slice(627,771)
 		EEE_SQL_TEST.attrs_tl_insert = slice(0,242)
 		EEE_SQL_TEST.attrs_tl_values = slice(242, 400)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
@@ -36,7 +36,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 
 	def test_insert_attrs_b_values(self):
-		self.assertEqual("values (204,'accounting_period','mdex:string',1,'2.3','MSI','N','N','N','N','N','N','N','0',0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);", EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.attrs_b_values])
+		self.assertEqual("values ( 204,'accounting_period','mdex:string',1,'2.3','MSI','N','N','N','N','N','N','N',0,0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);", EEE_SQL_TEST.sql.insert_attrs_b[EEE_SQL_TEST.attrs_b_values])
 
 
 	def test_insert_attrs_tl_column_headers(self):
@@ -100,7 +100,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_create_values_string(self):
 		values = ['204', 'accounting_period', 'mdex:string', '4']
-		self.assertEqual("values ( '204','accounting_period','mdex:string','4');", EEE_SQL_TEST.sql.create_values_string(*values))
+		self.assertEqual("values ( 204,'accounting_period','mdex:string',4);", EEE_SQL_TEST.sql.create_values_string(*values))
 
 
 	def test_insert_into_statement(self):
