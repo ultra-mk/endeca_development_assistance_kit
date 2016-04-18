@@ -20,12 +20,8 @@ class SQL(object):
         table = 'FND_EID_PDR_ATTRS_B'
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
         values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
-        value_string = self.create_values_string(*values)
-        column_name_string = self.create_column_name_string(*column_headers)
-        rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
-    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
-    	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + value_string + SQL.COMMIT
-    	return statement
+    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers))
+        return self.join_clauses(SQL.DEFINE_OFF, self.rem_insert_statement(SQL.SCHEMA, table), insert_statement, self.create_values_string(*values), SQL.COMMIT)
 
 
     def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, language_code, display_name):
@@ -82,7 +78,6 @@ class SQL(object):
 
     def create_column_name_string(self, *args):
         statement = ' (' + ''.join([a + ',' for a in args])
-        # statement = ' (' + ', '.join([a for a in args])
         statement = statement[0:-1]
         return statement + ')\n'
 
@@ -102,9 +97,8 @@ class SQL(object):
 
 
     def join_clauses(self, *args):
-        return ''.join(a for a in args)
-
-
+        return ''.join([a for a in args])
+     
     def save_sql(self):
     	text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
     	with open('attribute_sql.txt', 'a') as f:
