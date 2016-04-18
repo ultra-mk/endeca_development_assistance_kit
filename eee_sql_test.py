@@ -11,7 +11,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 		EEE_SQL_TEST.attrs_b_insert = slice(60,627)
 		EEE_SQL_TEST.attrs_b_values = slice(627,771)
 		EEE_SQL_TEST.attrs_tl_insert = slice(0,242)
-		EEE_SQL_TEST.attrs_tl_values = slice(242, 400)
+		EEE_SQL_TEST.attrs_tl_values = slice(242, 427)
 		EEE_SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 		EEE_SQL_TEST.attr_groups_insert = slice(60, 377)
 		EEE_SQL_TEST.attr_groups_values = slice(378, 470)
@@ -46,7 +46,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_insert_attrs_tl_values(self):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
-		self.assertEqual("values (204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
+		self.assertEqual("values ( 204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
 
 
 	def test_insert_attrs_tl_all_define_clause(self):
@@ -61,7 +61,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 	def test_insert_attrs_tl_length(self):
 		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl_all
-		self.assertEqual(3947, len(EEE_SQL_TEST.sql.insert_attrs_tl_all))
+		self.assertEqual(3957, len(EEE_SQL_TEST.sql.insert_attrs_tl_all))
 
 
 	def test_insert_attrs_tl_all_commit(self):
