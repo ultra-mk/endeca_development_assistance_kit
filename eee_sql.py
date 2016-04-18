@@ -15,20 +15,12 @@ class SQL(object):
 		self.insert_attr_groups = self.insert_attr_groups(self.eid_instance_id, eid_instance_attribute)
 		self.update_attr_groups = self.update_attr_groups(self.eid_instance_id, eid_instance_attribute)
 
+
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
         table = 'FND_EID_PDR_ATTRS_B'
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
-        
-#this is in progress at the moment. But I am thinking about using a dict to store headers and data. I mean these are essentially key-value pairs. And I'm worried that keeping two
-# large strings in sync is just asking for trouble.
-#then this could really slim down. Just pass in a dict and route the keys one way and the values another - could probably do the same "to_str" type method that I'm using for columns right now.
-#but for now, let's just get the two lists working. Resist the urge toward premature optimization.
-
-
         values_list = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
-        
         value_string = self.create_values_string(*values_list)
-
         column_name_string = self.create_column_name_string(*column_headers)
         rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
     	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
@@ -67,12 +59,14 @@ class SQL(object):
     	statement = SQL.DEFINE_OFF + rem_insert_statement + insert_statement + values + SQL.COMMIT
     	return statement
 
+
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
         update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
     	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
     	statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
     	return statement
+
 
     def rem_insert_statement(self, schema, table):
         statement = 'REM INSERTING into ' + self.concat_schema_table(schema, table) + '\n'
@@ -82,9 +76,8 @@ class SQL(object):
     def concat_schema_table(self, schema, table):
         return schema + '.' + table
 
+
 ##obviously these two methods can be refactored
-
-
     def create_column_name_string(self, *args):
         statement = ' ('
         for a in args:
@@ -103,9 +96,6 @@ class SQL(object):
                 statement += "'" + a +"'" + ','
         statement = statement[0:-1]
         return statement + ');'
-
-
-
 
 
     def insert_into_statement(self, schema_table, column_name_string):
