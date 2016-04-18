@@ -47,7 +47,8 @@ class SQL(object):
         for l in ebs_language_codes:
         	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
         	statement += language_statement + '\n'
-        return statement + '\n' + SQL.COMMIT 
+        statement = statement + '\n' + SQL.COMMIT
+        return statement
 
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
@@ -79,16 +80,12 @@ class SQL(object):
         return schema + '.' + table
 
 
-##obviously these two methods can be refactored
     def create_column_name_string(self, *args):
-        statement = ' ('
-        for a in args:
-            statement += a +','
-#this line is a bit gnarly
+        statement = ' (' + ''.join([a + ',' for a in args])
+        # statement = ' (' + ', '.join([a for a in args])
         statement = statement[0:-1]
         return statement + ')\n'
 
-#not crazy about this, but it is spitting out the string in the correct format
     def create_values_string(self, *args):
         statement = 'values ( '
         for a in args:
@@ -102,6 +99,10 @@ class SQL(object):
 
     def insert_into_statement(self, schema_table, column_name_string):
         return 'Insert into ' + schema_table + column_name_string
+
+
+    def join_clauses(self, *args):
+        return ''.join(a for a in args)
 
 
     def save_sql(self):
