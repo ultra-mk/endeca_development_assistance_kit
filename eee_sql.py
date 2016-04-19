@@ -27,11 +27,9 @@ class SQL(object):
     def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, language_code, display_name):
         table = 'FND_EID_PDR_ATTRS_TL'
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','LANGUAGE','SOURCE_LANG','DISPLAY_NAME','ATTRIBUTE_DESC','USER_DISPLAY_NAME','USER_ATTRIBUTE_DESC,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
-    	column_name_string = self.create_column_name_string(*column_headers)
-        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
     	values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name, display_name, display_name, display_name,'0', 'SYSDATE', '0', 'SYSDATE','0']
-        value_string = self.create_values_string(*values)
-        return self.join_clauses(insert_statement, value_string)
+        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table),self.create_column_name_string(*column_headers) )
+        return self.join_clauses(insert_statement, self.create_values_string(*values))
 
 #this method could use some TLC.
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
@@ -54,13 +52,13 @@ class SQL(object):
         value_string = self.create_values_string(*values)
         return self.join_clauses(SQL.DEFINE_OFF, rem_insert_statement, insert_statement, value_string, SQL.COMMIT)
 
+
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
         update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
     	set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
-    	# statement = SQL.DEFINE_OFF + update +  set_statement + SQL.COMMIT + '\n'
-    	# return statement
         return self.join_clauses(SQL.DEFINE_OFF, update, set_statement, SQL.COMMIT + '\n')
+
 
     def rem_insert_statement(self, schema, table):
         statement = 'REM INSERTING into ' + self.concat_schema_table(schema, table) + '\n'
@@ -75,6 +73,7 @@ class SQL(object):
         statement = ' (' + ''.join([a + ',' for a in args])
         statement = statement[0:-1]
         return statement + ')\n'
+
 
     def create_values_string(self, *args):
         statement = 'values ( '
