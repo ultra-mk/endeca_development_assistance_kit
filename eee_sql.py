@@ -35,8 +35,7 @@ class SQL(object):
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
     	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
         table = 'FND_EID_PDR_ATTRS_TL'
-        rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
-        statement = SQL.DEFINE_OFF + rem_insert_statement
+        statement = SQL.DEFINE_OFF + self.rem_insert_statement(SQL.SCHEMA, table)
         for l in ebs_language_codes:
         	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
         	statement += language_statement + '\n'
@@ -46,11 +45,9 @@ class SQL(object):
         table = 'FND_EID_ATTR_GROUPS'
     	rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_INSTANCE_ATTRIBUTE','EID_INSTANCE_GROUP_ATTR_SEQ','EID_INST_GROUP_ATTR_USER_SEQ','GROUP_ATTRIBUTE_SOURCE','EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION','CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
-    	column_name_string = self.create_column_name_string(*column_headers)
-        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), column_name_string)
+        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers))
         values = [eid_instance_id, 'Categories', eid_instance_attribute, '1', '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE','0','SYSDATE','0']
-        value_string = self.create_values_string(*values)
-        return self.join_clauses(SQL.DEFINE_OFF, rem_insert_statement, insert_statement, value_string, SQL.COMMIT)
+        return self.join_clauses(SQL.DEFINE_OFF, rem_insert_statement, insert_statement, self.create_values_string(*values), SQL.COMMIT)
 
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute):
