@@ -5,6 +5,7 @@ class SQL(object):
     DEFINE_OFF = 'SET DEFINE OFF;\n'
     COMMIT = 'COMMIT;'
     SCHEMA = 'APPS'
+    EBS_LANGUAGE_CODES  = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
 #need to add an attribute source as a parameter
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
@@ -33,10 +34,9 @@ class SQL(object):
 
 #this method could use some TLC.
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
-    	ebs_language_codes = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
         table = 'FND_EID_PDR_ATTRS_TL'
         statement = SQL.DEFINE_OFF + self.rem_insert_statement(SQL.SCHEMA, table)
-        for l in ebs_language_codes:
+        for l in SQL.EBS_LANGUAGE_CODES:
         	language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
         	statement += language_statement + '\n'
         return self.join_clauses(statement, '\n', SQL.COMMIT)
@@ -90,6 +90,7 @@ class SQL(object):
     def join_clauses(self, *args):
         return ''.join([a for a in args])
      
+
     def save_sql(self):
     	text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
     	with open('attribute_sql.txt', 'a') as f:
@@ -114,10 +115,7 @@ class Excel_Reader(object):
 
 
 # reader = Excel_Reader()
-
 # reader.clear_attribute_sql_file()
-
-
 # for r in reader.attribute_data:
 #     sql = SQL(*r)
 #     print sql.insert_attrs_b
