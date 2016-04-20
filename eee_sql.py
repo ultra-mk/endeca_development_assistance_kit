@@ -6,6 +6,8 @@ class SQL(object):
     COMMIT = 'COMMIT;'
     SCHEMA = 'APPS'
     EBS_LANGUAGE_CODES  = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
+    REM_INSERT = 'REM INSERTING into '
+    INSERT_INTO = 'Insert into '
 #need to add an attribute source as a parameter
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
@@ -59,7 +61,7 @@ class SQL(object):
 
 
     def rem_insert_statement(self, schema, table):
-        return self.join_clauses('REM INSERTING into ', self.concat_schema_table(schema, table), '\n')
+        return self.join_clauses(SQL.REM_INSERT, self.concat_schema_table(schema, table), '\n')
 
 
     def concat_schema_table(self, schema, table):
@@ -82,10 +84,9 @@ class SQL(object):
         statement = statement[0:-1]
         return statement + ');'
 
-#I think this could be replaces with the join_clauses() from
+
     def insert_into_statement(self, schema_table, column_name_string):
-        # return 'Insert into ' + schema_table + column_name_string
-        return self.join_clauses('Insert into ', schema_table, column_name_string)
+        return self.join_clauses(SQL.INSERT_INTO, schema_table, column_name_string)
 
     def join_clauses(self, *args):
         return ''.join([a for a in args])
