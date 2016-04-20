@@ -41,6 +41,7 @@ class SQL(object):
         	statement += language_statement + '\n'
         return self.join_clauses(statement, '\n', SQL.COMMIT)
 
+
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
         table = 'FND_EID_ATTR_GROUPS'
     	rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
@@ -58,8 +59,7 @@ class SQL(object):
 
 
     def rem_insert_statement(self, schema, table):
-        statement = 'REM INSERTING into ' + self.concat_schema_table(schema, table) + '\n'
-        return statement
+        return self.join_clauses('REM INSERTING into ', self.concat_schema_table(schema, table), '\n')
 
 
     def concat_schema_table(self, schema, table):
@@ -114,8 +114,9 @@ class Excel_Reader(object):
         open('attribute_sql.txt', 'w').close()
 
 
-# reader = Excel_Reader()
-# reader.clear_attribute_sql_file()
-# for r in reader.attribute_data:
-#     sql = SQL(*r)
-#     print sql.insert_attrs_b
+reader = Excel_Reader()
+reader.clear_attribute_sql_file()
+for r in reader.attribute_data:
+    sql = SQL(*r)
+   
+sql.save_sql()
