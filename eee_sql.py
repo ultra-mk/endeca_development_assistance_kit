@@ -82,10 +82,10 @@ class SQL(object):
         statement = statement[0:-1]
         return statement + ');'
 
-
+#I think this could be replaces with the join_clauses() from
     def insert_into_statement(self, schema_table, column_name_string):
-        return 'Insert into ' + schema_table + column_name_string
-
+        # return 'Insert into ' + schema_table + column_name_string
+        return self.join_clauses('Insert into ', schema_table, column_name_string)
 
     def join_clauses(self, *args):
         return ''.join([a for a in args])
