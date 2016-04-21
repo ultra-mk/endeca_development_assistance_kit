@@ -38,9 +38,10 @@ class SQL(object):
 	def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
 		table = 'FND_EID_PDR_ATTRS_TL'
 		statement = SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
+		# language_statement = [self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name) for l in SQL.EBS_LANGUAGE_CODES]
 		for l in SQL.EBS_LANGUAGE_CODES:
-			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
-			statement = ''.join([statement, language_statement, '\n'])
+			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name) + '\n'
+			statement = statement + language_statement
 		return statement + '\n' + SQL.COMMIT
 
 
@@ -81,6 +82,18 @@ class SQL(object):
 		return statement + ');'
 
 
+class EQL(object):
+	DEFINE_AS = 'Define view_name as SELECT' 
+
+	def __init__(self, *args):
+		self.eid_instance_attributes = [a for a in args]
+
+
+	def generate_EQL():
+		return DEFINE_AS + ''.join([a + ' ' for a in self.eid_instance_attributes])
+
+
+
 class Excel_Reader(object):
 
 	def __init__(self):
@@ -98,6 +111,7 @@ class Text_Writer(object):
 
 	def clear_file(self):
 		open(self.file, 'w').close()
+
 
 	def save_text(self, text):
 		with open(self.file, 'a') as f:

@@ -100,6 +100,24 @@ class EEE_SQL_TEST(unittest.TestCase):
 		self.assertEqual("values ( 204,'accounting_period','mdex:string',4);", EEE_SQL_TEST.sql.create_values_string(*values))
 
 
+class EEE_EQL_TEST(unittest.TestCase):
+
+	@classmethod
+	def setUpClass(EEE_EQL_TEST):
+		EEE_EQL_TEST.eql = e.EQL('Accounting Period', 'GL Date')
+
+
+	def test_constant_define_as(self):
+		self.assertEqual('Define view_name as SELECT', EEE_EQL_TEST.eql.DEFINE_AS)
+
+	def test_EQL_init(self):
+		self.assertEqual(['Accounting Period', 'GL Date'], EEE_EQL_TEST.eql.eid_instance_attributes)
+
+
+	def test_generate_EQL(self):
+		self.assertEqual('WHUT', EEE_EQL_TEST.eql.generate_EQL())
+
+
 class EEE_EXCEL_TEST(unittest.TestCase):
 
 	@classmethod
