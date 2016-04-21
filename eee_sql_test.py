@@ -6,6 +6,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 	@classmethod
 	def setUpClass(EEE_SQL_TEST):
 		EEE_SQL_TEST.sql = e.SQL(204,'accounting_period', 'mdex:string', 1, 'Accounting Period')
+		EEE_SQL_TEST.instance_id = '204'
 		EEE_SQL_TEST.define_clause = slice(0,16)
 		EEE_SQL_TEST.attrs_b_rem_insert = slice(16, 60)
 		EEE_SQL_TEST.attrs_b_insert = slice(60,627)
@@ -20,7 +21,7 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 
 	def test_init_SQL_attribute(self):
-		self.assertEqual('204', EEE_SQL_TEST.sql.eid_instance_id)
+		self.assertEqual('204', EEE_SQL_TEST.instance_id)
 	
 
 	def test_insert_attrs_b_define_clause(self):
@@ -40,12 +41,12 @@ class EEE_SQL_TEST(unittest.TestCase):
 
 
 	def test_insert_attrs_tl_column_headers(self):
-		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period')
 		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n', insert_statement[EEE_SQL_TEST.attrs_tl_insert])
 
 
 	def test_insert_attrs_tl_values(self):
-		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.sql.eid_instance_id, 'accounting_period', 'D','Accounting Period')
+		insert_statement = EEE_SQL_TEST.sql.insert_attrs_tl(EEE_SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period')
 		self.assertEqual("values ( 204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[EEE_SQL_TEST.attrs_tl_values])
 
 
@@ -102,9 +103,6 @@ class EEE_SQL_TEST(unittest.TestCase):
 		values = ['204', 'accounting_period', 'mdex:string', '4']
 		self.assertEqual("values ( 204,'accounting_period','mdex:string',4);", EEE_SQL_TEST.sql.create_values_string(*values))
 
-
-	# def test_insert_into_statement(self):
-	# 	self.assertEqual('Insert into APPS.FND_EID_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values', EEE_SQL_TEST.sql.insert_into_statement('APPS.FND_EID_ATTRS_B', EEE_SQL_TEST.column_name_string))
 
 class EEE_EXCEL_TEST(unittest.TestCase):
 
