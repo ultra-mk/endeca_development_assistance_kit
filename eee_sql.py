@@ -23,7 +23,7 @@ class SQL(object):
 		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
 		values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
 		insert_statement = ''.join([SQL.INSERT_INTO, self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers)])
-		return ''.join([SQL.DEFINE_OFF, self.rem_insert_statement(SQL.SCHEMA, table), insert_statement, self.create_values_string(*values), SQL.COMMIT])
+		return ''.join([SQL.DEFINE_OFF, SQL.REM_INSERT, self.concat_schema_table(SQL.SCHEMA, table), '\n', insert_statement, self.create_values_string(*values), SQL.COMMIT])
 
 
 	def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, language_code, display_name):
@@ -37,7 +37,7 @@ class SQL(object):
 #this method could use some TLC.
 	def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
 		table = 'FND_EID_PDR_ATTRS_TL'
-		statement = SQL.DEFINE_OFF + self.rem_insert_statement(SQL.SCHEMA, table)
+		statement = SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
 		for l in SQL.EBS_LANGUAGE_CODES:
 			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
 			statement += language_statement + '\n'
@@ -46,7 +46,7 @@ class SQL(object):
 
 	def insert_attr_groups(self, eid_instance_id, eid_instance_attribute):
 		table = 'FND_EID_ATTR_GROUPS'
-		rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
+		rem_insert_statement = ''.join([SQL.REM_INSERT, self.concat_schema_table(SQL.SCHEMA, table), '\n'])
 		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_INSTANCE_ATTRIBUTE','EID_INSTANCE_GROUP_ATTR_SEQ','EID_INST_GROUP_ATTR_USER_SEQ','GROUP_ATTRIBUTE_SOURCE','EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION','CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
 		insert_statement = ''.join([SQL.INSERT_INTO, self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers)])        
 		values = [eid_instance_id, 'Categories', eid_instance_attribute, '1', '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE','0','SYSDATE','0']
@@ -58,10 +58,6 @@ class SQL(object):
 		update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
 		set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
 		return ''.join([SQL.DEFINE_OFF, update, set_statement, SQL.COMMIT + '\n'])
-
-
-	def rem_insert_statement(self, schema, table):
-		return ''.join([SQL.REM_INSERT, self.concat_schema_table(schema, table), '\n'])
 
 
 	def concat_schema_table(self, schema, table):
@@ -102,8 +98,7 @@ class Excel_Reader(object):
 			cell_data = [c.value for c in rowOfCellObjects]
 			self.attribute_data.append(cell_data)
 
-#not crazy about this at all. The idea is to clear the file prior to appending the sql statements
-#totally a stopgap at the moment
+#plan is to move this and the save_sql() into a utilities class.
 	def clear_attribute_sql_file(self):
 		open('attribute_sql.txt', 'w').close()
 
