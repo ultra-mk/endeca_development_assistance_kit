@@ -23,7 +23,7 @@ class SQL(object):
         table = 'FND_EID_PDR_ATTRS_B'
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
         values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
-    	insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers))
+        insert_statement = ''.join([SQL.INSERT_INTO, self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers)])
         return ''.join([SQL.DEFINE_OFF, self.rem_insert_statement(SQL.SCHEMA, table), insert_statement, self.create_values_string(*values), SQL.COMMIT])
 
 
@@ -31,7 +31,7 @@ class SQL(object):
         table = 'FND_EID_PDR_ATTRS_TL'
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','LANGUAGE','SOURCE_LANG','DISPLAY_NAME','ATTRIBUTE_DESC','USER_DISPLAY_NAME','USER_ATTRIBUTE_DESC,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
     	values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name, display_name, display_name, display_name,'0', 'SYSDATE', '0', 'SYSDATE','0']
-        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table),self.create_column_name_string(*column_headers) )
+        insert_statement = ''.join([SQL.INSERT_INTO,self.concat_schema_table(SQL.SCHEMA, table),self.create_column_name_string(*column_headers)])        
         return ''.join([insert_statement, self.create_values_string(*values)])
 
 
@@ -49,7 +49,7 @@ class SQL(object):
         table = 'FND_EID_ATTR_GROUPS'
     	rem_insert_statement = self.rem_insert_statement(SQL.SCHEMA, table)
         column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_INSTANCE_ATTRIBUTE','EID_INSTANCE_GROUP_ATTR_SEQ','EID_INST_GROUP_ATTR_USER_SEQ','GROUP_ATTRIBUTE_SOURCE','EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION','CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
-        insert_statement = self.insert_into_statement(self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers))
+        insert_statement = ''.join([SQL.INSERT_INTO, self.concat_schema_table(SQL.SCHEMA, table), self.create_column_name_string(*column_headers)])        
         values = [eid_instance_id, 'Categories', eid_instance_attribute, '1', '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE','0','SYSDATE','0']
         return ''.join([SQL.DEFINE_OFF, rem_insert_statement, insert_statement, self.create_values_string(*values), SQL.COMMIT])
 
@@ -84,10 +84,6 @@ class SQL(object):
                 statement += "'" + a +"'" + ','
         statement = statement[0:-1]
         return statement + ');'
-
-
-    def insert_into_statement(self, schema_table, column_name_string):
-        return ''.join([SQL.INSERT_INTO, schema_table, column_name_string])
 
 
     def save_sql(self):
