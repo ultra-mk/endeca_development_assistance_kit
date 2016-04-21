@@ -40,7 +40,7 @@ class SQL(object):
 		statement = SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
 		for l in SQL.EBS_LANGUAGE_CODES:
 			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
-			statement += language_statement + '\n'
+			statement = ''.join([statement, language_statement, '\n'])
 		return statement + '\n' + SQL.COMMIT
 
 
@@ -88,6 +88,7 @@ class Excel_Reader(object):
 		sheet = wb.get_sheet_by_name('endeca_attributes')
 		highest_row = str(sheet.get_highest_row())
 		self.attribute_data = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['A2':'E'+highest_row]]
+
 
 class Text_Writer(object):
 
