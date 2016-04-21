@@ -37,7 +37,7 @@ class SQL(object):
 #this method could use some TLC.
 	def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name):
 		table = 'FND_EID_PDR_ATTRS_TL'
-		statement = ''.join([SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'])
+		statement = SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
 		for l in SQL.EBS_LANGUAGE_CODES:
 			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name)
 			statement += language_statement + '\n'
@@ -81,31 +81,32 @@ class SQL(object):
 		return statement + ');'
 
 
-	def save_sql(self):
-		text = self.insert_attrs_b + '\n'+ self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
-		with open('attribute_sql.txt', 'a') as f:
-			f.write(text)
-
-
 class Excel_Reader(object):
 
 	def __init__(self):
 		wb = openpyxl.load_workbook('endeca_attributes.xlsx')
 		sheet = wb.get_sheet_by_name('endeca_attributes')
 		highest_row = str(sheet.get_highest_row())
-		self.attribute_data = []
-		for rowOfCellObjects in sheet['A2': 'E'+ highest_row]:
-			cell_data = [c.value for c in rowOfCellObjects]
-			self.attribute_data.append(cell_data)
+		self.attribute_data = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['A2':'E'+highest_row]]
 
-#plan is to move this and the save_sql() into a utilities class.
-	def clear_attribute_sql_file(self):
-		open('attribute_sql.txt', 'w').close()
+class Text_Writer(object):
+
+	def __init__(self, file):
+		self.file = file
+
+
+	def clear_file(self):
+		open(self.file, 'w').close()
+
+	def save_text(self, text):
+		with open(self.file, 'a') as f:
+			f.write(text)
+
 
 
 reader = Excel_Reader()
-reader.clear_attribute_sql_file()
+writer = Text_Writer('attribute_sql.txt')
+writer.clear_file()
 for r in reader.attribute_data:
 	sql = SQL(*r)
-   
-sql.save_sql()
+	writer.save_text(sql.insert_attrs_b + '\n' + sql.insert_attrs_tl_all + '\n' + sql.insert_attr_groups + '\n' + sql.update_attr_groups)   

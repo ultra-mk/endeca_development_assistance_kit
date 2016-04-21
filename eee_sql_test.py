@@ -109,5 +109,16 @@ class EEE_EXCEL_TEST(unittest.TestCase):
 	def test_init(self):
 		self.assertEqual("<class 'eee_sql.Excel_Reader'>", str(type(EEE_EXCEL_TEST.reader)))
 
+
+class EEE_TEXT_WRITER(unittest.TestCase):
+
+	@classmethod
+	def setUpClass(EEE_TEXT_WRITER):
+		EEE_TEXT_WRITER.writer = e.Text_Writer('test_attribute_sql.txt')
+
+	def test_init(self):
+		self.assertEqual("<class 'eee_sql.Text_Writer'>", str(type(EEE_TEXT_WRITER.writer)))
+
+
 if __name__ == '__main__':
 	unittest.main()
