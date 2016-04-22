@@ -83,14 +83,14 @@ class SQL(object):
 
 
 class EQL(object):
-	DEFINE_AS = 'Define view_name as SELECT' 
+	DEFINE_AS = 'Define view_name as SELECT ' 
 
 	def __init__(self, *args):
 		self.eid_instance_attributes = [a for a in args]
 
 
-	def generate_EQL():
-		return DEFINE_AS + ''.join([a + ' ' for a in self.eid_instance_attributes])
+	def generate_EQL(self):
+		return EQL.DEFINE_AS + ''.join([a + ' ' for a in self.eid_instance_attributes])
 
 
 
