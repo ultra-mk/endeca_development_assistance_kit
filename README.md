@@ -1,8 +1,8 @@
-# Endeca Development Assistance Kit
+## Endeca Development Assistance Kit
 
 I develop Oracle Endeca apps for my day job. A typical project requires building an ETL job, configuring an Endeca Data Domain, defining views in the Endeca application and creating custom attributes. I need the same data fields in a variety of file types and formats.
 
-# Example
+## Example
 
 Consider the following. A customer wants an Endeca application that shows them PO Number, all the lines on a PO, the item number and the item description.
 
@@ -52,3 +52,5 @@ This command (partially) sets the display name. This command is repeated for eve
 
 
 The bottom line here is that the same data gets used a bunch of different ways, and if PO_HEADER_ID is written as PO_ID in a single place, everything will be horrible forever and ever. This toolset was created to save me hours of needless frustration. All you need to do is fill out a spreadsheet with the attributes you need and the display names, and you can get all the EQL and PLSQL that you need. Feed those files where they need to go, and presto! you've got views, and custom attributes and display names.
+
+
