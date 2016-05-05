@@ -83,14 +83,14 @@ class SQL(object):
 
 
 class EQL(object):
-	DEFINE_AS = 'Define view_name as SELECT ' 
+	DEFINE_AS = 'Define view_name as SELECT \n' 
 
-	def __init__(self, *args):
-		self.eid_instance_attributes = [a for a in args]
+	def __init__(self, eid_instance_attributes):
+		self.eid_instance_attributes = eid_instance_attributes
 
 
 	def generate_EQL(self):
-		return EQL.DEFINE_AS + ''.join([a + ' ' for a in self.eid_instance_attributes])
+		return EQL.DEFINE_AS + ''.join([a + ' ' +'as' +' "'+a+'",' +' \n' for a in self.eid_instance_attributes])
 
 
 
@@ -101,7 +101,11 @@ class Excel_Reader(object):
 		sheet = wb.get_sheet_by_name('endeca_attributes')
 		highest_row = str(sheet.get_highest_row())
 		self.attribute_data = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['A2':'E'+highest_row]]
-
+# this puts the quick and dirty into quick and dirty
+		# self.attribute_names = []
+		# for col in sheet.columns[1]:
+		# 	self.attribute_names.append(col.value)
+		# del self.attribute_names[0]
 
 class Text_Writer(object):
 
@@ -120,8 +124,15 @@ class Text_Writer(object):
 
 
 reader = Excel_Reader()
-writer = Text_Writer('attribute_sql.txt')
-writer.clear_file()
+sql_writer = Text_Writer('attribute_sql.txt')
+
+sql_writer.clear_file()
 for r in reader.attribute_data:
 	sql = SQL(*r)
-	writer.save_text(sql.insert_attrs_b + '\n' + sql.insert_attrs_tl_all + '\n' + sql.insert_attr_groups + '\n' + sql.update_attr_groups)   
+	sql_writer.save_text(sql.insert_attrs_b + '\n' + sql.insert_attrs_tl_all + '\n' + sql.insert_attr_groups + '\n' + sql.update_attr_groups) 
+
+
+
+# eql_writer = Text_Writer('eql.txt') 
+# eql = EQL(reader.attribute_names)
+# eql_writer.save_text(eql.generate_EQL())
