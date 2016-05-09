@@ -1,0 +1,3 @@
+[console_scripts]
+edak = edak.__main__:main
+

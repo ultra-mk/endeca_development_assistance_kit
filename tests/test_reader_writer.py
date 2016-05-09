@@ -18,7 +18,7 @@ class EEE_TEXT_WRITER(unittest.TestCase):
 		EEE_TEXT_WRITER.writer = r.Text_Writer('test_attribute_sql.txt')
 
 	def test_init(self):
-		self.assertEqual("<class 'reader_writer.Text_Writer'>", str(type(EEE_TEXT_WRITER.writer)))
+		self.assertEqual("<class 'edak.reader_writer.Text_Writer'>", str(type(EEE_TEXT_WRITER.writer)))
 
 
 if __name__ == '__main__':
