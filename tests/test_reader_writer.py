@@ -8,7 +8,7 @@ class EEE_EXCEL_TEST(unittest.TestCase):
 		EEE_EXCEL_TEST.reader = r.Excel_Reader()
 
 	def test_init(self):
-		self.assertEqual("<class 'reader_writer.Excel_Reader'>", str(type(EEE_EXCEL_TEST.reader)))
+		self.assertEqual("<class 'edak.reader_writer.Excel_Reader'>", str(type(EEE_EXCEL_TEST.reader)))
 
 
 class EEE_TEXT_WRITER(unittest.TestCase):
