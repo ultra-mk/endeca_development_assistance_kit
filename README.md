@@ -54,3 +54,23 @@ This command (partially) sets the display name. This command is repeated for eve
 The bottom line here is that the same data gets used a bunch of different ways, and if PO_HEADER_ID is written as PO_ID in a single place, everything will be horrible forever and ever. This toolset was created to save me hours of needless frustration. All you need to do is fill out a spreadsheet with the attributes you need and the display names, and you can get all the EQL and PLSQL that you need. Feed those files where they need to go, and presto! you've got views, and custom attributes and display names.
 
 
+
+## Installing
+
+	cd edak 
+	python setup.py install
+
+
+## Running the tests
+
+I'm fond of unittest. If you want to run all tests, I'd suggest the discovery feature.
+
+	cd edak
+	python -m unittest discover
+
+If you want to run the tests from a single file (e.g. just the EQL tests)
+
+	cd edak
+	python -m unittest tests.test_eql_generator
+
+
