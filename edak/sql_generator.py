@@ -5,7 +5,7 @@ class SQL(object):
 	EBS_LANGUAGE_CODES  = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
 	REM_INSERT = 'REM INSERTING into '
 	INSERT_INTO = 'Insert into '
-#need to add an attribute source as a parameter
+
 
 	def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
 		eid_instance_id = str(eid_instance_id)
