@@ -1,4 +1,3 @@
-
 class EQL(object):
 	DEFINE_AS = 'Define view_name as SELECT \n' 
 
@@ -8,4 +7,3 @@ class EQL(object):
 
 	def generate_EQL(self):
 		return EQL.DEFINE_AS + ''.join([a + ' ' +'as' +' "'+a+'",' +' \n' for a in self.eid_instance_attributes])
-
