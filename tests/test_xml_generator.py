@@ -6,6 +6,7 @@ class XML_TEST(unittest.TestCase):
 	@classmethod
 	def setUpClass(XML_TEST):
 		XML_TEST.xml = x.XML({'currency_code': 'string', 'organization_id':'string'})
+		XML_TEST.XML_FILE = '<Metadata id="Metadata18" previewAttachmentCharset="ISO-8859-1">\n<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>\n</Record>\n</Metadata>'
 
 
 	def test_metadata_id(self):
@@ -17,7 +18,7 @@ class XML_TEST(unittest.TestCase):
 
 
 	def test_close_xml(self):
-		self.assertEqual("</Record>\n</Metadata>", XML_TEST.xml.CLOSE_XML)
+		self.assertEqual("\n</Record>\n</Metadata>", XML_TEST.xml.CLOSE_XML)
 
 
 	def test_create_single_field(self):
@@ -29,4 +30,4 @@ class XML_TEST(unittest.TestCase):
 
 
 	def test_create_xml(self):
-		self.assertEqual('WHUT', XML_TEST.xml.file)
+		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.file)
