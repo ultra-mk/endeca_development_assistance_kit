@@ -2,10 +2,7 @@ class XML(object):
 	CLOSE_XML = '\n</Record>\n</Metadata>'
 
 	def __init__(self, field_dictionary, record_name):
-		self.fields = self.create_all_fields(field_dictionary)
-		self.record_id = self.create_record_id(record_name)
-		self.metadata_id = self.create_metadata_id(id(self))
-		self.file = self.create_xml()
+		self.file = self.create_xml(self.create_metadata_id(id(self)), self.create_record_id(record_name), self.create_all_fields(field_dictionary), XML.CLOSE_XML)
 
 
 	def create_metadata_id(self, metadata_id):
@@ -26,6 +23,7 @@ class XML(object):
 		return '\n'.join(fields)
 
 
-	def create_xml(self):
-		return self.metadata_id + self.record_id + self.fields + XML.CLOSE_XML
+	def create_xml(self, metadata_id, record_id, fields, CLOSE_XML):
+		return metadata_id + record_id + fields + XML.CLOSE_XML
+
 

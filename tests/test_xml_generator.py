@@ -5,10 +5,11 @@ class XML_TEST(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(XML_TEST):
-		XML_TEST.xml = x.XML({'currency_code': 'string', 'organization_id':'string'},'receiving')
+		XML_TEST.fields = {'currency_code': 'string', 'organization_id':'string'}
+		XML_TEST.record_name = 'receiving'
+		XML_TEST.xml = x.XML(XML_TEST.fields,XML_TEST.record_name)
 		XML_TEST.metadata_id = id(XML_TEST.xml)
 		XML_TEST.XML_FILE = '<Metadata id="'+str(XML_TEST.metadata_id)+'" previewAttachmentCharset="ISO-8859-1">\n<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>\n</Record>\n</Metadata>'
-		XML_TEST.record_name = 'receiving'
 
 
 	def test_create_metadata_id(self):
@@ -27,7 +28,7 @@ class XML_TEST(unittest.TestCase):
 
 
 	def test_create_all_fields(self):
-		self.assertEqual('<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>', XML_TEST.xml.fields)
+		self.assertEqual('<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>', XML_TEST.xml.create_all_fields(XML_TEST.fields))
 
 
 	def test_create_xml(self):
