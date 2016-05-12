@@ -1,12 +1,19 @@
 class XML(object):
-	#want to move away from metadata_id and record_id being hardcoded
-	METADATA_ID = '<Metadata id="Metadata18" previewAttachmentCharset="ISO-8859-1">\n'
-	RECORD_ID = '<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n'
 	CLOSE_XML = '\n</Record>\n</Metadata>'
 
-	def __init__(self, field_dictionary):
+	def __init__(self, field_dictionary, record_name):
 		self.fields = self.create_all_fields(field_dictionary)
+		self.record_id = self.create_record_id(record_name)
+		self.metadata_id = self.create_metadata_id(id(self))
 		self.file = self.create_xml()
+
+
+	def create_metadata_id(self, metadata_id):
+		return  '<Metadata id="{}" previewAttachmentCharset="ISO-8859-1">\n'.format(metadata_id)
+
+	def create_record_id(self, record_name):
+		return '<Record fieldDelimiter="|" name="{}" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n'.format(record_name)
+
 
 	def create_single_field(self, attribute_name, datatype):
 		return '<Field name="'+attribute_name+'" type="'+datatype+'"/>'
@@ -20,5 +27,5 @@ class XML(object):
 
 
 	def create_xml(self):
-		return XML.METADATA_ID + XML.RECORD_ID + self.fields + XML.CLOSE_XML
+		return self.metadata_id + self.record_id + self.fields + XML.CLOSE_XML
 
