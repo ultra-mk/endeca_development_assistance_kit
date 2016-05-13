@@ -42,12 +42,12 @@ class SQL_TEST(unittest.TestCase):
 
 
 	def test_insert_attrs_tl_column_headers(self):
-		insert_statement = SQL_TEST.sql.insert_attrs_tl(SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period')
+		insert_statement = SQL_TEST.sql.insert_attrs_tl(SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period', 'FND_EID_PDR_ATTRS_TL')
 		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n', insert_statement[SQL_TEST.attrs_tl_insert])
 
 
 	def test_insert_attrs_tl_values(self):
-		insert_statement = SQL_TEST.sql.insert_attrs_tl(SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period')
+		insert_statement = SQL_TEST.sql.insert_attrs_tl(SQL_TEST.instance_id, 'accounting_period', 'D','Accounting Period', 'FND_EID_PDR_ATTRS_TL')
 		self.assertEqual("values ( 204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);", insert_statement[SQL_TEST.attrs_tl_values])
 
 
