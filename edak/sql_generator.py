@@ -15,6 +15,7 @@ class SQL(object):
 		self.insert_attrs_tl_all = self.insert_attrs_tl_all(str(eid_instance_id), eid_instance_attribute, display_name, SQL.ATTRS_TL)
 		self.insert_attr_groups = self.insert_attr_groups(str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS)
 		self.update_attr_groups = self.update_attr_groups(str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS)
+		self.file = self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups 
 
 
 	def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, table):
@@ -31,13 +32,10 @@ class SQL(object):
 		return insert_statement + self.create_values_string(*values)
 
 
-#this method could use some TLC.
 	def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
 		statement = SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
-		# language_statement = [self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name) for l in SQL.EBS_LANGUAGE_CODES]
-		for l in SQL.EBS_LANGUAGE_CODES:
-			language_statement = self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n'
-			statement = statement + language_statement
+		language_statement = [self.insert_attrs_tl(eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
+		statement = statement + ''.join(language_statement)
 		return statement + '\n' + SQL.COMMIT
 
 

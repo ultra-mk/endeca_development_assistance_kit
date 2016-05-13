@@ -10,7 +10,8 @@ def main(args=None):
 	sql_writer.clear_file()
 	for r in reader.attribute_data:
 		sql = sql_generator.SQL(*r)
-		sql_writer.save_text(sql.insert_attrs_b + '\n' + sql.insert_attrs_tl_all + '\n' + sql.insert_attr_groups + '\n' + sql.update_attr_groups) 
+		# sql_writer.save_text(sql.insert_attrs_b + '\n' + sql.insert_attrs_tl_all + '\n' + sql.insert_attr_groups + '\n' + sql.update_attr_groups) 
+		sql_writer.save_text(sql.file)
 
 	print 'this is the end of the main method'
 
