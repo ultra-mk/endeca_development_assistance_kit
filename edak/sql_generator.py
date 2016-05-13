@@ -8,11 +8,10 @@ class SQL(object):
 
 
 	def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
-		eid_instance_id = str(eid_instance_id)
-		self.insert_attrs_b = self.insert_attrs_b(eid_instance_id, eid_instance_attribute, datatype, str(profile_id))
-		self.insert_attrs_tl_all = self.insert_attrs_tl_all(eid_instance_id, eid_instance_attribute, display_name)
-		self.insert_attr_groups = self.insert_attr_groups(eid_instance_id, eid_instance_attribute)
-		self.update_attr_groups = self.update_attr_groups(eid_instance_id, eid_instance_attribute)
+		self.insert_attrs_b = self.insert_attrs_b(str(eid_instance_id), eid_instance_attribute, datatype, str(profile_id))
+		self.insert_attrs_tl_all = self.insert_attrs_tl_all(str(eid_instance_id), eid_instance_attribute, display_name)
+		self.insert_attr_groups = self.insert_attr_groups(str(eid_instance_id), eid_instance_attribute)
+		self.update_attr_groups = self.update_attr_groups(str(eid_instance_id), eid_instance_attribute)
 
 
 	def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id):
