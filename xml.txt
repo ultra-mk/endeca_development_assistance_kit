@@ -1,0 +1,6 @@
+<Metadata id="53714000" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="
+" recordSize="-1" type="delimited">
+<Field name="test" type="dict"/>
+</Record>
+</Metadata>

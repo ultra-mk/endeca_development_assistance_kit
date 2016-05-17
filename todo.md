@@ -4,4 +4,5 @@
 Add attribute source as a parameter
 
 ## XML Generator
-Create an XML Generate to be used as metadata within Integrator
+change record_name to something more meaningful (initially thought record_name was a record_type or something, maybe something like 
+metadata_name)
