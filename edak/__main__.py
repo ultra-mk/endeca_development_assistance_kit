@@ -19,6 +19,7 @@ def main(args=None):
 	print 'now writing some EQL for you..................................'
 	eql_writer = reader_writer.Text_Writer('eql.txt') 
 	eql = eql_generator.EQL(reader.attribute_names)
+	eql_writer.clear_file()
 	eql_writer.save_text(eql.generate_EQL())
 	print 'beep, boop your EQL is ready too!'
 
