@@ -11,7 +11,7 @@ class XML(object):
 
 
 	def record_id(self, record_name):
-		return '<Record fieldDelimiter="|" name="{}" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n'.format(record_name)
+		return r'<Record fieldDelimiter="|" name="{}" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n'.format(record_name)
 
 
 	def single_field(self, attribute_name, datatype):
