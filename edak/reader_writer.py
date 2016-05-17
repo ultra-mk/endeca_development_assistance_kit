@@ -11,7 +11,7 @@ class Excel_Reader(object):
 		self.attribute_names = []
 		for col in sheet.columns[1]:
 			self.attribute_names.append(col.value)
-# 		del self.attribute_names[0]
+		del self.attribute_names[0]
 
 class Text_Writer(object):
 
