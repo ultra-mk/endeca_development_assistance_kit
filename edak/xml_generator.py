@@ -1,5 +1,8 @@
 class XML(object):
 	CLOSE_XML = '\n</Record>\n</Metadata>'
+	ENDECA_TO_XML_LOOKUP = {'mdex:double' : 'number', 'mdex:string' : 'string', 'mdexboolean' : 'boolean',
+							'mdex:dateTime' : 'date', 'mdex:double' : 'decimal', 'mdex:int' : 'int',
+							'mdex:long':'long'}
 
 	def __init__(self, field_dictionary, record_name):
 		self.file = self.xml(self.metadata_id(id(self)), self.record_id(record_name), 
@@ -15,7 +18,7 @@ class XML(object):
 
 
 	def single_field(self, attribute_name, datatype):
-		return '<Field name="'+attribute_name+'" type="'+datatype+'"/>'
+		return '<Field name="'+attribute_name+'" type="'+ XML.ENDECA_TO_XML_LOOKUP[datatype]+'"/>'
 
 
 	def all_fields(self, field_dictionary):
@@ -27,5 +30,4 @@ class XML(object):
 
 	def xml(self, metadata_id, record_id, fields, CLOSE_XML):
 		return metadata_id + record_id + fields + CLOSE_XML
-
 

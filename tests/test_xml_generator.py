@@ -5,7 +5,7 @@ class XML_TEST(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(XML_TEST):
-		XML_TEST.fields = {'currency_code': 'string', 'organization_id':'string'}
+		XML_TEST.fields = {'currency_code': 'mdex:string', 'organization_id':'mdex:string'}
 		XML_TEST.record_name = 'receiving'
 		XML_TEST.xml = x.XML(XML_TEST.fields,XML_TEST.record_name)
 		XML_TEST.metadata_id = id(XML_TEST.xml)
@@ -24,7 +24,7 @@ class XML_TEST(unittest.TestCase):
 		self.assertEqual(r'<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n', XML_TEST.xml.record_id(XML_TEST.record_name))
 
 	def test_single_field(self):
-		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'string'))
+		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'mdex:string'))
 
 
 	def test_all_fields(self):
@@ -34,5 +34,3 @@ class XML_TEST(unittest.TestCase):
 	def test_xml(self):
 		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.file)
 
-	def test_xml_len(self):
-		self.assertEqual(len(XML_TEST.XML_FILE), len(XML_TEST.xml.file))
