@@ -1,4 +1,4 @@
-<Metadata id="53165416" previewAttachmentCharset="ISO-8859-1">
-<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="test" type="dict"/>
+<Metadata id="54716904" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="BASE_TRANSACTION_VALUE" type="mdex:double"/>
 </Record>
 </Metadata>
