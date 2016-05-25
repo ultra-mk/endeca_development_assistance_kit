@@ -1,12 +1,15 @@
+from collections import OrderedDict
+
 class XML(object):
 	CLOSE_XML = '\n</Record>\n</Metadata>'
-	ENDECA_TO_XML_LOOKUP = {'mdex:double' : 'number', 'mdex:string' : 'string', 'mdexboolean' : 'boolean',
+	ENDECA_TO_XML_LOOKUP = {'mdex:double' : 'number', 'mdex:string' : 'string', 'mdex:boolean' : 'boolean',
 							'mdex:dateTime' : 'date', 'mdex:double' : 'decimal', 'mdex:int' : 'int',
 							'mdex:long':'long'}
 
 	def __init__(self, field_dictionary, record_name):
+		self.field_dictionary = OrderedDict(field_dictionary)
 		self.file = self.xml(self.metadata_id(id(self)), self.record_id(record_name), 
-							 self.all_fields(field_dictionary), XML.CLOSE_XML)
+							 self.all_fields(self.field_dictionary), XML.CLOSE_XML)
 
 
 	def metadata_id(self, metadata_id):

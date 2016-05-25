@@ -1,15 +1,18 @@
-<Metadata id="54345624" previewAttachmentCharset="ISO-8859-1">
+<Metadata id="55336632" previewAttachmentCharset="ISO-8859-1">
 <Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="REPAIR_NUMBER" type="string"/>
 <Field name="DEFAULT_PO_NUM" type="string"/>
 <Field name="SERVICE_CODE" type="string"/>
 <Field name="CUSTOMER_KEY" type="string"/>
+<Field name="NEED_BY_DATE" type="date"/>
 <Field name="MODEL_NUMBER" type="string"/>
+<Field name="CREATION_DATE" type="date"/>
 <Field name="ITEM" type="string"/>
 <Field name="PROBLEM_CODE" type="string"/>
 <Field name="PARTY_NAME" type="string"/>
 <Field name="INCIDENT_NUMBER" type="string"/>
 <Field name="DIAGNOSTIC_CODE" type="string"/>
 <Field name="SERIAL_NUMBER" type="string"/>
+<Field name="EVENT_DATE" type="date"/>
 <Field name="PRIMARY_ROOT_CAUSE" type="string"/>
 <Field name="CONTRACT_NUMBER" type="string"/>
 <Field name="PROMISE_DATE" type="date"/>
