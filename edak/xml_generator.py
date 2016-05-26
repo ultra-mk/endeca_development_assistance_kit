@@ -6,10 +6,9 @@ class XML(object):
 							'mdex:dateTime' : 'date', 'mdex:double' : 'decimal', 'mdex:int' : 'int',
 							'mdex:long':'long'}
 
-	def __init__(self, field_dictionary, record_name):
-		self.field_dictionary = OrderedDict(field_dictionary)
+	def __init__(self, fields_datatypes_list, record_name):
 		self.file = self.xml(self.metadata_id(id(self)), self.record_id(record_name), 
-							 self.all_fields(self.field_dictionary), XML.CLOSE_XML)
+							 self.all_fields(fields_datatypes_list), XML.CLOSE_XML)
 
 
 	def metadata_id(self, metadata_id):
@@ -24,10 +23,8 @@ class XML(object):
 		return '<Field name="'+attribute_name+'" type="'+ XML.ENDECA_TO_XML_LOOKUP[datatype]+'"/>'
 
 
-	def all_fields(self, field_dictionary):
-		fields = []
-		for key, value in field_dictionary.items():
-			fields.append(self.single_field(key, value))
+	def all_fields(self, fields_and_datatypes):
+		fields = [self.single_field(f[0], f[1]) for f in fields_and_datatypes]
 		return '\n'.join(fields)
 
 

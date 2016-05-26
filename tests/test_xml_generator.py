@@ -6,10 +6,11 @@ class XML_TEST(unittest.TestCase):
 	@classmethod
 	def setUpClass(XML_TEST):
 		XML_TEST.fields = {'currency_code': 'mdex:string', 'organization_id':'mdex:string'}
+		XML_TEST.field_list = [['currency_code', 'mdex:string'], ['organization_id','mdex:string']]
 		XML_TEST.record_name = 'receiving'
-		XML_TEST.xml = x.XML(XML_TEST.fields,XML_TEST.record_name)
+		XML_TEST.xml = x.XML(XML_TEST.field_list,XML_TEST.record_name)
 		XML_TEST.metadata_id = id(XML_TEST.xml)
-		XML_TEST.XML_FILE = '<Metadata id="'+str(XML_TEST.metadata_id)+'" previewAttachmentCharset="ISO-8859-1">\n<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\\r\\n" recordSize="-1" type="delimited">\\n<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>\n</Record>\n</Metadata>'
+		XML_TEST.XML_FILE = '<Metadata id="'+str(XML_TEST.metadata_id)+'" previewAttachmentCharset="ISO-8859-1">\n<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\\r\\n" recordSize="-1" type="delimited">\\n<Field name="currency_code" type="string"/>\n<Field name="organization_id" type="string"/>\n</Record>\n</Metadata>'
 
 
 	def test_metadata_id(self):
@@ -25,11 +26,10 @@ class XML_TEST(unittest.TestCase):
 
 	def test_single_field(self):
 		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'mdex:string'))
-
+		
 
 	def test_all_fields(self):
-		self.assertEqual('<Field name="organization_id" type="string"/>\n<Field name="currency_code" type="string"/>', XML_TEST.xml.all_fields(XML_TEST.fields))
-
+		self.assertEqual('<Field name="currency_code" type="string"/>\n<Field name="organization_id" type="string"/>',XML_TEST.xml.all_fields(XML_TEST.field_list))
 
 	def test_xml(self):
 		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.file)
