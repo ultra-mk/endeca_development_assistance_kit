@@ -9,7 +9,7 @@ class XML(object):
 	def __init__(self, fields_datatypes_list, record_name):
 		self.file = self.xml(self.metadata_id(id(self)), self.record_id(record_name), 
 							 self.all_fields(fields_datatypes_list), XML.CLOSE_XML)
-
+		
 
 	def metadata_id(self, metadata_id):
 		return  '<Metadata id="{}" previewAttachmentCharset="ISO-8859-1">\n'.format(metadata_id)
@@ -30,4 +30,5 @@ class XML(object):
 
 	def xml(self, metadata_id, record_id, fields, CLOSE_XML):
 		return metadata_id + record_id + fields + CLOSE_XML
+
 

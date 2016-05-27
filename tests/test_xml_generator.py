@@ -24,9 +24,10 @@ class XML_TEST(unittest.TestCase):
 	def test_record_id(self):
 		self.assertEqual(r'<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n', XML_TEST.xml.record_id(XML_TEST.record_name))
 
+
 	def test_single_field(self):
 		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'mdex:string'))
-		
+
 
 	def test_all_fields(self):
 		self.assertEqual('<Field name="currency_code" type="string"/>\n<Field name="organization_id" type="string"/>',XML_TEST.xml.all_fields(XML_TEST.field_list))

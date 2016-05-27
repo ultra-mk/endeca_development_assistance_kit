@@ -1,20 +1,20 @@
-<Metadata id="55694280" previewAttachmentCharset="ISO-8859-1">
-<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="EXTENDED_PRICE_PERMEX" type="decimal"/>
-<Field name="REPAIR_NUMBER_PERMEX" type="string"/>
+<Metadata id="55427200" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="REPAIR_TYPE_NAME_PERMEX" type="string"/>
 <Field name="ITEM_PERMEX" type="string"/>
-<Field name="REPAIR_TYPE_NAME_PERMEX" type="string"/>
+<Field name="PROBLEM_DESCRIPTION_PERMEX" type="string"/>
+<Field name="RO_PRIORITY_MEANING_PERMEX" type="string"/>
+<Field name="REPAIR_NUMBER_PERMEX" type="string"/>
+<Field name="ATTRIBUTE1_PERMEX" type="string"/>
+<Field name="INCIDENT_DATE_PERMEX" type="date"/>
+<Field name="DATE_CLOSED_PERMEX" type="date"/>
+<Field name="PARTY_NAME_PERMEX" type="string"/>
 <Field name="ADDRESS1_PERMEX" type="string"/>
 <Field name="ADDRESS2_PERMEX" type="string"/>
-<Field name="PROBLEM_CODE_PERMEX" type="string"/>
-<Field name="ATTRIBUTE1_PERMEX" type="string"/>
-<Field name="PARTY_NAME_PERMEX" type="string"/>
-<Field name="SEVERITY_PERMEX" type="string"/>
 <Field name="SHIP_TO_CONTACT_PERMEX" type="string"/>
-<Field name="RO_PRIORITY_MEANING_PERMEX" type="string"/>
-<Field name="DATE_CLOSED_PERMEX" type="date"/>
-<Field name="INCIDENT_DATE_PERMEX" type="date"/>
-<Field name="EXTENDED_PRICE_WITH_TAX_PERMEX" type="decimal"/>
+<Field name="PROBLEM_CODE_PERMEX" type="string"/>
 <Field name="SERVICE_CODE_PERMEX" type="string"/>
-<Field name="PROBLEM_DESCRIPTION_PERMEX" type="string"/>
+<Field name="SEVERITY_PERMEX" type="string"/>
+<Field name="EXTENDED_PRICE_PERMEX" type="decimal"/>
+<Field name="EXTENDED_PRICE_WITH_TAX_PERMEX" type="decimal"/>
 </Record>
 </Metadata>
