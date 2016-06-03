@@ -15,7 +15,7 @@ class SQL(object):
 		self.insert_attrs_tl_all = self.insert_attrs_tl_all(str(eid_instance_id), eid_instance_attribute, display_name, SQL.ATTRS_TL)
 		self.insert_attr_groups = self.insert_attr_groups(str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS)
 		self.update_attr_groups = self.update_attr_groups(str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS)
-		self.file = self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups 
+		# self.file = self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups 
 
 
 	def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, table):
@@ -72,3 +72,8 @@ class SQL(object):
 				statement += "'" + a +"'" + ','
 		statement = statement[0:-1]
 		return statement + ');'
+
+	
+	def generate_sql(self):
+		return self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups 
+

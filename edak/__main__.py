@@ -19,13 +19,13 @@ def sql_reader_writer(reader, writer):
 	writer.clear_file()
 	for r in reader.attribute_data:
 		sql = sql_generator.SQL(*r)
-		writer.save_text(sql.file)
+		writer.save_text(sql.generate_sql())
 	print 'beep, boop your PLSQL is ready!'
 
 def eql_reader_writer(reader, writer):
 	print 'writing some sweet EQL for you...........'
 	writer.clear_file()
-	writer.save_text(eql_generator.EQL(reader.attribute_names).generate_EQL())
+	writer.save_text(eql_generator.EQL(reader.attribute_names).generate_eql())
 	print 'beep, boop, your EQL is ready!'
 
 def xml_reader_writer(reader, writer):
