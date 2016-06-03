@@ -22,7 +22,7 @@ def sql_reader_writer(reader, writer):
 		writer.save_text(sql.file)
 	print 'beep, boop your PLSQL is ready!'
 
-def eql_reader_writer(reader, writer):
+def eql_xml_reader_writer(reader, writer):
 	print 'writing some sweet EQL for you...........'
 	writer.clear_file()
 	writer.save_text(eql_generator.EQL(reader.attribute_names).generate_EQL())

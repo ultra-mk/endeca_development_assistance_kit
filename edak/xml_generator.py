@@ -1,4 +1,3 @@
-from collections import OrderedDict
 
 class XML(object):
 	CLOSE_XML = '\n</Record>\n</Metadata>'
