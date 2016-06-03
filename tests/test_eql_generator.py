@@ -16,8 +16,8 @@ class EQL_GEN_TEST(unittest.TestCase):
 		self.assertEqual(['Accounting Period', 'GL Date'], EQL_GEN_TEST.eql.eid_instance_attributes)
 
 
-	def test_generate_EQL(self):
-		self.assertEqual('Define view_name as SELECT \nAccounting Period as "Accounting Period", \nGL Date as "GL Date", \n', EQL_GEN_TEST.eql.generate_EQL())
+	def test_generate_eql(self):
+		self.assertEqual('Define view_name as SELECT \nAccounting Period as "Accounting Period", \nGL Date as "GL Date", \n', EQL_GEN_TEST.eql.generate_eql())
 
 
 if __name__ == '__main__':

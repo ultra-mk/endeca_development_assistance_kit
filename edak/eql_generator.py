@@ -5,5 +5,5 @@ class EQL(object):
 		self.eid_instance_attributes = eid_instance_attributes
 
 
-	def generate_EQL(self):
+	def generate_eql(self):
 		return EQL.DEFINE_AS + ''.join([a + ' ' +'as' +' "'+a+'",' +' \n' for a in self.eid_instance_attributes])
