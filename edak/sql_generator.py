@@ -1,4 +1,3 @@
-from collections import OrderedDict
 
 class SQL(object):
 	DEFINE_OFF = 'SET DEFINE OFF;\n'
