@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 class SQL(object):
 	DEFINE_OFF = 'SET DEFINE OFF;\n'
 	COMMIT = 'COMMIT;'
@@ -18,23 +20,16 @@ class SQL(object):
 
 
 	def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, table):
-		# column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
-		# values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
-		# insert_statement = SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)
-		columns_values = {'EID_INSTANCE_ID' : eid_instance_id, 'EID_INSTANCE_ATTRIBUTE' : eid_instance_attribute, 'ENDECA_DATATYPE' : datatype,
-						'EID_ATTR_PROFILE_ID' : profile_id, 'EID_RELEASE_VERSION' : '2.3', 'ATTRIBUTE_SOURCE' : 'MSI', 'MANAGED_ATTRIBUTE_FLAG' : 'N',
-						'HIERARCHICAL_MGD_ATTR_FLAG' : 'N', 'DIM_ENABLE_REFINEMENTS_FLAG' : 'N', 'DIM_SEARCH_HIERARCHICAL_FLAG' : 'N', 
-						'REC_SEARCH_HIERARCHICAL_FLAG' : 'N', 'MGD_ATTR_EID_RELEASE_VERSION' : 'N', 'OBSOLETED_FLAG' : 'N', 'OBSOLETED_EID_RELEASE_VERSION' : '0',
-						'CREATED_BY' : '0', 'CREATION_DATE' : 'SYSDATE', 'LAST_UPDATED_BY' : '0', 'LAST_UPDATE_DATE' : 'SYSDATE', 'LAST_UPDATE_LOGIN': '0',
-						'ATTR_ENABLE_UPDATE_FLAG' : 'null', 'VIEW_OBJECT_ATTR_NAME' : 'null', 'ATTR_VALUE_SET_FLAG' : 'null', 'VALUE_SET_NAME' : 'null',
-						'ATTR_ENABLE_NULL_FLAG' : 'null', 'DESCRIPTIVE_FLEXFIELD_NAME' : 'null'}
+		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE', 'EID_ATTR_PROFILE_ID','EID_RELEASE_VERSION','ATTRIBUTE_SOURCE','MANAGED_ATTRIBUTE_FLAG','HIERARCHICAL_MGD_ATTR_FLAG', 'DIM_ENABLE_REFINEMENTS_FLAG','DIM_SEARCH_HIERARCHICAL_FLAG','REC_SEARCH_HIERARCHICAL_FLAG','MGD_ATTR_EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN','ATTR_ENABLE_UPDATE_FLAG','VIEW_OBJECT_ATTR_NAME','ATTR_VALUE_SET_FLAG','VALUE_SET_NAME','ATTR_ENABLE_NULL_FLAG','DESCRIPTIVE_FLEXFIELD_NAME']
+		values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI','N','N','N','N','N','N','N','0','0','SYSDATE','0','SYSDATE','0','null','null','null','null','null','null']
+		insert_statement = self.create_insert_statement(SQL.ATTRS_B, column_headers)
 		return SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) +  '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
 
 	def insert_attrs_tl(self, eid_instance_id ,eid_instance_attribute, language_code, display_name, table):
 		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','LANGUAGE','SOURCE_LANG','DISPLAY_NAME','ATTRIBUTE_DESC','USER_DISPLAY_NAME','USER_ATTRIBUTE_DESC,CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
 		values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name, display_name, display_name, display_name,'0', 'SYSDATE', '0', 'SYSDATE','0']
-		insert_statement = SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)        
+		insert_statement = self.create_insert_statement(SQL.ATTRS_TL, column_headers)
 		return insert_statement + self.create_values_string(*values)
 
 
@@ -48,8 +43,8 @@ class SQL(object):
 	def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
 		rem_insert_statement = SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n'
 		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_INSTANCE_ATTRIBUTE','EID_INSTANCE_GROUP_ATTR_SEQ','EID_INST_GROUP_ATTR_USER_SEQ','GROUP_ATTRIBUTE_SOURCE','EID_RELEASE_VERSION','OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION','CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']
-		insert_statement = SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)        
 		values = [eid_instance_id, 'Categories', eid_instance_attribute, '1', '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE','0','SYSDATE','0']
+		insert_statement = self.create_insert_statement(SQL.ATTR_GROUPS, column_headers)
 		return SQL.DEFINE_OFF + rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
 
@@ -57,6 +52,10 @@ class SQL(object):
 		update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
 		set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = "+eid_instance_id+" AND EID_INSTANCE_ATTRIBUTE = '"+ eid_instance_attribute +"'; \n"
 		return SQL.DEFINE_OFF + update + set_statement + SQL.COMMIT + '\n'
+
+
+	def create_insert_statement(self, table, column_headers):
+		return SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)
 
 
 	def concat_schema_table(self, schema, table):

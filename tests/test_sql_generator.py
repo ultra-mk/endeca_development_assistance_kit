@@ -87,6 +87,11 @@ class SQL_TEST(unittest.TestCase):
 		self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';", SQL_TEST.sql.update_attr_groups[SQL_TEST.update_attr_groups_set])
 
 
+	def test_create_insert_statement(self):
+		column_headers = ['EID_INSTANCE_ID','EID_INSTANCE_ATTRIBUTE','ENDECA_DATATYPE']
+		self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',SQL_TEST.sql.create_insert_statement(s.SQL.ATTRS_B, column_headers))
+
+
 	def test_concat_schema_table(self):
 		self.assertEqual('APPS.FND_EID_ATTRS_B', SQL_TEST.sql.concat_schema_table('APPS', 'FND_EID_ATTRS_B'))
 
