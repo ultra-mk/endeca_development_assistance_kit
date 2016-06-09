@@ -1,8 +1,8 @@
-<Metadata id="53950952" previewAttachmentCharset="ISO-8859-1">
+<Metadata id="54323632" previewAttachmentCharset="ISO-8859-1">
 <Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="TRANSACTION_ID" type="string"/>
 <Field name="TRANSACTION_DATE" type="date"/>
-<Field name="QUANTITY_RECEIVED" type="int"/>
-<Field name="AMOUNT_RECEIVED" type="int"/>
+<Field name="QUANTITY_RECEIVED" type="integer"/>
+<Field name="AMOUNT_RECEIVED" type="integer"/>
 <Field name="RECEIPT_NUM" type="string"/>
 <Field name="PACKING_SLIP" type="string"/>
 <Field name="ORGANIZATION_ID" type="string"/>
