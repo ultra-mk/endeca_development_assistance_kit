@@ -4,7 +4,7 @@ import openpyxl
 class Excel_Reader(object):
 
 	def __init__(self):
-		wb = openpyxl.load_workbook('endeca_attributes.xlsx')
+		wb = openpyxl.load_workbook('endeca_attributes_FIN_342.xlsx')
 		sheet = wb.get_sheet_by_name('endeca_attributes')
 		highest_row = str(sheet.get_highest_row())
 		self.attribute_data = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['A2':'E'+highest_row]]
