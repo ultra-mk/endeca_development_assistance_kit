@@ -7,11 +7,14 @@ import xml_generator
 
 def main(args=None):
 
-	# sql_reader_writer(reader_writer.Excel_Reader('endeca_attributes_FIN_342.xlsx'), reader_writer.Text_Writer('sql.txt'))
+	file_name = raw_input("What is the name of your attribute file?: ")
 
-	# eql_reader_writer(reader_writer.Excel_Reader('endeca_attributes_FIN_342.xlsx'), reader_writer.Text_Writer('eql.txt'))
 
-	xml_reader_writer(reader_writer.Excel_Reader('endeca_attributes_FIN_342.xlsx'), reader_writer.Text_Writer('xml.txt'))
+	# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+
+	# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+
+	xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
 
 
 def sql_reader_writer(reader, writer):
