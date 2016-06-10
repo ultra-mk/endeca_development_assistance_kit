@@ -1,4 +1,5 @@
 import sys
+import os
 import reader_writer
 import sql_generator
 import eql_generator
@@ -9,13 +10,14 @@ def main(args=None):
 
 	file_name = raw_input("What is the name of your attribute file?: ")
 
+	if os.path.isfile(file_name):
 
-	# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+		# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+		# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
 
-	# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
-
-	xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
-
+	else:
+		print 'File not found'
 
 def sql_reader_writer(reader, writer):
 	print 'writing some sweet PLSQL for you........'
