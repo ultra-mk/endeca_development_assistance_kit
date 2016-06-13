@@ -7,13 +7,16 @@ import xml_generator
 
 
 def main(args=None):
+	validate_input_and_run()
 
+
+def validate_input_and_run():
 	file_name = get_filename_from_user()
-
 	if check_for_file(file_name):
 		run_reader_writer_functions(file_name)
 	else:
-		print 'File not found'
+		print 'file not found'
+		validate_input_and_run()
 
 
 def get_filename_from_user():
