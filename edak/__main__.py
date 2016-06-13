@@ -8,16 +8,27 @@ import xml_generator
 
 def main(args=None):
 
-	file_name = raw_input("What is the name of your attribute file?: ")
+	file_name = get_filename_from_user()
 
-	if os.path.isfile(file_name):
-
-		# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
-		# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
-		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
-
+	if check_for_file(file_name):
+		run_reader_writer_functions(file_name)
 	else:
 		print 'File not found'
+
+
+def get_filename_from_user():
+	return raw_input("What is the name of your attribute file?: ")
+
+
+def check_for_file(file_name):
+	return os.path.isfile(file_name)
+
+
+def run_reader_writer_functions(file_name):
+	# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+	# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+	xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+
 
 def sql_reader_writer(reader, writer):
 	print 'writing some sweet PLSQL for you........'
@@ -27,11 +38,13 @@ def sql_reader_writer(reader, writer):
 		writer.save_text(sql.generate_sql())
 	print 'beep, boop your PLSQL is ready!'
 
+
 def eql_reader_writer(reader, writer):
 	print 'writing some sweet EQL for you...........'
 	writer.clear_file()
 	writer.save_text(eql_generator.EQL(reader.attribute_names).generate_eql())
 	print 'beep, boop, your EQL is ready!'
+
 
 def xml_reader_writer(reader, writer):
 	print 'writing some sweet XML for you'

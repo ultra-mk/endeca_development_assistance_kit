@@ -1,0 +1,15 @@
+<Metadata id="54055768" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="string"/>
+<Field name="SHIPMENT_PRIORITY_CODE" type="string"/>
+<Field name="ORDERED_ITEM" type="string"/>
+<Field name="ORDERED_QUANTITY" type="integer"/>
+<Field name="PROMISE_DATE" type="date"/>
+<Field name="SCHEDULE_SHIP_DATE" type="date"/>
+<Field name="REQUEST_DATE" type="date"/>
+<Field name="SHIPPED_QUANTITY" type="integer"/>
+<Field name="ACTUAL_SHIPMENT_DATE" type="date"/>
+<Field name="FLOW_STATUS_CODE" type="string"/>
+<Field name="SET_NAME" type="string"/>
+<Field name="TYPE_CODE" type="string"/>
+</Record>
+</Metadata>

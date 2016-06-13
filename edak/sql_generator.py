@@ -8,7 +8,7 @@ class SQL(object):
 	INSERT_INTO = 'Insert into '
 	ATTRS_B = 'FND_EID_PDR_ATTRS_B'
 	ATTRS_TL = 'FND_EID_PDR_ATTRS_TL'
-	ATTR_GROUPS = 'FND_EID_ATTR_GROUPS'
+	ATTR_GROUPS = 'FND_EID_ATTR_GROUPS' 
 
 
 	def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
