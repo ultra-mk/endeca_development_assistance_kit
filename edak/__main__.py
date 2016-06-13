@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 import reader_writer
 import sql_generator
 import eql_generator
@@ -16,7 +17,12 @@ def validate_input_and_run():
 		run_reader_writer_functions(file_name)
 	else:
 		print 'file not found'
-		validate_input_and_run()
+		time.sleep(1)
+		quit = raw_input('type quit to quit: ')
+		if quit == 'quit':
+			sys.exit
+		else:
+			validate_input_and_run()
 
 
 def get_filename_from_user():
