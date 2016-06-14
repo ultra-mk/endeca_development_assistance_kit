@@ -14,7 +14,8 @@ def main(args=None):
 def validate_input_and_run():
 	file_name = get_filename_from_user()
 	if check_for_file(file_name):
-		run_reader_writer_functions(file_name)
+		file_type = get_format_option_from_user()
+		run_reader_writer_functions(file_name, file_type)
 	else:
 		print 'file not found'
 		time.sleep(1)
@@ -33,10 +34,28 @@ def check_for_file(file_name):
 	return os.path.isfile(file_name)
 
 
-def run_reader_writer_functions(file_name):
-	# sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
-	# eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
-	xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+def get_format_option_from_user():
+	print "Which file formats do you need?"
+	print "Select 1 for PLSQL"
+	print "Select 2 for EQL"
+	print "Select 3 for XML"
+	print "Select 4 for all formats."
+	return raw_input("Please make your selection. ")
+
+
+def run_reader_writer_functions(file_name, file_type):
+	if file_type == '1':
+		sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+	elif file_type == '2':
+		eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+	elif file_type == '3':
+		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+	elif file_type == '4':
+		sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+		eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+	else:
+		print 'please enter a correct option'
 
 
 def sql_reader_writer(reader, writer):
