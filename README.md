@@ -1,4 +1,4 @@
-(https://travis-ci.org/michaelkunc/endeca_development_assistance_kit.svg?branch=master)
+[![Build Status](https://travis-ci.org/michaelkunc/endeca_development_assistance_kit.svg?branch=master)](https://travis-ci.org/michaelkunc/endeca_development_assistance_kit)
 
 ## Endeca Development Assistance Kit
 
