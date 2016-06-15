@@ -2,12 +2,13 @@ language: python
 python:
 - "2.7"
 
-install: "pip install -r requirements.txt"
+install: 
+- pip install -r requirements.txt
+- pip install python-coveralls
 
 script: 
 - python setup.py test
 - python -m unittest discover
-# - python tests/test_sql_generator.py
 
 after_success:
 - coveralls
