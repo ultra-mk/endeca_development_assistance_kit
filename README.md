@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/michaelkunc/endeca_development_assistance_kit.svg?branch=master)](https://travis-ci.org/michaelkunc/endeca_development_assistance_kit)
 
+[![Coverage Status](https://coveralls.io/repos/github/michaelkunc/endeca_development_assistance_kit/badge.svg?branch=master)](https://coveralls.io/github/michaelkunc/endeca_development_assistance_kit?branch=master)
+
 ## Endeca Development Assistance Kit
 
 I develop Oracle Endeca apps for my day job. A typical project requires building an ETL job, configuring an Endeca Data Domain, defining views in the Endeca application and creating custom attributes. I need the same data fields in a variety of file types and formats.
