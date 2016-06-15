@@ -19,6 +19,18 @@ A SQL query to build this would look as follows.
 
 Pretty simple right?
 
+For my ETL job, I need to define metadata in XML. The metadata for these fields might look like this.
+
+	<Metadata id="53799568" previewAttachmentCharset="ISO-8859-1">
+	<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">
+	<Field name="PO_HEADER_ID" type="string"/>
+	<Field name="LINE_NUM" type="string"/>
+	<Field name="ITEM_ID" type="string"/>
+	<Field name="ITEM_DESCRIPTION" type="string"/>
+
+	</Record>
+	</Metadata>
+
 Depending on the requirements of the project, I might need define a view in Endeca using these fields. That would look like this in Endeca Query Language (EQL).
 
 	DEFINE Purchase_Order_View as SELECT
