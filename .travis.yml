@@ -9,7 +9,7 @@ install:
 
 script: 
 - python setup.py test
-- coverage run -- python -m unittest discover
+- python -m unittest discover
 
 after_success:
 - coveralls
