@@ -1,4 +1,4 @@
-<Metadata id="54316952" previewAttachmentCharset="ISO-8859-1">
+<Metadata id="55092728" previewAttachmentCharset="ISO-8859-1">
 <Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="string"/>
 <Field name="SHIPMENT_PRIORITY_CODE" type="string"/>
 <Field name="ORDERED_ITEM" type="string"/>

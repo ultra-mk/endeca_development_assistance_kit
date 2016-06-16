@@ -2,7 +2,7 @@
 class XML(object):
 	CLOSE_XML = '\n</Record>\n</Metadata>'
 	ENDECA_TO_XML_LOOKUP = {'mdex:double' : 'number', 'mdex:string' : 'string', 'mdex:boolean' : 'boolean',
-							'mdex:dateTime' : 'date', 'mdex:double' : 'decimal', 'mdex:int' : 'integer',
+							'mdex:dateTime' : 'date', 'mdex:int' : 'integer',
 							'mdex:long':'long'}
 
 	def __init__(self, fields_datatypes_list, record_name):

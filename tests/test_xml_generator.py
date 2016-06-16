@@ -35,6 +35,3 @@ class XML_TEST(unittest.TestCase):
 	def test_xml(self):
 		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.file)
 
-
-if __name__ == '__main__':
-	unittest.main()

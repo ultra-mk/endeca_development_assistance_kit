@@ -12,19 +12,12 @@ class Excel_Reader(object):
 #UUUUGHHHHHHHHHHHHH
 # this puts the quick and dirty into quick and dirty
 
-		self.attribute_names = []
+		self.eql_attributes = []
 		for col in sheet.columns[1]:
-			self.attribute_names.append(col.value)
-		del self.attribute_names[0]
+			self.eql_attributes.append(col.value)
+		del self.eql_attributes[0]
 
 		self.xml_attributes = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['B2':'C'+highest_row]]
-
-####UGH SOOOOO UGLY
-		# xml_data = []
-		# for rowOfCellObjects in sheet['B2':'C'+highest_row]:
-		# 	for col in rowOfCellObjects:
-		# 		xml_data.append(col.value)
-		# self.attribute_dict = {item : xml_data[index+1] for index, item in enumerate(xml_data) if index % 2 == 0}
 
 
 class Text_Writer(object):

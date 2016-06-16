@@ -1,7 +1,7 @@
 import sys
 import os
 import time
-import reader_writer
+import reader_writer as rw
 import sql_generator
 import eql_generator
 import xml_generator
@@ -45,15 +45,15 @@ def get_format_option_from_user():
 
 def run_reader_writer_functions(file_name, file_type):
 	if file_type == '1':
-		sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
+		sql_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('sql.txt'))
 	elif file_type == '2':
-		eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
+		eql_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('eql.txt'))
 	elif file_type == '3':
-		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+		xml_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('xml.txt'))
 	elif file_type == '4':
-		sql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('sql.txt'))
-		eql_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('eql.txt'))
-		xml_reader_writer(reader_writer.Excel_Reader(file_name), reader_writer.Text_Writer('xml.txt'))
+		sql_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('sql.txt'))
+		eql_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('eql.txt'))
+		xml_reader_writer(rw.Excel_Reader(file_name), rw.Text_Writer('xml.txt'))
 	else:
 		print 'please enter a correct option'
 
@@ -70,7 +70,7 @@ def sql_reader_writer(reader, writer):
 def eql_reader_writer(reader, writer):
 	print 'writing some sweet EQL for you...........'
 	writer.clear_file()
-	writer.save_text(eql_generator.EQL(reader.attribute_names).generate_eql())
+	writer.save_text(eql_generator.EQL(reader.eql_attributes).generate_eql())
 	print 'beep, boop, your EQL is ready!'
 
 

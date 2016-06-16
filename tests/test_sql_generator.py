@@ -16,7 +16,7 @@ class SQL_TEST(unittest.TestCase):
 		SQL_TEST.attrs_tl_values = slice(242, 427)
 		SQL_TEST.attrs_tl_all_rem_insert = slice(16, 61)
 		SQL_TEST.attr_groups_insert = slice(60, 377)
-		SQL_TEST.attr_groups_values = slice(378, 469)
+		SQL_TEST.attPr_groups_values = slice(378, 469)
 		SQL_TEST.update_attr_groups_set = slice(48, 195)
 		SQL_TEST.column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
 
