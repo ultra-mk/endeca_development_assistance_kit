@@ -5,10 +5,9 @@ class XML(object):
 							'mdex:dateTime' : 'date', 'mdex:int' : 'integer',
 							'mdex:long':'long'}
 
-	def __init__(self, fields_datatypes_list, record_name):
+	def __init__(self, field_names_and_datatypes, record_name):
 		self.record_name = record_name
-		self.fields_datatypes_list = fields_datatypes_list
-		self.file = self.generate_xml()
+		self.field_names_and_datatypes = field_names_and_datatypes
 
 	def metadata_id(self, metadata_id):
 		return  '<Metadata id="{}" previewAttachmentCharset="ISO-8859-1">\n'.format(metadata_id)
@@ -33,4 +32,4 @@ class XML(object):
 
 
 	def generate_xml(self):
-		return self.metadata_id(id(self)) + self.record_id(self.record_name) + self.all_fields(self.fields_datatypes_list) + self.CLOSE_XML
+		return self.metadata_id(id(self)) + self.record_id(self.record_name) + self.all_fields(self.field_names_and_datatypes) + self.CLOSE_XML

@@ -5,7 +5,6 @@ class XML_TEST(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(XML_TEST):
-		XML_TEST.fields = {'currency_code': 'mdex:string', 'organization_id':'mdex:string'}
 		XML_TEST.field_list = [['currency_code', 'mdex:string'], ['organization_id','mdex:string']]
 		XML_TEST.record_name = 'receiving'
 		XML_TEST.xml = x.XML(XML_TEST.field_list,XML_TEST.record_name)
@@ -35,6 +34,7 @@ class XML_TEST(unittest.TestCase):
 	def test_all_fields(self):
 		self.assertEqual('<Field name="currency_code" type="string"/>\n<Field name="organization_id" type="string"/>',XML_TEST.xml.all_fields(XML_TEST.field_list))
 
+
 	def test_xml(self):
-		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.file)
+		self.assertEqual(XML_TEST.XML_FILE, XML_TEST.xml.generate_xml())
 
