@@ -25,7 +25,7 @@ class XML_TEST(unittest.TestCase):
 
 
 	def test_validate_data_types(self):
-		self.assertEqual(True, XML_TEST.xml.validate_data_types(XML_TEST.field_list))
+		self.assertEqual(True, XML_TEST.xml.validate_data_types())
 
 	def test_single_field(self):
 		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'mdex:string'))

@@ -17,8 +17,8 @@ class XML(object):
 		return r'<Record fieldDelimiter="|" name="{}" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n'.format(record_name)
 
 
-	def validate_data_types(self, fields_and_datatypes):
-		data_types = [f[1] for f in fields_and_datatypes]
+	def validate_data_types(self):
+		data_types = [f[1] for f in self.field_names_and_datatypes]
 		return set(data_types).issubset(XML.ENDECA_TO_XML_LOOKUP.keys())
 
 

@@ -75,10 +75,17 @@ def eql_reader_writer(reader, writer):
 
 
 def xml_reader_writer(reader, writer):
-	print 'writing some sweet XML for you'
-	writer.clear_file()
-	writer.save_text(xml_generator.XML(reader.xml_attributes, 'metadata1').generate_xml())
-	print 'beep, boop your XML is ready'
+	xml_instance = xml_generator.XML(reader.xml_attributes, 'metadata1')
+	if xml_instance.validate_data_types():
+		print 'writing some sweet XML for you'
+		writer.clear_file()
+		writer.save_text(xml_instance.generate_xml())
+		print 'beep, boop your XML is ready'
+	else:
+		print 'it seems you have an issue with your datatypes in your spreadsheet.'
+		print 'please double check for spelling errors and try again'
+		time.sleep(1)
+		validate_input_and_run()
 
 
 if __name__ == '__main__':
