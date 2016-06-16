@@ -25,6 +25,9 @@ class XML_TEST(unittest.TestCase):
 		self.assertEqual(r'<Record fieldDelimiter="|" name="receiving" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n', XML_TEST.xml.record_id(XML_TEST.record_name))
 
 
+	def test_validate_data_types(self):
+		self.assertEqual(True, XML_TEST.xml.validate_data_types(XML_TEST.field_list))
+
 	def test_single_field(self):
 		self.assertEqual('<Field name="po_header_id" type="string"/>', XML_TEST.xml.single_field('po_header_id', 'mdex:string'))
 
