@@ -32,3 +32,12 @@ class SQL_PARSER_TEST(unittest.TestCase):
 
 	def test_remove_table_names_len(self):
 		self.assertEqual(24,len(SQL_PARSER_TEST.instance.remove_table_names(SQL_PARSER_TEST.column_headers)))
+
+
+	def test_format_column_aliases(self):
+		self.assertEqual('RCTA.CUSTOMER_TRX_ID',SQL_PARSER_TEST.instance.format_column_aliases(SQL_PARSER_TEST.column_headers)[0])
+
+
+	def test_format_column_aliases_len(self):
+		self.assertEqual(24,len(SQL_PARSER_TEST.instance.format_column_aliases(SQL_PARSER_TEST.column_headers)))
+

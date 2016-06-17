@@ -28,3 +28,8 @@ class SQL_PARSER(object):
 
 	def remove_table_names(self, selected_column_lines):
 		return [item[item.index('.') + 1:] for item in selected_column_lines]
+
+
+	def format_column_aliases(self, selected_column_lines):
+		return [item[item.index('AS') + 3:] if 'AS' in item else item for item in selected_column_lines]
+
