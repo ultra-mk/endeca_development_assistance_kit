@@ -7,6 +7,7 @@ class SQL_PARSER_TEST(unittest.TestCase):
 	def setUpClass(SQL_PARSER_TEST):
 		SQL_PARSER_TEST.instance = sp.SQL_PARSER('QTO_308.sql')
 		SQL_PARSER_TEST.sql_lines = SQL_PARSER_TEST.instance.open_file()
+		SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(SQL_PARSER_TEST.sql_lines, 34)
 
 
 	def test_check_for_file(self):
@@ -24,3 +25,10 @@ class SQL_PARSER_TEST(unittest.TestCase):
 	def test_get_select_columns(self):
 		self.assertEqual(24, 
 			len(SQL_PARSER_TEST.instance.get_selected_columns(SQL_PARSER_TEST.sql_lines, 34)))
+
+	def test_remove_table_names(self):
+		self.assertEqual('CUSTOMER_TRX_ID', SQL_PARSER_TEST.instance.remove_table_names(SQL_PARSER_TEST.column_headers)[0])
+
+
+	def test_remove_table_names_len(self):
+		self.assertEqual(24,len(SQL_PARSER_TEST.instance.remove_table_names(SQL_PARSER_TEST.column_headers)))

@@ -21,5 +21,10 @@ class SQL_PARSER(object):
 			if 'FROM' in line:
 				return index
 
+
 	def get_selected_columns(self,sql_lines, index_of_from):
 		return [i.strip().replace(',','') for i in sql_lines[1:index_of_from] if len(i) > 0]
+
+
+	def remove_table_names(self, selected_column_lines):
+		return [item[item.index('.') + 1:] for item in selected_column_lines]
