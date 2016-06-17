@@ -5,12 +5,22 @@ class SQL_PARSER_TEST(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(SQL_PARSER_TEST):
-		SQL_PARSER_TEST.sp = sp.SQL_PARSER('QTO_308.sql')
+		SQL_PARSER_TEST.instance = sp.SQL_PARSER('QTO_308.sql')
+		SQL_PARSER_TEST.sql_lines = SQL_PARSER_TEST.instance.open_file()
 
-	def test_is_this_thing_on(self):
-		self.assertEqual(['1','2','3'], SQL_PARSER_TEST.sp.column_names)
 
-#this test is returning true no matter what.
 	def test_check_for_file(self):
-		self.assertTrue(SQL_PARSER_TEST.sp.check_for_file)
+		self.assertTrue(SQL_PARSER_TEST.instance.check_for_file())
 
+
+	def test_open_file(self):
+		self.assertEqual('SELECT', SQL_PARSER_TEST.instance.open_file()[0])
+
+
+	def test_find_from_index(self):
+		self.assertEqual(37, SQL_PARSER_TEST.instance.find_from_index(SQL_PARSER_TEST.sql_lines))
+
+
+	def test_get_select_columns(self):
+		self.assertEqual(24, 
+			len(SQL_PARSER_TEST.instance.get_selected_columns(SQL_PARSER_TEST.sql_lines, 34)))
