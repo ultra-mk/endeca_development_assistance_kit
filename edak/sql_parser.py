@@ -1,4 +1,5 @@
 import os
+import re
 
 class SQL_PARSER(object):
 
@@ -33,3 +34,14 @@ class SQL_PARSER(object):
 	def format_column_aliases(self, selected_column_lines):
 		return [item[item.index('AS') + 3:] if 'AS' in item else item for item in selected_column_lines]
 
+
+	def parse_sql_file(self):
+		if self.check_for_file():
+			raw_sql_lines = self.open_file()
+			from_index = self.find_from_index(raw_sql_lines)
+			sql_lines = self.get_selected_columns(raw_sql_lines, from_index)
+			sql_lines = self.remove_table_names(sql_lines)
+			sql_lines = self.format_column_aliases(sql_lines)
+			return sql_lines
+		else:
+			print 'file is not found'
