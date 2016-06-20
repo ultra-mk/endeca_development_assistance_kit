@@ -1,13 +1,11 @@
 import os
+import utils
 
 
 class SQL_PARSER(object):
 
     def __init__(self, sql_file_name):
         self.sql_file_name = sql_file_name
-
-    def check_for_file(self):
-        return os.path.isfile(self.sql_file_name)
 
     def open_file(self):
         with open(self.sql_file_name) as f:
@@ -29,7 +27,7 @@ class SQL_PARSER(object):
         return [item[item.index(' AS ') + 4:] if ' AS ' in item else item for item in selected_column_lines]
 
     def parse_sql_file(self):
-        if self.check_for_file():
+        if utils.check_for_file(self.sql_file_name):
             raw_sql_lines = self.open_file()
             from_index = self.find_from_index(raw_sql_lines)
             sql_lines = self.get_selected_columns(raw_sql_lines, from_index)

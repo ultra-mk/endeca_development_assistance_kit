@@ -11,9 +11,6 @@ class SQL_PARSER_TEST(unittest.TestCase):
         SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(
             SQL_PARSER_TEST.sql_lines, 14)
 
-    def test_check_for_file(self):
-        self.assertTrue(SQL_PARSER_TEST.instance.check_for_file())
-
     def test_open_file(self):
         self.assertEqual('SELECT', SQL_PARSER_TEST.instance.open_file()[0])
 

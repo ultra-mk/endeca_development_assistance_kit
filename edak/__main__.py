@@ -5,6 +5,7 @@ import reader_writer as rw
 import sql_generator
 import eql_generator
 import xml_generator
+import utils
 
 
 def main(args=None):
@@ -13,7 +14,7 @@ def main(args=None):
 
 def validate_input_and_run():
     file_name = get_filename_from_user()
-    if check_for_file(file_name):
+    if utils.check_for_file(file_name):
         file_type = get_format_option_from_user()
         run_reader_writer_functions(file_name, file_type)
     else:
@@ -28,10 +29,6 @@ def validate_input_and_run():
 
 def get_filename_from_user():
     return raw_input("What is the name of your attribute file?: ")
-
-
-def check_for_file(file_name):
-    return os.path.isfile(file_name)
 
 
 def get_format_option_from_user():
