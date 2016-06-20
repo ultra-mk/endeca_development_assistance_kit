@@ -5,7 +5,7 @@ class SQL_PARSER_TEST(unittest.TestCase):
 
 	@classmethod
 	def setUpClass(SQL_PARSER_TEST):
-		SQL_PARSER_TEST.instance = sp.SQL_PARSER('QTO_308.sql')
+		SQL_PARSER_TEST.instance = sp.SQL_PARSER('sql_parser_test_doc.sql')
 		SQL_PARSER_TEST.sql_lines = SQL_PARSER_TEST.instance.open_file()
 		SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(SQL_PARSER_TEST.sql_lines, 14)
 
@@ -31,7 +31,7 @@ class SQL_PARSER_TEST(unittest.TestCase):
 
 
 	def test_format_column_aliases(self):
-		self.assertEqual(['RCTA.CUSTOMER_TRX_ID','PURCHASE_ORDER','dt_revenue','SALES_ORDER','Wwapc','SALES_OFFICE', 'PART_NUMBER'],SQL_PARSER_TEST.instance.format_column_aliases(SQL_PARSER_TEST.column_headers))
+		self.assertEqual(['RCTA.CUSTOMER_TRX_ID','RCTA.PURCHASE_ORDER','dt_revenue','SALES_ORDER','Wwapc','SALES_OFFICE', 'PART_NUMBER'],SQL_PARSER_TEST.instance.format_column_aliases(SQL_PARSER_TEST.column_headers))
 
 
 	def test_parse_sql_lines(self):

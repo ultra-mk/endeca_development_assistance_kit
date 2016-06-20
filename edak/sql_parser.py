@@ -1,5 +1,5 @@
 import os
-import re
+
 
 class SQL_PARSER(object):
 
@@ -32,7 +32,7 @@ class SQL_PARSER(object):
 
 
 	def format_column_aliases(self, selected_column_lines):
-		return [item[item.index('AS') + 3:] if 'AS' in item else item for item in selected_column_lines]
+		return [item[item.index(' AS ') + 4:] if ' AS ' in item else item for item in selected_column_lines]
 
 
 	def parse_sql_file(self):
