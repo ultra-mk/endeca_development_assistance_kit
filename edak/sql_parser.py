@@ -37,6 +37,12 @@ class SQL_PARSER(object):
         else:
             print 'file is not found'
 
+    def reduce_columns(self, columns, keyword):
+        return [keyword if keyword in c else c for c in columns]
+
     def generate_endeca_datatypes(self, columns):
         data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
-                                'QUANTITY':'mdex:int', 'PRICE':'mdex:double'}
+                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
+        for d in data_type_translation.keys():
+            reduced = self.reduce_columns(columns, d)
+            return [[r,data_type_translation[r]] if r in data_type_translation else [r,'mdex:string'] for r in reduced]
