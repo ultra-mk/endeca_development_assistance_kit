@@ -36,3 +36,7 @@ class SQL_PARSER(object):
             return sql_lines
         else:
             print 'file is not found'
+
+    def generate_endeca_datatypes(self, columns):
+        data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
+                                'QUANTITY':'mdex:int', 'PRICE':'mdex:double'}
