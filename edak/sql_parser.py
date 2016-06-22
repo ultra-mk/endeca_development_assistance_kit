@@ -7,7 +7,7 @@ class SQL_PARSER(object):
     def __init__(self, sql_file_name):
         self.sql_file_name = sql_file_name
 
-    def open_file(self):
+    def open_file_split_into_lines(self):
         with open(self.sql_file_name) as f:
             lines = f.read().splitlines()
             return lines
@@ -28,7 +28,7 @@ class SQL_PARSER(object):
 
     def parse_sql_file(self):
         if utils.check_for_file(self.sql_file_name):
-            raw_sql_lines = self.open_file()
+            raw_sql_lines = self.open_file_split_into_lines()
             from_index = self.find_from_index(raw_sql_lines)
             sql_lines = self.get_selected_columns(raw_sql_lines, from_index)
             sql_lines = self.remove_table_names(sql_lines)
@@ -42,7 +42,9 @@ class SQL_PARSER(object):
 
     def generate_endeca_datatypes(self, columns):
         data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
-                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
-        for d in data_type_translation.keys():
-            reduced = self.reduce_columns(columns, d)
-            return [[r,data_type_translation[r]] if r in data_type_translation else [r,'mdex:string'] for r in reduced]
+                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'} 
+        reduced = self.reduce_columns(columns, 'DATE')
+        reduced = self.reduce_columns(reduced, 'AMOUNT')
+        reduced = self.reduce_columns(reduced, 'QUANITY')
+        reduced = self.reduce_columns(reduced, 'PRICE')
+        return [data_type_translation[r] if r in data_type_translation else 'mdex:string' for r in reduced]
