@@ -7,11 +7,6 @@ class SQL_PARSER(object):
     def __init__(self, sql_file_name):
         self.sql_file_name = sql_file_name
 
-    def open_file_split_into_lines(self):
-        with open(self.sql_file_name) as f:
-            lines = f.read().splitlines()
-            return lines
-
     def find_from_index(self, sql_lines):
         for index, line in enumerate(sql_lines):
             if 'FROM ' in line:
@@ -28,7 +23,8 @@ class SQL_PARSER(object):
 
     def parse_sql_file(self):
         if utils.check_for_file(self.sql_file_name):
-            raw_sql_lines = self.open_file_split_into_lines()
+            raw_sql_lines = utils.open_file_split_into_lines(
+                self.sql_file_name)
             from_index = self.find_from_index(raw_sql_lines)
             sql_lines = self.get_selected_columns(raw_sql_lines, from_index)
             sql_lines = self.remove_table_names(sql_lines)
@@ -42,7 +38,7 @@ class SQL_PARSER(object):
 
     def generate_endeca_datatypes(self, columns):
         data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
-                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'} 
+                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
         reduced = self.reduce_columns(columns, 'DATE')
         reduced = self.reduce_columns(reduced, 'AMOUNT')
         reduced = self.reduce_columns(reduced, 'QUANITY')

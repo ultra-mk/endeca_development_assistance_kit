@@ -1,5 +1,6 @@
 import unittest
 from edak import sql_parser as sp
+from edak import utils
 
 
 class SQL_PARSER_TEST(unittest.TestCase):
@@ -7,12 +8,9 @@ class SQL_PARSER_TEST(unittest.TestCase):
     @classmethod
     def setUpClass(SQL_PARSER_TEST):
         SQL_PARSER_TEST.instance = sp.SQL_PARSER('sql_parser_test_doc.sql')
-        SQL_PARSER_TEST.sql_lines = SQL_PARSER_TEST.instance.open_file_split_into_lines()
+        SQL_PARSER_TEST.sql_lines = utils.open_file_split_into_lines('sql_parser_test_doc.sql')
         SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(
             SQL_PARSER_TEST.sql_lines, 14)
-
-    def test_open_file_split_into_lines(self):
-        self.assertEqual('SELECT', SQL_PARSER_TEST.instance.open_file_split_into_lines()[0])
 
     def test_find_from_index(self):
         self.assertEqual(14, SQL_PARSER_TEST.instance.find_from_index(
