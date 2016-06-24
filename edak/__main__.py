@@ -73,7 +73,7 @@ def sql_reader_writer(reader, writer):
 def eql_reader_writer(reader, writer):
     print 'writing some sweet EQL for you...........'
     writer.clear_file()
-    writer.save_text(eql_generator.EQL(reader.eql_attributes).generate_eql())
+    writer.save_text(eql_generator.EQL(reader.eql_attributes, 'view1').generate_eql())
     print 'beep, boop, your EQL is ready!'
 
 
