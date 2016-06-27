@@ -8,7 +8,8 @@ class SQL_PARSER_TEST(unittest.TestCase):
     @classmethod
     def setUpClass(SQL_PARSER_TEST):
         SQL_PARSER_TEST.instance = sp.SQL_PARSER('sql_parser_test_doc.sql')
-        SQL_PARSER_TEST.sql_lines = utils.open_file_split_into_lines('sql_parser_test_doc.sql')
+        SQL_PARSER_TEST.sql_lines = utils.open_file_split_into_lines(
+            'sql_parser_test_doc.sql')
         SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(
             SQL_PARSER_TEST.sql_lines, 14)
 
@@ -37,4 +38,5 @@ class SQL_PARSER_TEST(unittest.TestCase):
             ['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID'], 'DATE'))
 
     def test_generate_endeca_datatypes(self):
-        self.assertEqual(['mdex:dateTime','mdex:double','mdex:double', 'mdex:string'] , SQL_PARSER_TEST.instance.generate_endeca_datatypes(['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID']))
+        self.assertEqual(['mdex:dateTime', 'mdex:double', 'mdex:double', 'mdex:string'],
+                         SQL_PARSER_TEST.instance.generate_endeca_datatypes(['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID']))

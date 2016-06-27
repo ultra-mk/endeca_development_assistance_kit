@@ -39,6 +39,7 @@ class SQL_PARSER(object):
     def generate_endeca_datatypes(self, columns):
         data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
                                  'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
+    
         reduced = self.reduce_columns(columns, 'DATE')
         reduced = self.reduce_columns(reduced, 'AMOUNT')
         reduced = self.reduce_columns(reduced, 'QUANITY')
