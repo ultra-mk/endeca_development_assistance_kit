@@ -14,9 +14,9 @@ class SQL_PARSER_TEST(unittest.TestCase):
         SQL_PARSER_TEST.column_headers = SQL_PARSER_TEST.instance.get_selected_columns(
             SQL_PARSER_TEST.sql_lines, 14)
 
-    def test_find_from_index(self):
-        self.assertEqual(14, SQL_PARSER_TEST.instance.find_from_index(
-            SQL_PARSER_TEST.sql_lines))
+    def test_find_index(self):
+        self.assertEqual(14, SQL_PARSER_TEST.instance.find_index(
+            SQL_PARSER_TEST.sql_lines, 'FROM '))
 
     def test_get_select_columns(self):
         self.assertEqual(['RCTA.CUSTOMER_TRX_ID', 'RCTA.PURCHASE_ORDER', 'RCTLGDA.GL_DATE AS dt_revenue', 'RCTLA.INTERFACE_LINE_ATTRIBUTE1 AS SALES_ORDER', 'GCC.SEGMENT5 AS Wwapc', 'OOHA.ATTRIBUTE1 AS SALES_OFFICE', 'MSIB.SEGMENT1 AS PART_NUMBER'],

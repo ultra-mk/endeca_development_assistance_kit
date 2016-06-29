@@ -7,9 +7,9 @@ class SQL_PARSER(object):
     def __init__(self, sql_file_name):
         self.sql_file_name = sql_file_name
 
-    def find_from_index(self, sql_lines):
+    def find_index(self, sql_lines, search_item):
         for index, line in enumerate(sql_lines):
-            if 'FROM ' in line:
+            if search_item in line:
                 return index
 
     def get_selected_columns(self, sql_lines, index_of_from):
@@ -25,7 +25,7 @@ class SQL_PARSER(object):
         if utils.check_for_file(self.sql_file_name):
             raw_sql_lines = utils.open_file_split_into_lines(
                 self.sql_file_name)
-            from_index = self.find_from_index(raw_sql_lines)
+            from_index = self.find_index(raw_sql_lines, 'FROM ')
             sql_lines = self.get_selected_columns(raw_sql_lines, from_index)
             sql_lines = self.remove_table_names(sql_lines)
             sql_lines = self.format_column_aliases(sql_lines)
@@ -35,6 +35,17 @@ class SQL_PARSER(object):
 
     def reduce_columns(self, columns, keyword):
         return [keyword if keyword in c else c for c in columns]
+
+#the lookup list needs to be on the "right" 
+
+    def reduce_column_name(self, column_name, lookup_list):
+        return 'whatever'
+
+
+####need to feed it a keyword, find the index of the item in the lookup
+#list and return that or just return the word. I've already got a fucking
+#index lookup. My god.
+
 
     def generate_endeca_datatypes(self, columns):
         data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
