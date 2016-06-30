@@ -38,7 +38,10 @@ class SQL_PARSER_TEST(unittest.TestCase):
         self.assertEqual(['DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID'], SQL_PARSER_TEST.instance.reduce_columns(
             ['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID'], 'DATE'))
 
+    def test_reduce_column_name(self):
+        self.assertEqual('DATE', SQL_PARSER_TEST.instance.reduce_column_name(
+            'SELL_BY_DATE', ['AMOUNT','DATE','DATE']))
+
     def test_generate_endeca_datatypes(self):
         self.assertEqual(['mdex:dateTime', 'mdex:double', 'mdex:double', 'mdex:string'],
                          SQL_PARSER_TEST.instance.generate_endeca_datatypes(['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID']))
-
