@@ -43,5 +43,5 @@ class SQL_PARSER_TEST(unittest.TestCase):
             'SELL_BY_DATE', ['AMOUNT','DATE','DATE']))
 
     def test_generate_endeca_datatypes(self):
-        self.assertEqual(['mdex:dateTime', 'mdex:double', 'mdex:double', 'mdex:string'],
-                         SQL_PARSER_TEST.instance.generate_endeca_datatypes(['SELL_BY_DATE', 'PART_PRICE', 'SHIP_AMOUNT', 'ORDER_ID']))
+        self.assertEqual([['FULFILLMENT_DATE','mdex:dateTime'], ['UNIT_PRICE','mdex:double'], ['SHIP_QUANTITY','mdex:int'], ['ORDER_ID','mdex:string']],
+                         SQL_PARSER_TEST.instance.generate_endeca_datatypes(['FULFILLMENT_DATE', 'UNIT_PRICE', 'SHIP_QUANTITY', 'ORDER_ID']))

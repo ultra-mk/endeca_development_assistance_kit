@@ -1,11 +1,9 @@
 import os
 import utils
+import datatype_dictionary as dd
 
 
 class SQL_PARSER(object):
-
-    DATA_TYPE_TRANSLATION = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
-                             'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
 
     def __init__(self, sql_file_name):
         self.sql_file_name = sql_file_name
@@ -39,20 +37,10 @@ class SQL_PARSER(object):
     def reduce_columns(self, columns, keyword):
         return [keyword if keyword in c else c for c in columns]
 
-# this method is going to be a bit ugly. will build it up as a unit
-# and then abstract out as I can.
-
     def reduce_column_name(self, column_name, lookup_list):
         for index, element in enumerate(lookup_list):
             if element in column_name:
                 return lookup_list[index]
 
     def generate_endeca_datatypes(self, columns):
-        data_type_translation = {'DATE': 'mdex:dateTime', 'AMOUNT': 'mdex:double',
-                                 'QUANTITY': 'mdex:int', 'PRICE': 'mdex:double'}
-
-        reduced = self.reduce_columns(columns, 'DATE')
-        reduced = self.reduce_columns(reduced, 'AMOUNT')
-        reduced = self.reduce_columns(reduced, 'QUANITY')
-        reduced = self.reduce_columns(reduced, 'PRICE')
-        return [data_type_translation[r] if r in data_type_translation else 'mdex:string' for r in reduced]
+        return [[c, dd.COLUMNS_TO_ENDECA[c] if c in dd.COLUMNS_TO_ENDECA else 'mdex:string'] for c in columns]
