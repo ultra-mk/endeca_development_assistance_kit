@@ -1,9 +1,8 @@
+import datatype_dictionary as dd
+
 
 class XML(object):
     CLOSE_XML = '\n</Record>\n</Metadata>'
-    ENDECA_TO_XML_LOOKUP = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
-                            'mdex:dateTime': 'date', 'mdex:int': 'integer',
-                            'mdex:long': 'long'}
 
     def __init__(self, field_names_and_datatypes, record_name):
         self.record_name = record_name
@@ -17,10 +16,10 @@ class XML(object):
 
     def validate_data_types(self):
         data_types = [f[1] for f in self.field_names_and_datatypes]
-        return set(data_types).issubset(XML.ENDECA_TO_XML_LOOKUP.keys())
+        return set(data_types).issubset(dd.ENDECA_TO_XML.keys())
 
     def single_field(self, attribute_name, datatype):
-        return '<Field name="' + attribute_name + '" type="' + XML.ENDECA_TO_XML_LOOKUP[datatype] + '"/>'
+        return '<Field name="' + attribute_name + '" type="' + dd.ENDECA_TO_XML[datatype] + '"/>'
 
     def all_fields(self, fields_and_datatypes):
         fields = [self.single_field(f[0], f[1]) for f in fields_and_datatypes]
