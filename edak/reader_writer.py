@@ -19,6 +19,15 @@ class Excel_Reader(object):
 
 		self.xml_attributes = [[c.value for c in rowOfCellObjects] for rowOfCellObjects in sheet['B2':'C'+highest_row]]
 
+class Excel_Writer(object):
+
+	def __init__(self):
+		self.file_name = 'excel_writer_test.xlsx'
+
+
+	def save_files(self):
+		wb.save(self.file_name)
+
 
 class Text_Writer(object):
 
