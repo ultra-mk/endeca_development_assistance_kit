@@ -34,13 +34,13 @@ class SQL_PARSER(object):
         else:
             print 'file is not found'
 
-    def reduce_columns(self, columns, keyword):
-        return [keyword if keyword in c else c for c in columns]
+    # def reduce_columns(self, columns, keyword):
+    #     return [keyword if keyword in c else c for c in columns]
 
-    def reduce_column_name(self, column_name, lookup_list):
-        for index, element in enumerate(lookup_list):
-            if element in column_name:
-                return lookup_list[index]
+    # def reduce_column_name(self, column_name, lookup_list):
+    #     for index, element in enumerate(lookup_list):
+    #         if element in column_name:
+    #             return lookup_list[index]
 
     def generate_endeca_datatypes(self, columns):
         return [[c, dd.COLUMNS_TO_ENDECA[c] if c in dd.COLUMNS_TO_ENDECA else 'mdex:string'] for c in columns]
