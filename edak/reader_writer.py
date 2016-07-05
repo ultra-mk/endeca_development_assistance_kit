@@ -23,9 +23,18 @@ class Excel_Writer(object):
 
 	def __init__(self):
 		self.file_name = 'excel_writer_test.xlsx'
+		self.create_excel_file()
 
-
-	def save_files(self):
+#naive implementation
+	def create_excel_file(self):
+		wb = openpyxl.Workbook()
+		ws = wb.active
+		ws.title = 'endeca_attributes'
+		ws['A1'].value ='eid_instance_id'
+		ws['B1'].value = 'eid_instance_attribute'
+		ws['C1'].value = 'datatype'
+		ws['D1'].value = 'profile_id'
+		ws['E1'].value = 'display_name'
 		wb.save(self.file_name)
 
 
