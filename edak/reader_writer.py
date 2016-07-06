@@ -21,8 +21,9 @@ class Excel_Reader(object):
 
 class Excel_Writer(object):
 
-	def __init__(self):
-		self.file_name = 'excel_writer_test.xlsx'
+	def __init__(self,file_name, columns_and_datatype):
+		self.file_name = file_name
+		self.columns_and_datatype = columns_and_datatype
 		self.create_excel_file()
 
 #naive implementation
@@ -35,6 +36,9 @@ class Excel_Writer(object):
 		ws['C1'].value = 'datatype'
 		ws['D1'].value = 'profile_id'
 		ws['E1'].value = 'display_name'
+		for i, e in enumerate(self.columns_and_datatype):
+			ws.cell(row=i+2, column=2).value = e[0]
+			ws.cell(row=i+2, column=3).value = e[1]
 		wb.save(self.file_name)
 
 
