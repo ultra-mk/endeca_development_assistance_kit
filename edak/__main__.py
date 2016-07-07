@@ -26,6 +26,14 @@ def validate_input_and_run():
         else:
             validate_input_and_run()
 
+def welcome_menu():
+    print 'Welcome to the Endeca Development Assistance Kit.' 
+    print 'What would you like to do?'
+    print 'Select 1 to parse a SQL file.'
+    print 'Select 2 to generate text files (PL/SQL, EQL, XML)'
+    return raw_input("Please make your selection. ")
+
+
 
 def get_filename_from_user():
     return raw_input("What is the name of your attribute file?: ")
@@ -33,7 +41,7 @@ def get_filename_from_user():
 
 def get_format_option_from_user():
     print "Which file formats do you need?"
-    print "Select 1 for PLSQL"
+    print "Select 1 for PL/SQL"
     print "Select 2 for EQL"
     print "Select 3 for XML"
     print "Select 4 for all formats."
@@ -73,7 +81,8 @@ def sql_reader_writer(reader, writer):
 def eql_reader_writer(reader, writer):
     print 'writing some sweet EQL for you...........'
     writer.clear_file()
-    writer.save_text(eql_generator.EQL(reader.eql_attributes, 'view1').generate_eql())
+    writer.save_text(eql_generator.EQL(
+        reader.eql_attributes, 'view1').generate_eql())
     print 'beep, boop, your EQL is ready!'
 
 
