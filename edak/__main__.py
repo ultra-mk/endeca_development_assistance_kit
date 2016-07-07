@@ -9,10 +9,12 @@ import utils
 
 
 def main(args=None):
-    validate_input_and_run()
+    if welcome_menu() == '1':
+        run_text_generation()
+    else:
+        print 'testing else route'
 
-
-def validate_input_and_run():
+def run_text_generation():
     file_name = get_filename_from_user()
     if utils.check_for_file(file_name):
         file_type = get_format_option_from_user()
@@ -24,7 +26,7 @@ def validate_input_and_run():
         if quit == 'quit':
             sys.exit
         else:
-            validate_input_and_run()
+            run_text_generation()
 
 def welcome_menu():
     print 'Welcome to the Endeca Development Assistance Kit.' 
@@ -97,7 +99,7 @@ def xml_reader_writer(reader, writer):
         print 'it seems you have an issue with your datatypes in your spreadsheet.'
         print 'please double check for spelling errors and try again'
         time.sleep(1)
-        validate_input_and_run()
+        run_text_generation()
 
 
 if __name__ == '__main__':
