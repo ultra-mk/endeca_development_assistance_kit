@@ -21,7 +21,7 @@ class Excel_Reader(object):
 
 class Excel_Writer(object):
 
-	def __init__(self,file_name, columns_and_datatype):
+	def __init__(self, file_name, columns_and_datatype):
 		self.file_name = file_name
 		self.columns_and_datatype = columns_and_datatype
 		self.create_excel_file()

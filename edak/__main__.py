@@ -5,17 +5,18 @@ import reader_writer as rw
 import sql_generator
 import eql_generator
 import xml_generator
+import sql_parser
 import utils
 
 
 def main(args=None):
     if welcome_menu() == '1':
-        run_text_generation()
+        sql_parser_writer()
     else:
-        print 'testing else route'
+        run_text_generation()
 
 def run_text_generation():
-    file_name = get_filename_from_user()
+    file_name = get_filename_from_user('attribute')
     if utils.check_for_file(file_name):
         file_type = get_format_option_from_user()
         run_reader_writer_functions(file_name, file_type)
@@ -37,8 +38,8 @@ def welcome_menu():
 
 
 
-def get_filename_from_user():
-    return raw_input("What is the name of your attribute file?: ")
+def get_filename_from_user(filetype):
+    return raw_input("What is the name of your "+filetype+" file?: ")
 
 
 def get_format_option_from_user():
@@ -101,6 +102,14 @@ def xml_reader_writer(reader, writer):
         time.sleep(1)
         run_text_generation()
 
+def sql_parser_reader():
+    sql_file = get_filename_from_user("SQL")
+    sql = sql_parser.SQL_PARSER(sql_file)
+    return sql.generate_endeca_datatypes(sql.parse_sql_file())
+
+def sql_parser_writer():
+    excel_file = get_filename_from_user("Excel")
+    excel_writer = rw.Excel_Writer(excel_file, sql_parser_reader())
 
 if __name__ == '__main__':
     main()
