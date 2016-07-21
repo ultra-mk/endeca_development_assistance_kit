@@ -10,10 +10,13 @@ import utils
 
 
 def main(args=None):
-    if welcome_menu() == '1':
+    selection = welcome_menu()
+    if selection == '1':
         sql_parser_writer()
-    else:
+    elif selection == '2':
         run_text_generation()
+    else:
+        print 'bye!'
 
 def run_text_generation():
     file_name = get_filename_from_user('attribute')
@@ -34,6 +37,7 @@ def welcome_menu():
     print 'What would you like to do?'
     print 'Select 1 to parse a SQL file.'
     print 'Select 2 to generate text files (PL/SQL, EQL, XML)'
+    print 'Select 3 to quit'
     return raw_input("Please make your selection. ")
 
 
@@ -110,6 +114,7 @@ def sql_parser_reader():
 def sql_parser_writer():
     excel_file = get_filename_from_user("Excel")
     excel_writer = rw.Excel_Writer(excel_file, sql_parser_reader())
+    print 'Your Excel file has been created! Go Team!'
 
 if __name__ == '__main__':
     main()
