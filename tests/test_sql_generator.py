@@ -1,15 +1,39 @@
 import unittest
-from edak import sql_generator as s
+from edak import sql_generator
 
 
 class SQL(unittest.TestCase):
 
     @classmethod
     def setUpClass(SQL):
-        SQL.sql = s.SQL(204, 'accounting_period',
-                             'mdex:string', 1, 'Accounting Period')
+        SQL.sql = sql_generator.SQL(204, 'accounting_period',
+                                    'mdex:string', 1, 'Accounting Period')
         SQL.instance_id = '204'
-        SQL.column_name_string = ' (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values'
+        SQL.column_name_string = ("  (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,"
+                                  "ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,"
+                                  "LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values")
+
+        SQL.attr_b_cols = ("Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,"
+                           "ENDECA_DATATYPE,EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,"
+                           "MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG,DIM_ENABLE_REFINEMENTS_FLAG,"
+                           "DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG,"
+                           "MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,"
+                           "CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,"
+                           "ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG,VALUE_SET_NAME,"
+                           "ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n")
+
+        SQL.attr_b_vals = ("values ( 204,'accounting_period','mdex:string',1,'2.3',"
+                          "'MSI','N','N','N','N','N','N','N',0,0,SYSDATE,0,SYSDATE,0,"
+                          "null,null,null,null,null,null);")
+
+        SQL.attr_tl_cols = ("Insert into APPS.FND_EID_PDR_ATTRS_TL "
+                            "(EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,"
+                            "DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,"
+                            "CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n")
+
+        SQL.attr_tl_vals = ("values ( 204,'accounting_period','D','US','Accounting Period',"
+                          "'Accounting Period','Accounting Period','Accounting Period',0,"
+                          "SYSDATE,0,SYSDATE,0);")
 
     def test_insert_attrs_b_define_clause(self):
         self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
@@ -19,24 +43,20 @@ class SQL(unittest.TestCase):
                          SQL.sql.insert_attrs_b[16:60])
 
     def test_insert_attrs_b_column_headers(self):
-        self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE,EID_ATTR_PROFILE_ID,EID_RELEASE_VERSION,ATTRIBUTE_SOURCE,MANAGED_ATTRIBUTE_FLAG,HIERARCHICAL_MGD_ATTR_FLAG,DIM_ENABLE_REFINEMENTS_FLAG,DIM_SEARCH_HIERARCHICAL_FLAG,REC_SEARCH_HIERARCHICAL_FLAG,MGD_ATTR_EID_RELEASE_VERSION,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN,ATTR_ENABLE_UPDATE_FLAG,VIEW_OBJECT_ATTR_NAME,ATTR_VALUE_SET_FLAG,VALUE_SET_NAME,ATTR_ENABLE_NULL_FLAG,DESCRIPTIVE_FLEXFIELD_NAME)\n',
-                         SQL.sql.insert_attrs_b[60:627])
+        self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_attrs_b[60:627])
 
     def test_insert_attrs_b_values(self):
-        self.assertEqual("values ( 204,'accounting_period','mdex:string',1,'2.3','MSI','N','N','N','N','N','N','N',0,0,SYSDATE,0,SYSDATE,0,null,null,null,null,null,null);",
-                         SQL.sql.insert_attrs_b[627:771])
+        self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_attrs_b[627:771])
 
     def test_insert_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.insert_attrs_tl(
             SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
-        self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_TL (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n',
-                         insert_statement[0:242])
+        self.assertEqual(SQL.attr_tl_cols,insert_statement[0:242])
 
     def test_insert_attrs_tl_values(self):
         insert_statement = SQL.sql.insert_attrs_tl(
             SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
-        self.assertEqual("values ( 204,'accounting_period','D','US','Accounting Period','Accounting Period','Accounting Period','Accounting Period',0,SYSDATE,0,SYSDATE,0);",
-                         insert_statement[242:427])
+        self.assertEqual(SQL.attr_tl_vals, insert_statement[242:427])
 
     def test_insert_attrs_tl_all_define_clause(self):
         self.assertEqual('SET DEFINE OFF;\n',
@@ -48,7 +68,6 @@ class SQL(unittest.TestCase):
                          insert_statement[16:61])
 
     def test_insert_attrs_tl_length(self):
-        insert_statement = SQL.sql.insert_attrs_tl_all
         self.assertEqual(3957, len(SQL.sql.insert_attrs_tl_all))
 
     def test_insert_attrs_tl_all_commit(self):
@@ -74,7 +93,7 @@ class SQL(unittest.TestCase):
         column_headers = ['EID_INSTANCE_ID',
                           'EID_INSTANCE_ATTRIBUTE', 'ENDECA_DATATYPE']
         self.assertEqual('Insert into APPS.FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',
-SQL.sql.create_insert_statement(s.SQL.ATTRS_B, column_headers))
+                         SQL.sql.create_insert_statement(SQL.sql.ATTRS_B, column_headers))
 
     def test_concat_schema_table(self):
         self.assertEqual('APPS.FND_EID_ATTRS_B', SQL.sql.concat_schema_table(
