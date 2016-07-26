@@ -1,5 +1,6 @@
 
 class SQL(object):
+    ALTER_SESSION = 'ALTER SESSION SET CURRENT_SCHEMA = APPS;'
     DEFINE_OFF = 'SET DEFINE OFF;\n'
     COMMIT = 'COMMIT;'
     SCHEMA = 'APPS'
@@ -29,7 +30,13 @@ class SQL(object):
                   'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']
         insert_statement = self.create_insert_statement(
             SQL.ATTRS_B, column_headers)
+
+
+        ###THIS IS WHERE I AM WORKING THROUGH REMOVING THE concat. GOING TO HOLD OFF
+        ###ON THIS UNTIL I CAN FIX THE TEST SUITE
         return SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
+        # return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
+
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_ATTRIBUTE', 'LANGUAGE', 'SOURCE_LANG', 'DISPLAY_NAME', 'ATTRIBUTE_DESC',
