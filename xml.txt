@@ -1,17 +1,20 @@
-<Metadata id="54236104" previewAttachmentCharset="ISO-8859-1">
-<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="string"/>
-<Field name="SHIPMENT_PRIORITY_CODE" type="string"/>
-<Field name="ORDERED_ITEM" type="string"/>
-<Field name="ORDERED_QUANTITY" type="integer"/>
+<Metadata id="52992040" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="REPORT_RUN_DATE" type="date"/>
+<Field name="LINE_ID" type="string"/>
 <Field name="PROMISE_DATE" type="date"/>
-<Field name="SCHEDULE_SHIP_DATE" type="date"/>
 <Field name="REQUEST_DATE" type="date"/>
-<Field name="SHIPPED_QUANTITY" type="integer"/>
-<Field name="ACTUAL_SHIPMENT_DATE" type="date"/>
-<Field name="FLOW_STATUS_CODE" type="string"/>
-<Field name="OPTION_NUMBER," type="string"/>
-<Field name="SET_NAME" type="string"/>
+<Field name="LINE_NUMBER" type="string"/>
+<Field name="OPEN_FLAG" type="string"/>
+<Field name="SHIPMENT_PRIORITY_CODE" type="string"/>
 <Field name="COF_LINE" type="string"/>
+<Field name="ORDER_NUMBER" type="string"/>
+<Field name="CREATION_DATE" type="string"/>
+<Field name="ORG_ID" type="string"/>
+<Field name="RELEASED_FLAG" type="string"/>
+<Field name="CREATED_BY" type="string"/>
+<Field name="SEGMENT1" type="string"/>
+<Field name="HOLD_COMMENT" type="string"/>
 <Field name="TYPE_CODE" type="string"/>
+<Field name="TYPE_OF_HOLD" type="string"/>
 </Record>
 </Metadata>

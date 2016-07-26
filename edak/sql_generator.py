@@ -10,6 +10,7 @@ class SQL(object):
     ATTRS_B = 'FND_EID_PDR_ATTRS_B'
     ATTRS_TL = 'FND_EID_PDR_ATTRS_TL'
     ATTR_GROUPS = 'FND_EID_ATTR_GROUPS'
+    GROUP_NAME = 'Categories'
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
         self.insert_attrs_b = self.insert_attrs_b(str(
@@ -52,7 +53,7 @@ class SQL(object):
             self.concat_schema_table(SQL.SCHEMA, table) + '\n'
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE', 'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ', 'GROUP_ATTRIBUTE_SOURCE',
                           'EID_RELEASE_VERSION', 'OBSOLETED_FLAG', 'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']
-        values = [eid_instance_id, 'Categories', eid_instance_attribute, '1',
+        values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
                   '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
         insert_statement = self.create_insert_statement(
             SQL.ATTR_GROUPS, column_headers)
