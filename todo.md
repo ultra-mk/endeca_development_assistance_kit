@@ -1,3 +1,11 @@
+#Bugs and Issues
+
+## SQL Parser
+1. Error handling in parse_sql_file(self): does not seem to get called from within the `__main__()`. It prints the error but doesn't stop the method from being called.
+
+2. Something about the following line of SQL `TO_CHAR(SYSDATE, 'yyyy-MM-dd') AS REPORT_RUN_DATE,` broke the sql_parser. I'm guessing it has to do with the comma in the TO_CHAR function call, but that's only a guess at this point.
+
+
 #Features and ideas 
 
 ## SQL Generator
