@@ -1,2 +1,5 @@
 #Endeca Attribute File
 *.xlsx
+eql.txt
+sql.txt
+xml.txt
