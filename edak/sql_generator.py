@@ -3,7 +3,6 @@ class SQL(object):
     ALTER_SESSION = 'ALTER SESSION SET CURRENT_SCHEMA = APPS;'
     DEFINE_OFF = 'SET DEFINE OFF;\n'
     COMMIT = 'COMMIT;'
-    SCHEMA = 'APPS'
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     REM_INSERT = 'REM INSERTING into '
@@ -30,13 +29,7 @@ class SQL(object):
                   'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']
         insert_statement = self.create_insert_statement(
             SQL.ATTRS_B, column_headers)
-
-
-        ###THIS IS WHERE I AM WORKING THROUGH REMOVING THE concat. GOING TO HOLD OFF
-        ###ON THIS UNTIL I CAN FIX THE TEST SUITE
-        return SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
-        # return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
-
+        return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_ATTRIBUTE', 'LANGUAGE', 'SOURCE_LANG', 'DISPLAY_NAME', 'ATTRIBUTE_DESC',
@@ -48,16 +41,14 @@ class SQL(object):
         return insert_statement + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
-        statement = SQL.DEFINE_OFF + SQL.REM_INSERT + \
-            self.concat_schema_table(SQL.SCHEMA, table) + '\n'
+        statement = SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n'
         language_statement = [self.insert_attrs_tl(
             eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
         statement = statement + ''.join(language_statement)
         return statement + '\n' + SQL.COMMIT
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        rem_insert_statement = SQL.REM_INSERT + \
-            self.concat_schema_table(SQL.SCHEMA, table) + '\n'
+        rem_insert_statement = SQL.REM_INSERT + table + '\n'
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE', 'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ', 'GROUP_ATTRIBUTE_SOURCE',
                           'EID_RELEASE_VERSION', 'OBSOLETED_FLAG', 'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']
         values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
@@ -67,17 +58,14 @@ class SQL(object):
         return SQL.DEFINE_OFF + rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
+        update = 'UPDATE ' + table + ' '
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
             eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
             eid_instance_attribute + "'; \n"
         return SQL.DEFINE_OFF + update + set_statement + SQL.COMMIT + '\n'
 
     def create_insert_statement(self, table, column_headers):
-        return SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)
-
-    def concat_schema_table(self, schema, table):
-        return schema + '.' + table
+        return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
 
     def create_column_name_string(self, *args):
         statement = ' (' + ''.join([a + ',' for a in args])
