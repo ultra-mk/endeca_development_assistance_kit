@@ -30,7 +30,6 @@ class SQL(object):
                   'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']
         insert_statement = self.create_insert_statement(
             SQL.ATTRS_B, column_headers)
-        # return SQL.DEFINE_OFF + SQL.REM_INSERT + self.concat_schema_table(SQL.SCHEMA, table) + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
         return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
 
@@ -70,7 +69,8 @@ class SQL(object):
         return SQL.DEFINE_OFF + update + set_statement + SQL.COMMIT + '\n'
 
     def create_insert_statement(self, table, column_headers):
-        return SQL.INSERT_INTO + self.concat_schema_table(SQL.SCHEMA, table) + self.create_column_name_string(*column_headers)
+        return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
+
 
     def concat_schema_table(self, schema, table):
         return schema + '.' + table
