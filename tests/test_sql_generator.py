@@ -71,11 +71,11 @@ class SQL(unittest.TestCase):
 
     def test_insert_attrs_tl_all_rem_clause(self):
         insert_statement = SQL.sql.insert_attrs_tl_all
-        self.assertEqual('REM INSERTING into APPS.FND_EID_PDR_ATTRS_TL\n',
-                         insert_statement[16:61])
+        self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_TL\n',
+                         insert_statement[16:56])
 
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3907, len(SQL.sql.insert_attrs_tl_all))
+        self.assertEqual(3902, len(SQL.sql.insert_attrs_tl_all))
 
     def test_insert_attrs_tl_all_commit(self):
         insert_statement = SQL.sql.insert_attrs_tl_all
