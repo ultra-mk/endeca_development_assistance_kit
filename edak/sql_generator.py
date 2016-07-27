@@ -50,8 +50,6 @@ class SQL(object):
         return statement + '\n' + SQL.COMMIT
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        # rem_insert_statement = SQL.REM_INSERT + \
-        #     self.concat_schema_table(SQL.SCHEMA, table) + '\n'
         rem_insert_statement = SQL.REM_INSERT + table + '\n'
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE', 'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ', 'GROUP_ATTRIBUTE_SOURCE',
                           'EID_RELEASE_VERSION', 'OBSOLETED_FLAG', 'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']
@@ -62,7 +60,7 @@ class SQL(object):
         return SQL.DEFINE_OFF + rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        update = 'UPDATE ' + self.concat_schema_table(SQL.SCHEMA, table) + ' '
+        update = 'UPDATE ' + table + ' '
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
             eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
             eid_instance_attribute + "'; \n"
@@ -71,9 +69,6 @@ class SQL(object):
     def create_insert_statement(self, table, column_headers):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
 
-
-    def concat_schema_table(self, schema, table):
-        return schema + '.' + table
 
     def create_column_name_string(self, *args):
         statement = ' (' + ''.join([a + ',' for a in args])
