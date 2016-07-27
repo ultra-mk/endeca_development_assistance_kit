@@ -3,7 +3,6 @@ class SQL(object):
     ALTER_SESSION = 'ALTER SESSION SET CURRENT_SCHEMA = APPS;'
     DEFINE_OFF = 'SET DEFINE OFF;\n'
     COMMIT = 'COMMIT;'
-    SCHEMA = 'APPS'
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     REM_INSERT = 'REM INSERTING into '
@@ -31,7 +30,6 @@ class SQL(object):
         insert_statement = self.create_insert_statement(
             SQL.ATTRS_B, column_headers)
         return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
-
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_ATTRIBUTE', 'LANGUAGE', 'SOURCE_LANG', 'DISPLAY_NAME', 'ATTRIBUTE_DESC',
@@ -68,7 +66,6 @@ class SQL(object):
 
     def create_insert_statement(self, table, column_headers):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
-
 
     def create_column_name_string(self, *args):
         statement = ' (' + ''.join([a + ',' for a in args])
