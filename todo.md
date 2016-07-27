@@ -12,7 +12,7 @@
 1. Simple thing. Set schema with a script. Get rid of that stupid schema + table concat
 2. Add SQL for `FND_EID_GROUPS_TL` table.
 3. Add group name for `FND_EID_ATTR_GROUPS` as a parameter. Currently exists as a class variable.
-4. Fix test suite so it doesn't rely on named slices. I think the test suite could be a lot simpler.
+
 
 ## XML Generator
 
