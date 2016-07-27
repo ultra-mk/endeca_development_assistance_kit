@@ -43,8 +43,6 @@ class SQL(object):
         return insert_statement + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
-        # statement = SQL.DEFINE_OFF + SQL.REM_INSERT + \
-            # self.concat_schema_table(SQL.SCHEMA, table) + '\n'
         statement = SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n'
         language_statement = [self.insert_attrs_tl(
             eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
@@ -52,8 +50,9 @@ class SQL(object):
         return statement + '\n' + SQL.COMMIT
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        rem_insert_statement = SQL.REM_INSERT + \
-            self.concat_schema_table(SQL.SCHEMA, table) + '\n'
+        # rem_insert_statement = SQL.REM_INSERT + \
+        #     self.concat_schema_table(SQL.SCHEMA, table) + '\n'
+        rem_insert_statement = SQL.REM_INSERT + table + '\n'
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE', 'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ', 'GROUP_ATTRIBUTE_SOURCE',
                           'EID_RELEASE_VERSION', 'OBSOLETED_FLAG', 'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']
         values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
