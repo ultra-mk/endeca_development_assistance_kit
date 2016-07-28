@@ -42,18 +42,18 @@ class SQL(unittest.TestCase):
                                 "OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,"
                                 "LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)")
 
-    def test_insert_attrs_b_define_clause(self):
-        self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
+    # def test_insert_attrs_b_define_clause(self):
+    #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
 
-    def test_insert_attrs_b_rem_clause(self):
-        self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_B\n',
-                         SQL.sql.insert_attrs_b[16:55])
+    # def test_insert_attrs_b_rem_clause(self):
+    #     self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_B\n',
+    #                      SQL.sql.insert_attrs_b[16:55])
 
     def test_insert_attrs_b_column_headers(self):
-        self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_attrs_b[55:617])
+        self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_attrs_b[0:562])
 
     def test_insert_attrs_b_values(self):
-        self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_attrs_b[617:761])
+        self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_attrs_b[562:761])
 
     def test_insert_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.insert_attrs_tl(
@@ -112,6 +112,7 @@ class SQL(unittest.TestCase):
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
                          SQL.sql.create_values_string(*values))
 
+#need a test for generate_sql()
 
 if __name__ == '__main__':
     unittest.main()

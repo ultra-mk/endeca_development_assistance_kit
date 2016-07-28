@@ -1,20 +1,17 @@
-<Metadata id="52992040" previewAttachmentCharset="ISO-8859-1">
-<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="REPORT_RUN_DATE" type="date"/>
-<Field name="LINE_ID" type="string"/>
-<Field name="PROMISE_DATE" type="date"/>
-<Field name="REQUEST_DATE" type="date"/>
-<Field name="LINE_NUMBER" type="string"/>
-<Field name="OPEN_FLAG" type="string"/>
-<Field name="SHIPMENT_PRIORITY_CODE" type="string"/>
-<Field name="COF_LINE" type="string"/>
+<Metadata id="53600832" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="long"/>
+<Field name="CUST_PO_NUMBER" type="string"/>
+<Field name="FULFILLMENT_DATE" type="date"/>
+<Field name="ITEM_TYPE_CODE" type="string"/>
+<Field name="ACTUAL_ARRIVAL_DATE" type="string"/>
 <Field name="ORDER_NUMBER" type="string"/>
-<Field name="CREATION_DATE" type="string"/>
-<Field name="ORG_ID" type="string"/>
-<Field name="RELEASED_FLAG" type="string"/>
-<Field name="CREATED_BY" type="string"/>
-<Field name="SEGMENT1" type="string"/>
-<Field name="HOLD_COMMENT" type="string"/>
-<Field name="TYPE_CODE" type="string"/>
-<Field name="TYPE_OF_HOLD" type="string"/>
+<Field name="PART_NUMBER" type="string"/>
+<Field name="DESCRIPTION" type="string"/>
+<Field name="ITEM_TYPE" type="string"/>
+<Field name="DELIVERY_ID" type="string"/>
+<Field name="ADDRESS1" type="string"/>
+<Field name="CITY" type="string"/>
+<Field name="SERIAL_NUMBER" type="string"/>
+<Field name="ULTIMATE_DROPOFF_DATE" type="string"/>
 </Record>
 </Metadata>

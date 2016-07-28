@@ -46,7 +46,8 @@ class SQL(object):
                   'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']
         insert_statement = self.create_insert_statement(
             SQL.ATTRS_B['name'], SQL.ATTRS_B['columns'])
-        return SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n' + insert_statement + self.create_values_string(*values) + SQL.COMMIT
+        return insert_statement + self.create_values_string(*values)
+
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name,
@@ -95,4 +96,4 @@ class SQL(object):
         return statement + ');'
 
     def generate_sql(self):
-        return self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
+        return SQL.DEFINE_OFF + self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
