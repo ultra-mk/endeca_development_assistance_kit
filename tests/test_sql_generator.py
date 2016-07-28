@@ -99,11 +99,7 @@ class SQL(unittest.TestCase):
         column_headers = ['EID_INSTANCE_ID',
                           'EID_INSTANCE_ATTRIBUTE', 'ENDECA_DATATYPE']
         self.assertEqual('Insert into FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',
-                         SQL.sql.create_insert_statement(SQL.sql.ATTRS_B, column_headers))
-
-    # def test_concat_schema_table(self):
-    #     self.assertEqual('APPS.FND_EID_ATTRS_B', SQL.sql.concat_schema_table(
-    #         'APPS', 'FND_EID_ATTRS_B'))
+                         SQL.sql.create_insert_statement(SQL.sql.ATTRS_B['name'], column_headers))
 
     def test_create_column_name_string(self):
         column_headers = ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP',
