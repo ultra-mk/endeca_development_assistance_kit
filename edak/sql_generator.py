@@ -41,6 +41,15 @@ class SQL(object):
         self.update_attr_groups = self.update_attr_groups(
             str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS['name'])
 
+        self.attrs_b_values = [str(eid_instance_id), eid_instance_attribute, datatype, 
+                            str(profile_id), '2.3', 'MSI', 'N', 'N', 'N', 'N',
+                            'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 
+                            'null', 'null', 'null', 'null', 'null', 'null']
+
+    def insert_single_attr(self, values, table, columns):
+        return self.create_insert_statement(table, columns) + self.create_values_string(*values)
+
+
     def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, table):
         values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI', 'N', 'N', 'N', 'N',
                   'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']

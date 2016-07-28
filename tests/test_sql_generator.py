@@ -41,6 +41,11 @@ class SQL(unittest.TestCase):
                                 "GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,"
                                 "OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,"
                                 "LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)")
+    
+    def test_insert_single_attr(self):
+      self.assertEqual("WHUUUUT", SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
+                        sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns']))
+
 
     # def test_insert_attrs_b_define_clause(self):
     #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
