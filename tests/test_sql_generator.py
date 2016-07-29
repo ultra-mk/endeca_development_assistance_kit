@@ -88,11 +88,7 @@ class SQL(unittest.TestCase):
                          insert_statement[0:40])
 
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3886, len(SQL.sql.insert_attrs_tl_all))
-
-    def test_insert_attrs_tl_all_commit(self):
-        insert_statement = SQL.sql.insert_attrs_tl_all
-        self.assertEqual('COMMIT;', SQL.sql.insert_attrs_tl_all[-7:])
+        self.assertEqual(3878, len(SQL.sql.insert_attrs_tl_all))
 
     def test_insert_attrs_group_column_headers(self):
         self.assertEqual(SQL.attr_groups_cols, SQL.sql.insert_attr_groups[39:351])
@@ -123,7 +119,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.create_values_string(*values))
 
     def test_generate_sql(self):
-        self.assertEqual(5245, len(SQL.sql.generate_sql()))
+        self.assertEqual(5223, len(SQL.sql.generate_sql()))
 
 if __name__ == '__main__':
     unittest.main()

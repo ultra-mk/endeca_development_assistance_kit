@@ -2,7 +2,6 @@
 class SQL(object):
     ALTER_SESSION = 'ALTER SESSION SET CURRENT_SCHEMA = APPS;'
     DEFINE_OFF = 'SET DEFINE OFF;\n'
-    COMMIT = 'COMMIT;'
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     REM_INSERT = 'REM INSERTING into '
@@ -44,15 +43,16 @@ class SQL(object):
                                'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
                                'null', 'null', 'null', 'null', 'null', 'null']
 
-        self.attrs_tl_values = self.create_attrs_tl_values(str(eid_instance_id), eid_instance_attribute, display_name)
+        self.attrs_tl_values = self.create_attrs_tl_values(
+            str(eid_instance_id), eid_instance_attribute, display_name)
 
     def insert_single_attr(self, values, table, columns):
         return self.create_insert_statement(table, columns) + self.create_values_string(*values)
 
-    def create_attrs_tl_values(self,eid_instance_id, eid_instance_attribute, display_name):
-        return [[eid_instance_id, eid_instance_attribute, l, 'US', 
-                display_name, display_name, display_name, display_name, '0',
-                'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]        
+    def create_attrs_tl_values(self, eid_instance_id, eid_instance_attribute, display_name):
+        return [[eid_instance_id, eid_instance_attribute, l, 'US',
+                 display_name, display_name, display_name, display_name, '0',
+                 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name,
@@ -65,9 +65,7 @@ class SQL(object):
         statement = SQL.REM_INSERT + table + '\n'
         language_statement = [self.insert_attrs_tl(
             eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
-        statement = statement + ''.join(language_statement)
-        return statement + '\n' + SQL.COMMIT
-
+        return statement + ''.join(language_statement)
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         rem_insert_statement = SQL.REM_INSERT + table + '\n'
@@ -75,14 +73,14 @@ class SQL(object):
                   '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
         insert_statement = self.create_insert_statement(
             SQL.ATTR_GROUPS['name'], SQL.ATTR_GROUPS['columns'])
-        return rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
+        return rem_insert_statement + insert_statement + self.create_values_string(*values)
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         update = 'UPDATE ' + table + ' '
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
             eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
             eid_instance_attribute + "'; \n"
-        return update + set_statement + SQL.COMMIT + '\n'
+        return update + set_statement +'\n'
 
     def create_insert_statement(self, table, column_headers):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
@@ -103,4 +101,4 @@ class SQL(object):
         return statement + ');'
 
     def generate_sql(self):
-        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all+ '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
+        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
