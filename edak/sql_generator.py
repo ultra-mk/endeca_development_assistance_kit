@@ -18,22 +18,20 @@ class SQL(object):
                                                           'ATTR_VALUE_SET_FLAG', 'VALUE_SET_NAME', 'ATTR_ENABLE_NULL_FLAG',
                                                           'DESCRIPTIVE_FLEXFIELD_NAME']}
 
-    ATTRS_TL = {'name': 'FND_EID_PDR_ATTRS_TL', 'columns': ['EID_INSTANCE_ID', 'EID_INSTANCE_ATTRIBUTE','LANGUAGE',
+    ATTRS_TL = {'name': 'FND_EID_PDR_ATTRS_TL', 'columns': ['EID_INSTANCE_ID', 'EID_INSTANCE_ATTRIBUTE', 'LANGUAGE',
                                                             'SOURCE_LANG', 'DISPLAY_NAME', 'ATTRIBUTE_DESC',
                                                             'USER_DISPLAY_NAME', 'USER_ATTRIBUTE_DESC,CREATED_BY',
                                                             'CREATION_DATE', 'LAST_UPDATED_BY', 'LAST_UPDATE_DATE',
                                                             'LAST_UPDATE_LOGIN']}
 
-    ATTR_GROUPS = {'name':'FND_EID_ATTR_GROUPS', 'columns' : ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE', 
-                                                              'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ', 
-                                                              'GROUP_ATTRIBUTE_SOURCE','EID_RELEASE_VERSION', 'OBSOLETED_FLAG', 
-                                                              'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE', 
+    ATTR_GROUPS = {'name': 'FND_EID_ATTR_GROUPS', 'columns': ['EID_INSTANCE_ID', 'EID_INSTANCE_GROUP', 'EID_INSTANCE_ATTRIBUTE',
+                                                              'EID_INSTANCE_GROUP_ATTR_SEQ', 'EID_INST_GROUP_ATTR_USER_SEQ',
+                                                              'GROUP_ATTRIBUTE_SOURCE', 'EID_RELEASE_VERSION', 'OBSOLETED_FLAG',
+                                                              'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE',
                                                               'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']}
     GROUP_NAME = 'Categories'
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
-        self.insert_attrs_b = self.insert_attrs_b(str(
-            eid_instance_id), eid_instance_attribute, datatype, str(profile_id), SQL.ATTRS_B['name'])
         self.insert_attrs_tl_all = self.insert_attrs_tl_all(
             str(eid_instance_id), eid_instance_attribute, display_name, SQL.ATTRS_TL['name'])
         self.insert_attr_groups = self.insert_attr_groups(
@@ -41,27 +39,26 @@ class SQL(object):
         self.update_attr_groups = self.update_attr_groups(
             str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS['name'])
 
-        self.attrs_b_values = [str(eid_instance_id), eid_instance_attribute, datatype, 
-                            str(profile_id), '2.3', 'MSI', 'N', 'N', 'N', 'N',
-                            'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 
-                            'null', 'null', 'null', 'null', 'null', 'null']
+        self.attrs_b_values = [str(eid_instance_id), eid_instance_attribute, datatype,
+                               str(profile_id), '2.3', 'MSI', 'N', 'N', 'N', 'N',
+                               'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
+                               'null', 'null', 'null', 'null', 'null', 'null']
+
+        self.attrs_tl_values = self.create_attrs_tl_values(str(eid_instance_id), eid_instance_attribute, display_name)
 
     def insert_single_attr(self, values, table, columns):
         return self.create_insert_statement(table, columns) + self.create_values_string(*values)
 
-
-    def insert_attrs_b(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, table):
-        values = [eid_instance_id, eid_instance_attribute, datatype, profile_id, '2.3', 'MSI', 'N', 'N', 'N', 'N',
-                  'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0', 'null', 'null', 'null', 'null', 'null', 'null']
-        insert_statement = self.create_insert_statement(
-            SQL.ATTRS_B['name'], SQL.ATTRS_B['columns'])
-        return insert_statement + self.create_values_string(*values)
-
+    def create_attrs_tl_values(self,eid_instance_id, eid_instance_attribute, display_name):
+        return [[eid_instance_id, eid_instance_attribute, l, 'US', 
+                display_name, display_name, display_name, display_name, '0',
+                'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]        
 
     def insert_attrs_tl(self, eid_instance_id, eid_instance_attribute, language_code, display_name, table):
         values = [eid_instance_id, eid_instance_attribute, language_code, 'US', display_name,
                   display_name, display_name, display_name, '0', 'SYSDATE', '0', 'SYSDATE', '0']
-        insert_statement = self.create_insert_statement(SQL.ATTRS_TL['name'], SQL.ATTRS_TL['columns'])
+        insert_statement = self.create_insert_statement(
+            SQL.ATTRS_TL['name'], SQL.ATTRS_TL['columns'])
         return insert_statement + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
@@ -105,4 +102,4 @@ class SQL(object):
         return statement + ');'
 
     def generate_sql(self):
-        return SQL.DEFINE_OFF + self.insert_attrs_b + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
+        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups

@@ -42,11 +42,20 @@ class SQL(unittest.TestCase):
                                 "OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,"
                                 "LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)")
     
-    def test_insert_single_attr(self):
-      self.assertEqual("WHUUUUT", SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
+    def test_insert_single_attr_b(self):
+      self.assertEqual(SQL.attr_b_cols + SQL.attr_b_vals, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
                         sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns']))
 
 
+    def test_create_attrs_tl_values_len(self):
+        self.assertEqual(10, len(SQL.sql.attrs_tl_values))
+
+
+    def test_create_attrs_tl_values(self):
+        self.assertEqual(['204','accounting_period','D','US',
+            'Accounting Period', 'Accounting Period', 'Accounting Period',
+            'Accounting Period', '0', 'SYSDATE','0','SYSDATE','0'], SQL.sql.attrs_tl_values[0])
+   
     # def test_insert_attrs_b_define_clause(self):
     #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
 
@@ -55,10 +64,12 @@ class SQL(unittest.TestCase):
     #                      SQL.sql.insert_attrs_b[16:55])
 
     def test_insert_attrs_b_column_headers(self):
-        self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_attrs_b[0:562])
+        self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
+                        sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[0:562])
 
     def test_insert_attrs_b_values(self):
-        self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_attrs_b[562:761])
+        self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
+                        sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[562:761])
 
     def test_insert_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.insert_attrs_tl(
@@ -117,7 +128,8 @@ class SQL(unittest.TestCase):
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
                          SQL.sql.create_values_string(*values))
 
-#need a test for generate_sql()
+    def test_generate_sql(self):
+        self.assertEqual(5293, len(SQL.sql.generate_sql()))
 
 if __name__ == '__main__':
     unittest.main()
