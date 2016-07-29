@@ -68,6 +68,7 @@ class SQL(object):
         statement = statement + ''.join(language_statement)
         return statement + '\n' + SQL.COMMIT
 
+
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         rem_insert_statement = SQL.REM_INSERT + table + '\n'
         values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
@@ -102,4 +103,4 @@ class SQL(object):
         return statement + ');'
 
     def generate_sql(self):
-        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all + '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups
+        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all+ '\n' + self.insert_attr_groups + '\n' + self.update_attr_groups

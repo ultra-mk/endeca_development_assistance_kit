@@ -55,9 +55,10 @@ class SQL(unittest.TestCase):
         self.assertEqual(['204','accounting_period','D','US',
             'Accounting Period', 'Accounting Period', 'Accounting Period',
             'Accounting Period', '0', 'SYSDATE','0','SYSDATE','0'], SQL.sql.attrs_tl_values[0])
-   
+##look at deleteing this two tests   
     # def test_insert_attrs_b_define_clause(self):
-    #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attrs_b[0:16])
+    #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
+    #                     sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[0:16])
 
     # def test_insert_attrs_b_rem_clause(self):
     #     self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_B\n',
