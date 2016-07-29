@@ -62,7 +62,7 @@ class SQL(object):
         return insert_statement + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
-        statement = SQL.DEFINE_OFF + SQL.REM_INSERT + table + '\n'
+        statement = SQL.REM_INSERT + table + '\n'
         language_statement = [self.insert_attrs_tl(
             eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
         statement = statement + ''.join(language_statement)

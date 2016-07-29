@@ -82,17 +82,13 @@ class SQL(unittest.TestCase):
             SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
 
-    def test_insert_attrs_tl_all_define_clause(self):
-        self.assertEqual('SET DEFINE OFF;\n',
-                         SQL.sql.insert_attrs_tl_all[0:16])
-
     def test_insert_attrs_tl_all_rem_clause(self):
         insert_statement = SQL.sql.insert_attrs_tl_all
         self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_TL\n',
-                         insert_statement[16:56])
+                         insert_statement[0:40])
 
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3902, len(SQL.sql.insert_attrs_tl_all))
+        self.assertEqual(3886, len(SQL.sql.insert_attrs_tl_all))
 
     def test_insert_attrs_tl_all_commit(self):
         insert_statement = SQL.sql.insert_attrs_tl_all
@@ -127,7 +123,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.create_values_string(*values))
 
     def test_generate_sql(self):
-        self.assertEqual(5261, len(SQL.sql.generate_sql()))
+        self.assertEqual(5245, len(SQL.sql.generate_sql()))
 
 if __name__ == '__main__':
     unittest.main()
