@@ -98,15 +98,12 @@ class SQL(unittest.TestCase):
         insert_statement = SQL.sql.insert_attrs_tl_all
         self.assertEqual('COMMIT;', SQL.sql.insert_attrs_tl_all[-7:])
 
-    def test_insert_attrs_groups_set_define_clause(self):
-        self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_attr_groups[0:16])
-
     def test_insert_attrs_group_column_headers(self):
-        self.assertEqual(SQL.attr_groups_cols, SQL.sql.insert_attr_groups[55:367])
+        self.assertEqual(SQL.attr_groups_cols, SQL.sql.insert_attr_groups[39:351])
 
     def test_insert_attrs_group_values(self):
         self.assertEqual("values ( 204,'Categories','accounting_period',1,1,'MSI','2.3','N',0,0,SYSDATE,0,SYSDATE,0);",
-                         SQL.sql.insert_attr_groups[368:459])
+                         SQL.sql.insert_attr_groups[352:443])
 
     def test_update_attr_groups(self):
         self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';",
@@ -130,7 +127,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.create_values_string(*values))
 
     def test_generate_sql(self):
-        self.assertEqual(5277, len(SQL.sql.generate_sql()))
+        self.assertEqual(5261, len(SQL.sql.generate_sql()))
 
 if __name__ == '__main__':
     unittest.main()

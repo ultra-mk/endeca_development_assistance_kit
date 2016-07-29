@@ -75,7 +75,7 @@ class SQL(object):
                   '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
         insert_statement = self.create_insert_statement(
             SQL.ATTR_GROUPS['name'], SQL.ATTR_GROUPS['columns'])
-        return SQL.DEFINE_OFF + rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
+        return rem_insert_statement + insert_statement + self.create_values_string(*values) + SQL.COMMIT
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         update = 'UPDATE ' + table + ' '
