@@ -82,7 +82,7 @@ class SQL(object):
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
             eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
             eid_instance_attribute + "'; \n"
-        return SQL.DEFINE_OFF + update + set_statement + SQL.COMMIT + '\n'
+        return update + set_statement + SQL.COMMIT + '\n'
 
     def create_insert_statement(self, table, column_headers):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
