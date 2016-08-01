@@ -68,12 +68,14 @@ class SQL(object):
         return statement + ''.join(language_statement)
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        rem_insert_statement = SQL.REM_INSERT + table + '\n'
+        # rem_insert_statement = SQL.REM_INSERT + table + '\n'
         values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
                   '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
         insert_statement = self.create_insert_statement(
             SQL.ATTR_GROUPS['name'], SQL.ATTR_GROUPS['columns'])
-        return rem_insert_statement + insert_statement + self.create_values_string(*values)
+        # return rem_insert_statement + insert_statement + self.create_values_string(*values)
+        return insert_statement + self.create_values_string(*values)
+
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         update = 'UPDATE ' + table + ' '
