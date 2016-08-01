@@ -62,27 +62,22 @@ class SQL(object):
         return insert_statement + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self, eid_instance_id, eid_instance_attribute, display_name, table):
-        statement = SQL.REM_INSERT + table + '\n'
-        language_statement = [self.insert_attrs_tl(
-            eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES]
-        return statement + ''.join(language_statement)
+        return ''.join([self.insert_attrs_tl(
+            eid_instance_id, eid_instance_attribute, l, display_name, table) + '\n' for l in SQL.EBS_LANGUAGE_CODES])
 
     def insert_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        # rem_insert_statement = SQL.REM_INSERT + table + '\n'
         values = [eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
                   '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
         insert_statement = self.create_insert_statement(
             SQL.ATTR_GROUPS['name'], SQL.ATTR_GROUPS['columns'])
-        # return rem_insert_statement + insert_statement + self.create_values_string(*values)
         return insert_statement + self.create_values_string(*values)
-
 
     def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
         update = 'UPDATE ' + table + ' '
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
             eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
             eid_instance_attribute + "'; \n"
-        return update + set_statement +'\n'
+        return update + set_statement + '\n'
 
     def create_insert_statement(self, table, column_headers):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
