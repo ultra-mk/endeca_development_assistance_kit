@@ -55,14 +55,6 @@ class SQL(unittest.TestCase):
         self.assertEqual(['204','accounting_period','D','US',
             'Accounting Period', 'Accounting Period', 'Accounting Period',
             'Accounting Period', '0', 'SYSDATE','0','SYSDATE','0'], SQL.sql.attrs_tl_values[0])
-##look at deleteing this two tests   
-    # def test_insert_attrs_b_define_clause(self):
-    #     self.assertEqual('SET DEFINE OFF;\n', SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
-    #                     sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[0:16])
-
-    # def test_insert_attrs_b_rem_clause(self):
-    #     self.assertEqual('REM INSERTING into FND_EID_PDR_ATTRS_B\n',
-    #                      SQL.sql.insert_attrs_b[16:55])
 
     def test_insert_attrs_b_column_headers(self):
         self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
@@ -81,16 +73,16 @@ class SQL(unittest.TestCase):
         insert_statement = SQL.sql.insert_attrs_tl(
             SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
-        
+
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3838, len(SQL.sql.insert_attrs_tl_all))
+        self.assertEqual(3838, len(SQL.sql.insert_attrs_tl_all('204', 'accounting_period', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')))
 
     def test_insert_attrs_group_column_headers(self):
-        self.assertEqual(SQL.attr_groups_cols, SQL.sql.insert_attr_groups[0:312])
+        self.assertEqual(SQL.attr_groups_cols, SQL.sql.insert_attr_groups()[0:312])
 
     def test_insert_attrs_group_values(self):
         self.assertEqual("values ( 204,'Categories','accounting_period',1,1,'MSI','2.3','N',0,0,SYSDATE,0,SYSDATE,0);",
-                         SQL.sql.insert_attr_groups[313:443])
+                         SQL.sql.insert_attr_groups()[313:443])
 
     def test_update_attr_groups(self):
         self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';",
