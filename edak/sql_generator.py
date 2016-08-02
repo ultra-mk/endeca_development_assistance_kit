@@ -86,7 +86,7 @@ class SQL(object):
         statement = ' (' + ''.join([a + ',' for a in args])
         statement = statement[0:-1]
         return statement + ')\n'
-
+#let's look at sanitizing the values lists to simplify this mayhem
     def create_values_string(self, *args):
         statement = 'values ( '
         for a in args:
