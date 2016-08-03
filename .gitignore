@@ -1,4 +1,5 @@
 #Endeca Attribute File
+*.pyc
 *.xlsx
 eql.txt
 sql.txt

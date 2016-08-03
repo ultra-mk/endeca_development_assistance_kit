@@ -1,5 +1,6 @@
 import unittest
 from edak import sql_generator
+import table_data as td
 
 
 class SQL(unittest.TestCase):
@@ -44,7 +45,7 @@ class SQL(unittest.TestCase):
 
     def test_insert_single_attr_b(self):
         self.assertEqual(SQL.attr_b_cols + SQL.attr_b_vals, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
-                                                                                       sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns']))
+                                                                                       td.ATTRS_B['name'], td.ATTRS_B['columns']))
 
     def test_create_attrs_tl_values_len(self):
         self.assertEqual(10, len(SQL.sql.attrs_tl_values))
@@ -56,11 +57,11 @@ class SQL(unittest.TestCase):
 
     def test_insert_attrs_b_column_headers(self):
         self.assertEqual(SQL.attr_b_cols, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
-                                                                     sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[0:562])
+                                                                     td.ATTRS_B['name'], td.ATTRS_B['columns'])[0:562])
 
     def test_insert_attrs_b_values(self):
         self.assertEqual(SQL.attr_b_vals, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
-                                                                     sql_generator.SQL.ATTRS_B['name'], sql_generator.SQL.ATTRS_B['columns'])[562:761])
+                                                                     td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
 
     def test_insert_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.insert_attrs_tl(
@@ -84,7 +85,7 @@ class SQL(unittest.TestCase):
         column_headers = ['EID_INSTANCE_ID',
                           'EID_INSTANCE_ATTRIBUTE', 'ENDECA_DATATYPE']
         self.assertEqual('Insert into FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',
-                         SQL.sql.create_insert_statement(SQL.sql.ATTRS_B['name'], column_headers))
+                         SQL.sql.create_insert_statement(td.ATTRS_B['name'], column_headers))
 
     def test_create_values_string(self):
         values = ['204', 'accounting_period', 'mdex:string', '4']
