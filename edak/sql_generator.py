@@ -82,7 +82,7 @@ class SQL(object):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
 
     def create_column_name_string(self, *args):
-        return ' ('+','.join(a for a in args) + ')\n'
+        return ' ('+','.join(args) + ')\n'
 
 # let's look at sanitizing the values lists to simplify this mayhem
 
