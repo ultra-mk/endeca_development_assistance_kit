@@ -31,8 +31,6 @@ class SQL(object):
     GROUP_NAME = 'Categories'
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
-        self.update_attr_groups = self.update_attr_groups(
-            str(eid_instance_id), eid_instance_attribute, SQL.ATTR_GROUPS['name'])
         self.eid_instance_id = str(eid_instance_id)
         self.eid_instance_attribute = eid_instance_attribute
         self.display_name = display_name
@@ -73,11 +71,11 @@ class SQL(object):
             SQL.ATTR_GROUPS['name'], SQL.ATTR_GROUPS['columns'])
         return insert_statement + self.create_values_string(*values)
 
-    def update_attr_groups(self, eid_instance_id, eid_instance_attribute, table):
-        update = 'UPDATE ' + table + ' '
+    def update_attr_groups(self):
+        update = 'UPDATE ' + SQL.ATTR_GROUPS['name'] + ' '
         set_statement = "SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = " + \
-            eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
-            eid_instance_attribute + "'; \n"
+            self.eid_instance_id + " AND EID_INSTANCE_ATTRIBUTE = '" + \
+            self.eid_instance_attribute + "'; \n"
         return update + set_statement + '\n'
 
     def create_insert_statement(self, table, column_headers):
@@ -87,6 +85,7 @@ class SQL(object):
         statement = ' (' + ''.join([a + ',' for a in args])
         statement = statement[0:-1]
         return statement + ')\n'
+
 # let's look at sanitizing the values lists to simplify this mayhem
 
     def create_values_string(self, *args):
@@ -101,4 +100,4 @@ class SQL(object):
 
     def generate_sql(self):
         return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all(
-            self.eid_instance_id, self.eid_instance_attribute, self.display_name, SQL.ATTRS_TL['name']) + '\n' + self.insert_attr_groups() + '\n' + self.update_attr_groups
+            self.eid_instance_id, self.eid_instance_attribute, self.display_name, SQL.ATTRS_TL['name']) + '\n' + self.insert_attr_groups() + '\n' + self.update_attr_groups()
