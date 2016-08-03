@@ -82,8 +82,7 @@ class SQL(object):
         return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
 
     def create_column_name_string(self, *args):
-        statement = ' (' + ''.join([a + ',' for a in args])
-        statement = statement[0:-1]
+        statement = ' ('+','.join(a for a in args)
         return statement + ')\n'
 
 # let's look at sanitizing the values lists to simplify this mayhem
@@ -91,7 +90,7 @@ class SQL(object):
     def create_values_string(self, *args):
         statement = 'values ( '
         for a in args:
-            if a == 'null' or a == 'SYSDATE' or type(a) == int:
+            if a == 'null' or a == 'SYSDATE' or a.isdigit():
                 statement += a + ','
             else:
                 statement += "'" + a + "'" + ','
