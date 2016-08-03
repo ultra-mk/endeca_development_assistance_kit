@@ -78,23 +78,11 @@ class SQL(object):
             self.eid_instance_attribute + "'; \n"
         return update + set_statement + '\n'
 
-    def create_insert_statement(self, table, column_headers):
-        return SQL.INSERT_INTO + table + self.create_column_name_string(*column_headers)
-
-    def create_column_name_string(self, *args):
-        return ' ('+','.join(args) + ')\n'
-
-# let's look at sanitizing the values lists to simplify this mayhem
+    def create_insert_statement(self, table, *args):
+        return SQL.INSERT_INTO + table + ' (' + ','.join(*args) + ')\n'
 
     def create_values_string(self, *args):
-        statement = 'values ( '
-        for a in args:
-            if a == 'null' or a == 'SYSDATE' or a.isdigit():
-                statement += a + ','
-            else:
-                statement += "'" + a + "'" + ','
-        statement = statement[0:-1]
-        return statement + ');'
+        return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
     def generate_sql(self):
         return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, SQL.ATTRS_B['name'], SQL.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all(
