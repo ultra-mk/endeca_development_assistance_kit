@@ -90,7 +90,7 @@ class SQL(object):
     def create_values_string(self, *args):
         statement = 'values ( '
         for a in args:
-            if a == 'null' or a == 'SYSDATE' or a.isdigit():
+            if a == 'null' or a == 'SYSDATE' or type(a) == int:
                 statement += a + ','
             else:
                 statement += "'" + a + "'" + ','
