@@ -1,22 +1,15 @@
-<Metadata id="53387048" previewAttachmentCharset="ISO-8859-1">
+<Metadata id="50874912" previewAttachmentCharset="ISO-8859-1">
 <Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="string"/>
-<Field name="ORDERED_ITEM" type="string"/>
-<Field name="FULFILLMENT_DATE" type="date"/>
-<Field name="SERIAL_NUMBER" type="string"/>
-<Field name="TEI_NUMBER" type="string"/>
-<Field name="SOFTWARE_VERSION" type="string"/>
-<Field name="SEQUENCE_NUMBER" type="string"/>
-<Field name="CUST_PO_NUMBER" type="string"/>
-<Field name="ORDER_NUMBER" type="string"/>
-<Field name="DESCRIPTION" type="string"/>
-<Field name="ITEM_TYPE" type="string"/>
-<Field name="DELIVERY_ID" type="string"/>
-<Field name="ULTIMATE_DROPOFF_DATE" type="date"/>
-<Field name="PACKED_QUANTITY" type="string"/>
-<Field name="CREATION_DATE" type="string"/>
-<Field name="PACK_STATION" type="string"/>
-<Field name="CARTON_NUMBER" type="string"/>
-<Field name="ADDRESS1" type="string"/>
-<Field name="CITY" type="string"/>
+<Field name="INVENTORY_ITEM_ID" type="string"/>
+<Field name="SHIP_SET_ID" type="string"/>
+<Field name="SALES_ORDER_NUMBER" type="string"/>
+<Field name="SET_NAME" type="string"/>
+<Field name="SALES_ORDER_SET_NAME" type="string"/>
+<Field name="STOCK_ENABLED_FLAG" type="string"/>
+<Field name="ORDERED_QTY" type="string"/>
+<Field name="ONHAND_QTY" type="string"/>
+<Field name="ATO_QTY" type="string"/>
+<Field name="OH_CONSTRAINT" type="string"/>
+<Field name="ORDER_CONSTRAINT_FLAG" type="string"/>
 </Record>
 </Metadata>

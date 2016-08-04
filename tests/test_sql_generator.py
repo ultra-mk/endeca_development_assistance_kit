@@ -64,18 +64,16 @@ class SQL(unittest.TestCase):
                                                                      td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
 
     def test_insert_attrs_tl_column_headers(self):
-        insert_statement = SQL.sql.insert_attrs_tl(
-            SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
+        insert_statement = SQL.sql.insert_single_attr(
+            [SQL.instance_id, 'accounting_period', 'D', 'Accounting Period'], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_cols, insert_statement[0:237])
 
     def test_insert_attrs_tl_values(self):
-        insert_statement = SQL.sql.insert_attrs_tl(
-            SQL.instance_id, 'accounting_period', 'D', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')
+        insert_statement = SQL.sql.insert_single_attr(SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3838, len(SQL.sql.insert_attrs_tl_all(
-            '204', 'accounting_period', 'Accounting Period', 'FND_EID_PDR_ATTRS_TL')))
+        self.assertEqual(3838, len(SQL.sql.insert_attrs_tl_all()))
 
     def test_update_attr_groups(self):
         self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';",
