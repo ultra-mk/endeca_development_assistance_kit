@@ -31,11 +31,7 @@ class SQL(object):
         return self.create_insert_statement(table, columns) + self.create_values_string(*values)
 
     def insert_attrs_tl_all(self):
-        statement = []
-        for t in self.attrs_tl_values:
-            statement.append(self.insert_single_attr(
-                t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n')
-        return ''.join(statement)
+        return ''.join([self.insert_single_attr(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl_values])
 
     def update_attr_groups(self):
         update = 'UPDATE ' + td.ATTR_GROUPS['name'] + ' '
