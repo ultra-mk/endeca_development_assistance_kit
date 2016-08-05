@@ -9,9 +9,7 @@
 #Features and ideas 
 
 ## SQL Generator
-1. Simple thing. Set schema with a script. Get rid of that stupid schema + table concat
-2. Add SQL for `FND_EID_GROUPS_TL` table.
-3. Add group name for `FND_EID_ATTR_GROUPS` as a parameter. Currently exists as a class variable.
+1. Add group name for `FND_EID_ATTR_GROUPS` as a parameter. Currently exists as a class variable.
 
 
 ## XML Generator
