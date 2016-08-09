@@ -9,12 +9,8 @@ class Excel_Reader(object):
         highest_row = str(sheet.get_highest_row())
         self.attribute_data = [[c.value for c in rowOfCellObjects]
                                for rowOfCellObjects in sheet['A2':'E' + highest_row]]
-
-        self.eql_attributes = [row.value for row in sheet.columns[1]]
-        del self.eql_attributes[0]
-
-        self.xml_attributes = [[c.value for c in rowOfCellObjects]
-                               for rowOfCellObjects in sheet['B2':'C' + highest_row]]
+        self.eql_attributes = [i[1] for i in self.attribute_data]
+        self.xml_attributes = [[i[1], i[2]] for i in self.attribute_data]
 
 
 class Excel_Writer(object):
