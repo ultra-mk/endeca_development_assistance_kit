@@ -45,4 +45,7 @@ class SQL(object):
         return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
     def generate_sql(self):
-        return SQL.DEFINE_OFF + self.insert_single_attr(self.attrs_b_values, td.ATTRS_B['name'], td.ATTRS_B['columns']) + '\n' + self.insert_attrs_tl_all() + '\n' + self.insert_single_attr(self.attrs_group_values, td.ATTR_GROUPS['name'], td.ATTR_GROUPS['columns']) + '\n' + self.update_attr_groups()
+        return ''.join([SQL.DEFINE_OFF, self.insert_single_attr(self.attrs_b_values, td.ATTRS_B['name'], 
+                        td.ATTRS_B['columns']),'\n',self.insert_attrs_tl_all() ,'\n',
+                        self.insert_single_attr(self.attrs_group_values, td.ATTR_GROUPS['name'], 
+                        td.ATTR_GROUPS['columns']),'\n',self.update_attr_groups()])
