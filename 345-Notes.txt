@@ -1,0 +1,19 @@
+Notes from open issues slide 8/22/2016
+
+1. Project currency is currency of project. Functional currency is the currency of the operting unit of the project
+
+2. Organization - project organization lives in the project header. Expenditure organization is where the organiation where the expenditure lives (i.e. US labor in German project). WWAPC is the organization for the equipment. OU Name - operating unit. Project cannot cross operating unit. Project Organization is the organization of the project. Org ID is potentially not needed. The only ones we really need are project organization. We should call it project organization.
+
+3. WWAPC vs Actual WWAPC? Should be columns named 'WWAPC' and 'Actual WWAPC'. These live on a table somewhere with those names. Has to do (vaguely) with the APC the order is originally booked under.
+
+4. Order Bridged Date -> Question as to what this is. It sounds like we don't need this or it's the same as Original Booked Date. Per Valentina we can strike this.
+Original Booked Date -> Original date of the expenditure item
+Order Booked Date -> Takes into account changes to the order date.
+
+
+Look and Feel Feedback
+
+
+1. Review Rev Rec Method. We need the actual values. Value is under categories. It appears to be showing category. Currently Rev Rec Record is pulling the category name. (POC, CC, Milestone). We should be only pulling in the value where category equals rev rec method.
+
+2. Project Group. This is also a category. Needs a value.

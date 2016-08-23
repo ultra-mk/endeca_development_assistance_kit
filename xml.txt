@@ -1,22 +1,26 @@
-<Metadata id="51613088" previewAttachmentCharset="ISO-8859-1">
-<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="LINE_ID" type="string"/>
-<Field name="ORDERED_ITEM" type="string"/>
-<Field name="FULFILLMENT_DATE" type="date"/>
-<Field name="SERIAL_NUMBER" type="string"/>
-<Field name="TEI_NUMBER" type="string"/>
-<Field name="SOFTWARE_VERSION" type="string"/>
-<Field name="SEQUENCE_NUMBER" type="string"/>
-<Field name="CUST_PO_NUMBER" type="string"/>
-<Field name="ORDER_NUMBER" type="string"/>
-<Field name="DESCRIPTION" type="string"/>
-<Field name="ITEM_TYPE" type="string"/>
-<Field name="DELIVERY_ID" type="string"/>
-<Field name="ULTIMATE_DROPOFF_DATE" type="date"/>
-<Field name="PACKED_QUANTITY" type="string"/>
-<Field name="CREATION_DATE" type="string"/>
-<Field name="PACK_STATION" type="string"/>
-<Field name="CARTON_NUMBER" type="string"/>
-<Field name="ADDRESS1" type="string"/>
-<Field name="CITY" type="string"/>
+<Metadata id="52887000" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="metadata1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" recordSize="-1" type="delimited">\n<Field name="FUND_ID" type="string"/>
+<Field name="OFFER_START_DATE" type="date"/>
+<Field name="OFFER_END_DATE" type="date"/>
+<Field name="OFFER_STATUS" type="string"/>
+<Field name="OFFER_CURRENCY" type="string"/>
+<Field name="OFFER_NAME" type="string"/>
+<Field name="ULTILIZED_AMOUNT" type="number"/>
+<Field name="COMMITTED_AMOUNT" type="number"/>
+<Field name="EARNED_AMOUNT" type="number"/>
+<Field name="ACTIVITY" type="string"/>
+<Field name="LINE_ID" type="string"/>
+<Field name="ITEM_NUMBER" type="string"/>
+<Field name="SUB_FAMILY" type="string"/>
+<Field name="ITEM_DESCRIPTION" type="string"/>
+<Field name="FAMILY" type="string"/>
+<Field name="OU_NAME" type="string"/>
+<Field name="CUSTOMER_NAME" type="string"/>
+<Field name="CUSTOMER_NUMBER" type="string"/>
+<Field name="SEGMENT" type="string"/>
+<Field name="WWAPC_CODE" type="string"/>
+<Field name="PRODUCT_LINE" type="string"/>
+<Field name="TECHNOLOGY" type="string"/>
+<Field name="WWAPC" type="string"/>
 </Record>
 </Metadata>
