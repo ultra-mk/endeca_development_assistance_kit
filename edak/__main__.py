@@ -77,7 +77,7 @@ def run_reader_writer_functions(file_name, file_type):
 
 
 def sql_reader_writer(reader, writer):
-    group_name = raw_input("What is your attribute group name? ")
+    group_name = raw_input("What is the name of your attribute group? ")
     print 'writing some sweet PLSQL for you........'
     writer.clear_file()
     for r in reader.attribute_data:
