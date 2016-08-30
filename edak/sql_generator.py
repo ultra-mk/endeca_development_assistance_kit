@@ -7,9 +7,8 @@ class SQL(object):
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     INSERT_INTO = 'Insert into '
-    GROUP_NAME = 'FIN_321'
 
-    def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
+    def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, group_name):
         self.eid_instance_id = str(eid_instance_id)
         self.profile_id = str(profile_id)
         self.attrs_b_values = [self.eid_instance_id, eid_instance_attribute, datatype,
@@ -21,7 +20,7 @@ class SQL(object):
                                  display_name, display_name, display_name, display_name, '0',
                                  'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]
 
-        self.attrs_group_values = [self.eid_instance_id, SQL.GROUP_NAME, eid_instance_attribute, '1',
+        self.attrs_group_values = [self.eid_instance_id, group_name, eid_instance_attribute, '1',
                                    '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
 
         self.set_attr_groups = ["SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = ",
