@@ -7,7 +7,7 @@ class SQL(object):
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     INSERT_INTO = 'Insert into '
-    GROUP_NAME = 'Permex'
+    GROUP_NAME = 'FIN_321'
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name):
         self.eid_instance_id = str(eid_instance_id)
