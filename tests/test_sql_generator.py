@@ -8,7 +8,7 @@ class SQL(unittest.TestCase):
     @classmethod
     def setUpClass(SQL):
         SQL.sql = sql_generator.SQL(204, 'accounting_period',
-                                    'mdex:string', 1, 'Accounting Period')
+                                    'mdex:string', 1, 'Accounting Period', 'FIN-Group')
         SQL.instance_id = '204'
         SQL.column_name_string = ("  (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,"
                                   "ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,"
@@ -91,7 +91,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.create_values_string(*values))
 
     def test_generate_sql(self):
-        self.assertEqual(5141, len(SQL.sql.generate_sql()))
+        self.assertEqual(5143, len(SQL.sql.generate_sql()))
 
 if __name__ == '__main__':
     unittest.main()
