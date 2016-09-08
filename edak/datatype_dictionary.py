@@ -11,7 +11,9 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'INPUT_COST_FUNCTIONAL' : 'mdex:double', 'ITEM_COST' : 'mdex:double', 'CURRENCY_CONVERSION':'mdex:double',
 				 'INPUT_COST_USD' :'mdex:double', 'TOTAL_COST_USD':'mdex:double', 'INPUT_COST_USD_PER_EA' : 'mdex:double',
 				 'GLOBAL_COST_USD':'mdex:double', 'GLOBAL_COST_USD_PER_EA':'mdex:double', 'FINAL_COST_FUNCTIONAL':'mdex:double',
-				 'FINAL_COST_USD': 'mdex:double', 'FINAL_COST_USD_PER_EA': 'mdex:double'}
+				 'FINAL_COST_USD': 'mdex:double', 'FINAL_COST_USD_PER_EA': 'mdex:double', 'ENTERED_DR':'mdex:double',
+				 'ENTERED_CR':'mdex:double', 'NET_ENTERED_AMT':'mdex:double','ACCOUNTED_DR':'mdex:double', 'ACCOUNTED_CR':'mdex:double',
+				 'NET_ACCTD_AMT':'mdex:double','ITEM_DATE':'mdex:dateTime'}
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
                             'mdex:dateTime': 'date', 'mdex:int': 'integer',
