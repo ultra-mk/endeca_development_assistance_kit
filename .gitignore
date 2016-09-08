@@ -4,3 +4,5 @@ eql.txt
 sql.txt
 xml.txt
 *.sql
+!endeca_attributes.xlsx
+!sql_parser_test_doc.sql
