@@ -44,6 +44,12 @@ class SQL(unittest.TestCase):
                                 "OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,"
                                 "LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)")
 
+        SQL.groups_b = ("Insert into FND_EID_GROUPS_B (EID_INSTANCE_ID,EID_INSTANCE_GROUP,"
+                        "EID_RELEASE_VERSION,EID_INSTANCE_GROUP_SEQ,EID_INSTANCE_GROUP_USER_SEQ,"
+                        "GROUP_SOURCE,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,"
+                        "CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)"
+                        "\nvalues ( 204,'FIN','2.3',1,1,'MSI','N',0,0,SYSDATE,0,SYSDATE,0);")
+
     def test_insert_single_attr_b(self):
         self.assertEqual(SQL.attr_b_cols + SQL.attr_b_vals, SQL.sql.insert_single_attr(SQL.sql.attrs_b_values,
                                                                                        td.ATTRS_B['name'], td.ATTRS_B['columns']))
@@ -70,7 +76,8 @@ class SQL(unittest.TestCase):
         self.assertEqual(SQL.attr_tl_cols, insert_statement[0:237])
 
     def test_insert_attrs_tl_values(self):
-        insert_statement = SQL.sql.insert_single_attr(SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
+        insert_statement = SQL.sql.insert_single_attr(
+            SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):
@@ -91,8 +98,14 @@ class SQL(unittest.TestCase):
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
                          SQL.sql.create_values_string(*values))
 
-    def test_generate_sql(self):
-        self.assertEqual(5137, len(SQL.sql.generate_sql()))
+    def test_generate_attr_sql(self):
+        self.assertEqual(5137, len(SQL.sql.generate_attr_sql()))
+
+    def test_generate_groups_b_sql(self):
+        self.assertEqual(SQL.groups_b, SQL.sql.generate_groups_b_sql())
+
+    def test_generate_groups_tl_sql(self):
+        self.assertEqual(2988, len(SQL.sql.generate_groups_tl_sql()))
 
 if __name__ == '__main__':
     unittest.main()
