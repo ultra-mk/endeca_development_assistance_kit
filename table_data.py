@@ -20,3 +20,8 @@ ATTR_GROUPS = {'name': 'FND_EID_ATTR_GROUPS', 'columns': ['EID_INSTANCE_ID', 'EI
                                                           'GROUP_ATTRIBUTE_SOURCE', 'EID_RELEASE_VERSION', 'OBSOLETED_FLAG',
                                                           'OBSOLETED_EID_RELEASE_VERSION', 'CREATED_BY', 'CREATION_DATE',
                                                           'LAST_UPDATED_BY', 'LAST_UPDATE_DATE', 'LAST_UPDATE_LOGIN']}
+
+GROUPS_B = {'name' : 'FND_EID_GROUPS_B', 'columns':['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_RELEASE_VERSION','EID_INSTANCE_GROUP_SEQ',
+                                                    'EID_INSTANCE_GROUP_USER_SEQ','GROUP_SOURCE,OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION',
+                                                    'CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']}
+
