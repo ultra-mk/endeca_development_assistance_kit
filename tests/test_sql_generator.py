@@ -92,7 +92,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.create_values_string(*values))
 
     def test_generate_sql(self):
-        self.assertEqual(5137, len(SQL.sql.generate_sql()))
+        self.assertEqual(5137, len(SQL.sql.generate_attr_sql()))
 
 if __name__ == '__main__':
     unittest.main()

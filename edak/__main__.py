@@ -83,7 +83,7 @@ def sql_reader_writer(reader, writer):
     for r in reader.attribute_data:
         r.append(group_name)
         sql = sql_generator.SQL(*r)
-        writer.save_text(sql.generate_sql())
+        writer.save_text(sql.generate_attr_sql())
     print 'beep, boop your PLSQL is ready!'
 
 
