@@ -26,7 +26,11 @@ class SQL(object):
         self.set_attr_groups = ["SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = ",
                                 self.eid_instance_id, " AND EID_INSTANCE_ATTRIBUTE = '", eid_instance_attribute, "'; \n"]
 
-        self.groups_b_values = [self.eid_instance_id, group_name,'2.3','1','1','MSI','N','0','0','SYSDATE','0','SYSDATE','0']
+        self.groups_b_values = [self.eid_instance_id, group_name, '2.3',
+                                '1', '1', 'MSI', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
+
+        self.groups_tl_values = [[self.eid_instance_id, group_name, l, 'US', group_name, group_name, group_name, group_name,
+                                 '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]
 
     def insert_single_attr(self, values, table, columns):
         return self.create_insert_statement(table, columns) + self.create_values_string(*values)
@@ -46,11 +50,15 @@ class SQL(object):
         return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
     def generate_attr_sql(self):
-        return ''.join([SQL.DEFINE_OFF, self.insert_single_attr(self.attrs_b_values, td.ATTRS_B['name'], 
-                        td.ATTRS_B['columns']),'\n',self.insert_attrs_tl_all() ,'\n',
-                        self.insert_single_attr(self.attrs_group_values, td.ATTR_GROUPS['name'], 
-                        td.ATTR_GROUPS['columns']),'\n',self.update_attr_groups()])
+        return ''.join([SQL.DEFINE_OFF, self.insert_single_attr(self.attrs_b_values, td.ATTRS_B['name'],
+                        td.ATTRS_B['columns']), '\n', self.insert_attrs_tl_all(), '\n',
+                        self.insert_single_attr(self.attrs_group_values, td.ATTR_GROUPS['name'],
+                        td.ATTR_GROUPS['columns']), '\n', self.update_attr_groups()])
 
     def generate_groups_b_sql(self):
         return ''.join([self.insert_single_attr(self.groups_b_values, td.GROUPS_B['name'],
                         td.GROUPS_B['columns'])])
+
+    def generate_groups_tl_sql(self):
+        return ''.join([self.insert_single_attr(t, td.GROUPS_TL['name'], 
+                        td.GROUPS_TL['columns']) + '\n' for t in self.groups_tl_values])

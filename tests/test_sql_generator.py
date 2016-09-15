@@ -104,5 +104,8 @@ class SQL(unittest.TestCase):
     def test_generate_groups_b_sql(self):
         self.assertEqual(SQL.groups_b, SQL.sql.generate_groups_b_sql())
 
+    def test_generate_groups_tl_sql(self):
+        self.assertEqual(2988, len(SQL.sql.generate_groups_tl_sql()))
+
 if __name__ == '__main__':
     unittest.main()
