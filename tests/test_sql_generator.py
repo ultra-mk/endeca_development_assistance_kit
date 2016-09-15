@@ -76,7 +76,8 @@ class SQL(unittest.TestCase):
         self.assertEqual(SQL.attr_tl_cols, insert_statement[0:237])
 
     def test_insert_attrs_tl_values(self):
-        insert_statement = SQL.sql.insert_single_attr(SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
+        insert_statement = SQL.sql.insert_single_attr(
+            SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):

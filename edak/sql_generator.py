@@ -7,11 +7,6 @@ class SQL(object):
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     INSERT_INTO = 'Insert into '
-    
-    # temporarily storying this here as the import from td isn't working as expected
-    GROUPS_B = {'name' : 'FND_EID_GROUPS_B', 'columns':['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_RELEASE_VERSION','EID_INSTANCE_GROUP_SEQ',
-                                                    'EID_INSTANCE_GROUP_USER_SEQ','GROUP_SOURCE,OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION',
-                                                    'CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']}
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, group_name):
         self.eid_instance_id = str(eid_instance_id)
@@ -32,11 +27,6 @@ class SQL(object):
                                 self.eid_instance_id, " AND EID_INSTANCE_ATTRIBUTE = '", eid_instance_attribute, "'; \n"]
 
         self.groups_b_values = [self.eid_instance_id, group_name,'2.3','1','1','MSI','N','0','0','SYSDATE','0','SYSDATE','0']
-
-        # temporarily storying this here
-        GROUPS_B = {'name' : 'FND_EID_GROUPS_B', 'columns':['EID_INSTANCE_ID','EID_INSTANCE_GROUP','EID_RELEASE_VERSION','EID_INSTANCE_GROUP_SEQ',
-                                                    'EID_INSTANCE_GROUP_USER_SEQ','GROUP_SOURCE,OBSOLETED_FLAG','OBSOLETED_EID_RELEASE_VERSION',
-                                                    'CREATED_BY','CREATION_DATE','LAST_UPDATED_BY','LAST_UPDATE_DATE','LAST_UPDATE_LOGIN']}
 
     def insert_single_attr(self, values, table, columns):
         return self.create_insert_statement(table, columns) + self.create_values_string(*values)
@@ -62,5 +52,5 @@ class SQL(object):
                         td.ATTR_GROUPS['columns']),'\n',self.update_attr_groups()])
 
     def generate_groups_b_sql(self):
-        return ''.join([self.insert_single_attr(self.groups_b_values, SQL.GROUPS_B['name'],
-                        SQL.GROUPS_B['columns'])])
+        return ''.join([self.insert_single_attr(self.groups_b_values, td.GROUPS_B['name'],
+                        td.GROUPS_B['columns'])])
