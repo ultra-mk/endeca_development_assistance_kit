@@ -13,7 +13,7 @@
 
 
 ## XML Generator
-
+1. Add RecordType and RecordSpec to the xml file
 
 
 ## EQL Generator

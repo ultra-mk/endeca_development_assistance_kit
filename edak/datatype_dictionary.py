@@ -13,7 +13,13 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'GLOBAL_COST_USD':'mdex:double', 'GLOBAL_COST_USD_PER_EA':'mdex:double', 'FINAL_COST_FUNCTIONAL':'mdex:double',
 				 'FINAL_COST_USD': 'mdex:double', 'FINAL_COST_USD_PER_EA': 'mdex:double', 'ENTERED_DR':'mdex:double',
 				 'ENTERED_CR':'mdex:double', 'NET_ENTERED_AMT':'mdex:double','ACCOUNTED_DR':'mdex:double', 'ACCOUNTED_CR':'mdex:double',
-				 'NET_ACCTD_AMT':'mdex:double','ITEM_DATE':'mdex:dateTime'}
+				 'NET_ACCTD_AMT':'mdex:double','ITEM_DATE':'mdex:dateTime', 'ACCOUNTING_DATE': 'mdex:dateTime', 'CURRENCY_CONVERSION_RATE':'mdex:double',
+				 'RECEIPT_DATE': 'mdex:dateTime','ENTERED_PO_UNIT_PRICE':'mdex:double', 'RECEIPT_QUANTITY':'mdex:int','ENTERED_PO_EXT':'mdex:double',
+				 'RECEIPT_AMOUNT':'mdex:int','FUNC_PO_EXTENSION':'mdex:double', 'FUNC_PO_UNIT_PRICE':'mdex:double',
+				 'FUNC_STD_COST':'mdex:double', 'FUNC_STD_COST_EXTENSION':'mdex:double','FUNC_PURCHASE_VARIANCE':'mdex:double',
+				 'PURCHASE_VARIANCE':'mdex:double', 'PROJECT_START_DATE':'mdex:dateTime', 'PROJECT_CLOSED_DATE':'mdex:dateTime',
+				 'PROJECT_COMPLETETION_DATE':'mdex:dateTime', 'RAW_COST_PER_ITEM':'mdex:double','EXPENDITURE_ITD':'mdex:double',
+				 'EXPENDITURE_PTD':'mdex:double','EXPENDITURE_YTD':'mdex:double', 'BUDGET_COST':'mdex:double'}
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
                             'mdex:dateTime': 'date', 'mdex:int': 'integer',
