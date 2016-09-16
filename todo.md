@@ -9,20 +9,24 @@
 #Features and ideas 
 
 ## SQL Generator
-1. Add group name for `FND_EID_ATTR_GROUPS` as a parameter. Currently exists as a class variable.
-
+1. Look at another general refactor
 
 ## XML Generator
 1. Add RecordType and RecordSpec to the xml file
-
+2. More meaningful name for metadata name
 
 ## EQL Generator
-
+1. Give it a name
 
 ## SQL Parser
 Really need some resiliancy there. Commented lines, multiple columns on a line can bork the whole thing.
 
 ## Reader Writer
+
+make the file extension optional
+
+make the filenames reflect the group name
+
 Fix some of those ugly methods.
 
 improve the implementation of the Excel Writer.
