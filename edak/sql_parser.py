@@ -13,6 +13,7 @@ class SQL_PARSER(object):
             if search_item in line:
                 return index
 
+
     def get_selected_columns(self, sql_lines, index_of_from):
         return [i.strip().replace(',', '') for i in sql_lines[1:index_of_from] if len(i) > 0]
 
@@ -36,3 +37,12 @@ class SQL_PARSER(object):
 
     def generate_endeca_datatypes(self, columns):
         return [[c, dd.ORACLE_COLUMNS_TO_ENDECA[c] if c in dd.ORACLE_COLUMNS_TO_ENDECA else 'mdex:string'] for c in columns]
+
+#alternate implementation
+class SQL_PARSER_NEW(object):
+
+    def __init__(self, file_name):
+        self.file_text = open(file_name, 'r').read()
+
+    def get_selected_columns(self):
+        return self.file_text[0:self.file_text.find('FROM')]
