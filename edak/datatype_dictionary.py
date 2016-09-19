@@ -19,7 +19,10 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'FUNC_STD_COST':'mdex:double', 'FUNC_STD_COST_EXTENSION':'mdex:double','FUNC_PURCHASE_VARIANCE':'mdex:double',
 				 'PURCHASE_VARIANCE':'mdex:double', 'PROJECT_START_DATE':'mdex:dateTime', 'PROJECT_CLOSED_DATE':'mdex:dateTime',
 				 'PROJECT_COMPLETETION_DATE':'mdex:dateTime', 'RAW_COST_PER_ITEM':'mdex:double','EXPENDITURE_ITD':'mdex:double',
-				 'EXPENDITURE_PTD':'mdex:double','EXPENDITURE_YTD':'mdex:double', 'BUDGET_COST':'mdex:double'}
+				 'EXPENDITURE_PTD':'mdex:double','EXPENDITURE_YTD':'mdex:double', 'BUDGET_COST':'mdex:double',
+				 'QUANTITY':'mdex:int', 'RAW_COST_RATE':'mdex:double', 'COST':'mdex:double', 'COST_IN_USD':'mdex:double',
+				 'AP_INVOICE_AMOUNT':'mdex:double','COST_MARKUP_USD':'mdex:double', 'COST_MARKUP':'mdex:double',
+				 'MARKUP':'mdex:double','MARKUP_USD':'mdex:double', 'AP_INVOICE_POSTED_DATE':'mdex:dateTime'}
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
                             'mdex:dateTime': 'date', 'mdex:int': 'integer',
