@@ -90,10 +90,11 @@ def sql_reader_writer(reader, writer):
     print 'beep, boop your PLSQL is ready!'
 
 def eql_reader_writer(reader, writer):
+    eql_view_name = raw_input("What is the name of your EQL view? ")
     print 'writing some sweet EQL for you...........'
     writer.clear_file()
     writer.save_text(eql_generator.EQL(
-        reader.eql_attributes, 'view1').generate_eql())
+        reader.eql_attributes, eql_view_name).generate_eql())
     print 'beep, boop, your EQL is ready!'
 
 

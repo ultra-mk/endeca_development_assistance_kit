@@ -16,10 +16,12 @@
 2. More meaningful name for metadata name
 
 ## EQL Generator
-1. Give it a name
+1. add where clause to end of file
 
 ## SQL Parser
-Really need some resiliancy there. Commented lines, multiple columns on a line can bork the whole thing.
+Failure modes
+
+1. Multiple columns per line
 
 ## Reader Writer
 
