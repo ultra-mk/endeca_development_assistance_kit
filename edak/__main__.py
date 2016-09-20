@@ -83,12 +83,11 @@ def sql_reader_writer(reader, writer):
     for r in reader.attribute_data:
         r.append(group_name)
         sql = sql_generator.SQL(*r)
-    attrs = sql.generate_attr_sql()
+        writer.save_text(sql.generate_attr_sql())
     groups_b = sql.generate_groups_b_sql()
     groups_tl = sql.generate_groups_tl_sql()
-    writer.save_text(attrs + '\n'+ groups_b +'\n'+ groups_tl)
+    writer.save_text(groups_b +'\n'+ groups_tl)
     print 'beep, boop your PLSQL is ready!'
-
 
 def eql_reader_writer(reader, writer):
     print 'writing some sweet EQL for you...........'
