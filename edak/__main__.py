@@ -18,6 +18,7 @@ def main(args=None):
     else:
         print 'bye!'
 
+
 def run_text_generation():
     file_name = get_filename_from_user('attribute')
     if utils.check_for_file(file_name):
@@ -32,8 +33,9 @@ def run_text_generation():
         else:
             run_text_generation()
 
+
 def welcome_menu():
-    print 'Welcome to the Endeca Development Assistance Kit.' 
+    print 'Welcome to the Endeca Development Assistance Kit.'
     print 'What would you like to do?'
     print 'Select 1 to parse a SQL file.'
     print 'Select 2 to generate text files (PL/SQL, EQL, XML)'
@@ -41,9 +43,8 @@ def welcome_menu():
     return raw_input("Please make your selection. ")
 
 
-
 def get_filename_from_user(filetype):
-    return raw_input("What is the name of your "+filetype+" file?: ")
+    return raw_input("What is the name of your " + filetype + " file?: ")
 
 
 def get_format_option_from_user():
@@ -80,14 +81,15 @@ def sql_reader_writer(reader, writer):
     group_name = raw_input("What is the name of your attribute group? ")
     print 'writing some sweet PLSQL for you........'
     writer.clear_file()
-    for r in reader.attribute_data:
+    for r in sorted(reader.attribute_data, key= lambda x: x[4]):
         r.append(group_name)
         sql = sql_generator.SQL(*r)
         writer.save_text(sql.generate_attr_sql())
     groups_b = sql.generate_groups_b_sql()
     groups_tl = sql.generate_groups_tl_sql()
-    writer.save_text(groups_b +'\n'+ groups_tl)
+    writer.save_text(groups_b + '\n' + groups_tl)
     print 'beep, boop your PLSQL is ready!'
+
 
 def eql_reader_writer(reader, writer):
     eql_view_name = raw_input("What is the name of your EQL view? ")
@@ -111,10 +113,12 @@ def xml_reader_writer(reader, writer):
         time.sleep(1)
         run_text_generation()
 
+
 def sql_parser_reader():
     sql_file = get_filename_from_user("SQL")
     sql = sql_parser.SQL_PARSER(sql_file)
     return sql.generate_endeca_datatypes(sql.parse_sql_file())
+
 
 def sql_parser_writer():
     excel_file = get_filename_from_user("Excel")
