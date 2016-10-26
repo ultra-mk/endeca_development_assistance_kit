@@ -22,7 +22,15 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'EXPENDITURE_PTD':'mdex:double','EXPENDITURE_YTD':'mdex:double', 'BUDGET_COST':'mdex:double',
 				 'QUANTITY':'mdex:int', 'RAW_COST_RATE':'mdex:double', 'COST':'mdex:double', 'COST_IN_USD':'mdex:double',
 				 'AP_INVOICE_AMOUNT':'mdex:double','COST_MARKUP_USD':'mdex:double', 'COST_MARKUP':'mdex:double',
-				 'MARKUP':'mdex:double','MARKUP_USD':'mdex:double', 'AP_INVOICE_POSTED_DATE':'mdex:dateTime'}
+				 'MARKUP':'mdex:double','MARKUP_USD':'mdex:double', 'AP_INVOICE_POSTED_DATE':'mdex:dateTime',
+				 'ORDER_BRIDGED_DATE':'mdex:dateTime','REVENUE_VALUE' :'mdex:double','SHIPPED_REVENUE':'mdex:double','FORECAST_EQP_COST':'mdex:double',
+				 'SHIPPED_FCST_EQP_COST':'mdex:double', 'EQP_ETC':'mdex:double','CONVERSION_COST_PERCENT':'mdex:double', 'CURRENT_SHIPPED_QUANTITY':'mdex:int',
+				 'UNIT_DM_COST':'mdex:double','UNIT_LIST_PRICE':'mdex:double','UNIT_SELLING_PRICE':'mdex:double','UNIT_DM_COST_1':'mdex:double','TOTAL_PROJECT_CURRENCY_DM_COST':'mdex:double',
+				 'ORIGINAL_BOOKED_DATE':'mdex:dateTime','ORDER_LAST_UPDATE_DATE':'mdex:dateTime','RELEASED_AMOUNT':'mdex:double','LAST_UPDATE_DATE':'mdex:dateTime',
+				 'TOTAL_SHIPPED_FCST_EQP_COST':'mdex:double','EQP_ETC_PROJ_CURR':'mdex:double','SHIPPED_QUANTITY': 'mdex:int','UNIT_PROJECT_CURR_DM_COST':'mdex:double',
+				 'SHIPPED_DATE':'mdex:dateTime','INVOICE_AMOUNT':'mdex:double', 'COUNT_OF_TICKETS':'mdex:int','TOTAL_INVOICE_AMOUNT':'mdex:double','REPAIR_COST':'mdex:double',
+				 'TOTAL_REPAIR_COSTS':'mdex:double', 'SO_PROMISE_DATE':'mdex:dateTime', 'DAYS_LEFT_LATE':'mdex:int', 'LAST_SHIP_DATE':'mdex:dateTime', 'INCIDENT_DATE':'mdex:dateTime',
+				 'OPEN_DATE':'mdex:dateTime', 'PART_AVAILABILITY_DATE':'mdex:dateTime', 'DAYS_SINCE_QUOTE':'mdex:int', 'INITIAL_PROMISE_DATE':'mdex:dateTime'}
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
                             'mdex:dateTime': 'date', 'mdex:int': 'integer',
