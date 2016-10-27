@@ -8,7 +8,7 @@ class SQL(unittest.TestCase):
     @classmethod
     def setUpClass(SQL):
         SQL.sql = sql_generator.SQL(204, 'accounting_period',
-                                    'mdex:string', 1, 'Accounting Period', 'FIN')
+                                    'mdex:string', 1, 'Accounting Period', 1, 'FIN')
 
         SQL.instance_id = '204'
         SQL.column_name_string = ("  (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,"
