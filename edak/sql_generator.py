@@ -8,7 +8,7 @@ class SQL(object):
                           'PT', 'PTB', 'S', 'US', 'ZHS')
     INSERT_INTO = 'Insert into '
 
-    def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, group_name):
+    def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, sequence_number, group_name):
         self.eid_instance_id = str(eid_instance_id)
         self.profile_id = str(profile_id)
         self.attrs_b_values = [self.eid_instance_id, eid_instance_attribute, datatype,
@@ -23,7 +23,7 @@ class SQL(object):
         self.attrs_group_values = [self.eid_instance_id, group_name, eid_instance_attribute, '1',
                                    '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
 
-        self.set_attr_groups = ["SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = ",
+        self.set_attr_groups = ["SET EID_INSTANCE_GROUP_ATTR_SEQ = "+str(sequence_number)+", EID_INST_GROUP_ATTR_USER_SEQ = "+str(sequence_number)+" WHERE EID_INSTANCE_ID = ",
                                 self.eid_instance_id, " AND EID_INSTANCE_ATTRIBUTE = '", eid_instance_attribute, "'; \n"]
 
         self.groups_b_values = [self.eid_instance_id, group_name, '2.3',
