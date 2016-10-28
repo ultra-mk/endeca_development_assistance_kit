@@ -33,7 +33,7 @@ class SQL(object):
                                   '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]
 
     def attr_b(self, values, table, columns):
-        return ''.join([self.insert_statement(table, columns), self.create_values_string(*values)])
+        return ''.join([self.insert_statement(table, columns), self.values_string(*values)])
 
     def attr_tl(self):
         return ''.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl_values])
@@ -46,7 +46,7 @@ class SQL(object):
     def insert_statement(self, table, *args):
         return SQL.INSERT_INTO + table + ' (' + ','.join(*args) + ')\n'
 
-    def create_values_string(self, *args):
+    def values_string(self, *args):
         return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
     def attr_sql(self):
