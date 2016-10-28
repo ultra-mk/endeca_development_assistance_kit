@@ -10,7 +10,9 @@
 
 ## SQL Generator
 1. Look at another general refactor
-2. It's getting more and more tightly couple to the main class. specifically how group has to be the last argument passed. The class and the main file just know too much about each other.  
+2. It's getting more and more tightly couple to the main class. specifically how group has to be the last argument passed. The class and the main file just know too much about each other. 
+3. Lots of little ugly non-pythonic code bits
+4. Method names are inconsistent - what is the difference between 'create' and 'generate'. It's code. Doesn't it necessarily create or generate something??? 
 
 ## XML Generator
 1. Add RecordType and RecordSpec to the xml file

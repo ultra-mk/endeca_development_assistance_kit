@@ -98,8 +98,8 @@ class SQL(unittest.TestCase):
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
                          SQL.sql.create_values_string(*values))
 
-    def test_generate_attr_sql(self):
-        self.assertEqual(5137, len(SQL.sql.generate_attr_sql()))
+    def test_attr_sql(self):
+        self.assertEqual(5137, len(SQL.sql.attr_sql()))
 
     def test_generate_groups_b_sql(self):
         self.assertEqual(SQL.groups_b, SQL.sql.generate_groups_b_sql())

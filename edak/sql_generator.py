@@ -2,7 +2,6 @@ import table_data as td
 
 
 class SQL(object):
-    ALTER_SESSION = 'ALTER SESSION SET CURRENT_SCHEMA = APPS;'
     DEFINE_OFF = 'SET DEFINE OFF;\n'
     EBS_LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
                           'PT', 'PTB', 'S', 'US', 'ZHS')
@@ -34,7 +33,7 @@ class SQL(object):
                                   '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.EBS_LANGUAGE_CODES]
 
     def insert_single_attr(self, values, table, columns):
-        return self.create_insert_statement(table, columns) + self.create_values_string(*values)
+        return ''.join([self.create_insert_statement(table, columns), self.create_values_string(*values)])
 
     def insert_attrs_tl_all(self):
         return ''.join([self.insert_single_attr(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl_values])
@@ -50,7 +49,8 @@ class SQL(object):
     def create_values_string(self, *args):
         return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
-    def generate_attr_sql(self):
+    def attr_sql(self):
+    # def generate_attr_sql(self):
         return ''.join([SQL.DEFINE_OFF, self.insert_single_attr(self.attrs_b_values, td.ATTRS_B['name'],
                                                                 td.ATTRS_B['columns']), '\n', self.insert_attrs_tl_all(), '\n',
                         self.insert_single_attr(self.attrs_group_values, td.ATTR_GROUPS['name'],
