@@ -91,7 +91,7 @@ class SQL(unittest.TestCase):
         column_headers = ['EID_INSTANCE_ID',
                           'EID_INSTANCE_ATTRIBUTE', 'ENDECA_DATATYPE']
         self.assertEqual('Insert into FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',
-                         SQL.sql.create_insert_statement(td.ATTRS_B['name'], column_headers))
+                         SQL.sql.insert_statement(td.ATTRS_B['name'], column_headers))
 
     def test_create_values_string(self):
         values = ['204', 'accounting_period', 'mdex:string', '4']
