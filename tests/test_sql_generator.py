@@ -85,7 +85,7 @@ class SQL(unittest.TestCase):
 
     def test_update_attr_groups(self):
         self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';",
-                         SQL.sql.update_attr_groups()[27:174])
+                         SQL.sql.attr_groups()[27:174])
 
     def test_create_insert_statement(self):
         column_headers = ['EID_INSTANCE_ID',

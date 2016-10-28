@@ -38,7 +38,7 @@ class SQL(object):
     def attr_tl(self):
         return ''.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl_values])
 
-    def update_attr_groups(self):
+    def attr_groups(self):
         update = ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' '])
         set_statement = ''.join(self.set_attr_groups)
         return ''.join([update, set_statement, '\n'])
@@ -53,7 +53,7 @@ class SQL(object):
         return ''.join([SQL.DEFINE_OFF, self.attr_b(self.attrs_b_values, td.ATTRS_B['name'],
                                                                 td.ATTRS_B['columns']), '\n', self.attr_tl(), '\n',
                         self.attr_b(self.attrs_group_values, td.ATTR_GROUPS['name'],
-                                                td.ATTR_GROUPS['columns']), '\n', self.update_attr_groups()])
+                                                td.ATTR_GROUPS['columns']), '\n', self.attr_groups()])
     def groups_b_sql(self):
         return ''.join([self.attr_b(self.groups_b_values, td.GROUPS_B['name'],
                                                 td.GROUPS_B['columns'])])
