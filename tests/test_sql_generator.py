@@ -51,23 +51,23 @@ class SQL(unittest.TestCase):
                         "\nvalues ( 204,'FIN','2.3',1,1,'MSI','N',0,0,SYSDATE,0,SYSDATE,0);")
 
     def test_attr_b(self):
-        self.assertEqual(SQL.attr_b_cols + SQL.attr_b_vals, SQL.sql.attr_b(SQL.sql.attrs_b_values,
+        self.assertEqual(SQL.attr_b_cols + SQL.attr_b_vals, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                                        td.ATTRS_B['name'], td.ATTRS_B['columns']))
 
     def test_create_attrs_tl_values_len(self):
-        self.assertEqual(10, len(SQL.sql.attrs_tl_values))
+        self.assertEqual(10, len(SQL.sql.attrs_tl))
 
     def test_create_attrs_tl_values(self):
         self.assertEqual(['204', 'accounting_period', 'D', 'US',
                           'Accounting Period', 'Accounting Period', 'Accounting Period',
-                          'Accounting Period', '0', 'SYSDATE', '0', 'SYSDATE', '0'], SQL.sql.attrs_tl_values[0])
+                          'Accounting Period', '0', 'SYSDATE', '0', 'SYSDATE', '0'], SQL.sql.attrs_tl[0])
 
     def test_insert_attrs_b_column_headers(self):
-        self.assertEqual(SQL.attr_b_cols, SQL.sql.attr_b(SQL.sql.attrs_b_values,
+        self.assertEqual(SQL.attr_b_cols, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                      td.ATTRS_B['name'], td.ATTRS_B['columns'])[0:562])
 
     def test_insert_attrs_b_values(self):
-        self.assertEqual(SQL.attr_b_vals, SQL.sql.attr_b(SQL.sql.attrs_b_values,
+        self.assertEqual(SQL.attr_b_vals, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                      td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
 
     def test_insert_attrs_tl_column_headers(self):
@@ -75,9 +75,9 @@ class SQL(unittest.TestCase):
             [SQL.instance_id, 'accounting_period', 'D', 'Accounting Period'], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_cols, insert_statement[0:237])
 
-    def test_insert_attrs_tl_values(self):
+    def test_insert_attrs_tl(self):
         insert_statement = SQL.sql.attr_b(
-            SQL.sql.attrs_tl_values[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
+            SQL.sql.attrs_tl[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
         self.assertEqual(SQL.attr_tl_vals, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):
@@ -93,10 +93,10 @@ class SQL(unittest.TestCase):
         self.assertEqual('Insert into FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,ENDECA_DATATYPE)\n',
                          SQL.sql.insert_statement(td.ATTRS_B['name'], column_headers))
 
-    def test_values_string(self):
+    def test_values(self):
         values = ['204', 'accounting_period', 'mdex:string', '4']
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
-                         SQL.sql.values_string(*values))
+                         SQL.sql.values(*values))
 
     def test_attr_sql(self):
         self.assertEqual(5137, len(SQL.sql.attr_sql()))
