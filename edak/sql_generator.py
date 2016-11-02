@@ -2,7 +2,7 @@ import table_data as td
 
 
 class SQL(object):
-    LANGUAGE_CODES = ('D', 'DK', 'E', 'F', 'NL',
+    LANGUAGES = ('D', 'DK', 'E', 'F', 'NL',
                       'PT', 'PTB', 'S', 'US', 'ZHS')
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, sequence_number, group_name):
@@ -22,9 +22,7 @@ class SQL(object):
         return ''.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl])
 
     def attr_groups(self):
-        update = ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' '])
-        set_statement = ''.join(self.set_attr_groups)
-        return ''.join([update, set_statement, '\n'])
+        return ''.join(['UPDATE ', td.ATTR_GROUPS['name'],' ', ''.join(self.set_attr_groups),'\n'])
 
     def insert_statement(self, table, *args):
         return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
@@ -57,7 +55,7 @@ class SQL(object):
     def attrs_tl(self):
         return [[self.eid_instance_id, self.eid_instance_attribute, l, 'US',
                  self.display_name, self.display_name, self.display_name, self.display_name, '0',
-                 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.LANGUAGE_CODES]
+                 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.LANGUAGES]
 
     @property
     def attrs_group(self):
@@ -77,4 +75,4 @@ class SQL(object):
     @property
     def groups_tl(self):
         return [[self.eid_instance_id, self.group_name, l, 'US', self.group_name, self.group_name, self.group_name, self.group_name,
-                 '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.LANGUAGE_CODES]
+                 '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.LANGUAGES]
