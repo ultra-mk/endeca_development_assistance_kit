@@ -105,7 +105,7 @@ class SQL(unittest.TestCase):
         self.assertEqual(SQL.groups_b, SQL.sql.groups_b_sql())
 
     def test_groups_tl_sql(self):
-        self.assertEqual(2988, len(SQL.sql.groups_tl_sql()))
+        self.assertEqual(2987, len(SQL.sql.groups_tl_sql()))
 
 if __name__ == '__main__':
     unittest.main()

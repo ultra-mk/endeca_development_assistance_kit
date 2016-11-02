@@ -22,7 +22,7 @@ class SQL(object):
         return ''.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl])
 
     def attr_groups(self):
-        return ''.join(['UPDATE ', td.ATTR_GROUPS['name'],' ', ''.join(self.set_attr_groups),'\n'])
+        return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
 
     def insert_statement(self, table, *args):
         return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
@@ -31,18 +31,22 @@ class SQL(object):
         return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
 
     def attr_sql(self):
-        return ''.join(['SET DEFINE OFF;\n', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
-                                                         td.ATTRS_B['columns']), '\n', self.attr_tl(), '\n',
-                        self.attr_b(self.attrs_group, td.ATTR_GROUPS['name'],
-                                    td.ATTR_GROUPS['columns']), '\n', self.attr_groups()])
+        return '\n'.join(['SET DEFINE OFF;', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
+                                                         td.ATTRS_B['columns']), self.attr_tl(),
+                          self.attr_b(self.attrs_group, td.ATTR_GROUPS['name'],
+                                      td.ATTR_GROUPS['columns']), self.attr_groups()])
 
     def groups_b_sql(self):
         return ''.join([self.attr_b(self.groups_b, td.GROUPS_B['name'],
                                     td.GROUPS_B['columns'])])
 
     def groups_tl_sql(self):
-        return ''.join([self.attr_b(t, td.GROUPS_TL['name'],
-                                    td.GROUPS_TL['columns']) + '\n' for t in self.groups_tl])
+        # return ''.join([self.attr_b(t, td.GROUPS_TL['name'],
+        #                             td.GROUPS_TL['columns']) + '\n' for t in self.groups_tl])
+        return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
+                                    td.GROUPS_TL['columns']) for t in self.groups_tl])
+
+
 
     @property
     def attrs_b(self):
