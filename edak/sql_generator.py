@@ -2,8 +2,7 @@ import table_data as td
 
 
 class SQL(object):
-    LANGUAGES = ('D', 'DK', 'E', 'F', 'NL',
-                      'PT', 'PTB', 'S', 'US', 'ZHS')
+    LANGUAGES = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, sequence_number, group_name):
         self.eid_instance_id = str(eid_instance_id)
@@ -28,7 +27,13 @@ class SQL(object):
         return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
 
     def values(self, *args):
-        return 'values ( ' + ','.join([a if a in ['null', 'SYSDATE'] else a if a.isdigit() else "'" + a + "'" for a in args]) + ');'
+        return 'values ( ' + ','.join([self.format_value(a) for a in args]) + ');'
+
+    def format_value(self, element):
+        if element in ['null', 'SYSDATE'] or element.isdigit():
+            return element
+        else:
+            return "'" + element + "'"
 
     def attr_sql(self):
         return '\n'.join(['SET DEFINE OFF;', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
@@ -41,12 +46,8 @@ class SQL(object):
                                     td.GROUPS_B['columns'])])
 
     def groups_tl_sql(self):
-        # return ''.join([self.attr_b(t, td.GROUPS_TL['name'],
-        #                             td.GROUPS_TL['columns']) + '\n' for t in self.groups_tl])
         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
-                                    td.GROUPS_TL['columns']) for t in self.groups_tl])
-
-
+                                      td.GROUPS_TL['columns']) for t in self.groups_tl])
 
     @property
     def attrs_b(self):

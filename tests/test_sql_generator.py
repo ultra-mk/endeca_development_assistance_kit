@@ -94,8 +94,8 @@ class SQL(unittest.TestCase):
                          SQL.sql.insert_statement(td.ATTRS_B['name'], column_headers))
 
     def test_values(self):
-        values = ['204', 'accounting_period', 'mdex:string', '4']
-        self.assertEqual("values ( 204,'accounting_period','mdex:string',4);",
+        values = ['204', 'accounting_period', 'mdex:string', '4','SYSDATE']
+        self.assertEqual("values ( 204,'accounting_period','mdex:string',4,SYSDATE);",
                          SQL.sql.values(*values))
 
     def test_attr_sql(self):
