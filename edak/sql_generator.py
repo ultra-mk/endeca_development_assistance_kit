@@ -18,7 +18,10 @@ class SQL(object):
         return ''.join([self.insert_statement(table, columns), self.values(*values)])
 
     def attr_tl(self):
-        return ''.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) + '\n' for t in self.attrs_tl])
+        return '\n'.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) for t in self.attrs_tl])
+
+    def attr_tl_with_args(self, values, table, columns):
+        return '\n'.join([self.attr_b(v, table, columns) for v in values])
 
     def attr_groups(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
@@ -44,7 +47,7 @@ class SQL(object):
     def groups_b_sql(self):
         return ''.join([self.attr_b(self.groups_b, td.GROUPS_B['name'],
                                     td.GROUPS_B['columns'])])
-
+#####this and attr_tl are exactly the same 
     def groups_tl_sql(self):
         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
                                       td.GROUPS_TL['columns']) for t in self.groups_tl])
