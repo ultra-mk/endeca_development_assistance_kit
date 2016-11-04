@@ -20,16 +20,12 @@ class Excel_Writer(object):
         self.columns_and_datatype = columns_and_datatype
         self.create_excel_file()
 
-# naive implementation
     def create_excel_file(self):
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = 'endeca_attributes'
-        ws['A1'].value = 'eid_instance_id'
-        ws['B1'].value = 'eid_instance_attribute'
-        ws['C1'].value = 'datatype'
-        ws['D1'].value = 'profile_id'
-        ws['E1'].value = 'display_name'
+        headers = ('eid_instance_id', 'eid_instance_attribute', 'datatype', 'profile_id', 'display_name')
+        ws['A1'].value, ws['B1'].value, ws['C1'].value, ws['D1'].value, ws['E1'].value = headers
         for i, e in enumerate(self.columns_and_datatype):
             ws.cell(row=i + 2, column=2).value = e[0]
             ws.cell(row=i + 2, column=3).value = e[1]
