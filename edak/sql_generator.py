@@ -20,8 +20,9 @@ class SQL(object):
     def attr_tl(self):
         return '\n'.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) for t in self.attrs_tl])
 
-    def attr_tl_with_args(self, values, table, columns):
-        return '\n'.join([self.attr_b(v, table, columns) for v in values])
+##going to hold off on this refactor until the test suite is a bit nicer
+    # def attr_tl_with_args(self, values, table, columns):
+    #     return '\n'.join([self.attr_b(v, table, columns) for v in values])
 
     def attr_groups(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
