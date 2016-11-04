@@ -81,7 +81,7 @@ def sql_reader_writer(reader, writer):
     group_name = raw_input("What is the name of your attribute group? ")
     print 'writing some sweet PLSQL for you........'
     writer.clear_file()
-    for i, r in enumerate(sorted(reader.attribute_data, key= lambda x: x[4])):
+    for i, r in enumerate(sorted(reader.attribute_data, key=lambda x: x[4])):
         r.append(i + 1)
         r.append(group_name)
         sql = sql_generator.SQL(*r)
