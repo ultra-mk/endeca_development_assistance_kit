@@ -66,6 +66,15 @@ class SQL(unittest.TestCase):
     def test_prop_attrs_tl(self):
         self.assertEqual(ts.PROP_ATTRS_TL, SQL.sql.attrs_tl)
 
+    def test_prop_set_attrs_groups(self):
+        self.assertEqual(ts.PROP_SET_ATTR_GROUPS, SQL.sql.set_attr_groups)
+
+    def test_prop_groups_b(self):
+        self.assertEqual(ts.PROP_GROUPS_B, SQL.sql.groups_b)
+
+    def test_prop_groups_tl(self):
+        self.assertEqual(ts.PROP_GROUPS_TL, SQL.sql.groups_tl)
+
 
 if __name__ == '__main__':
     unittest.main()

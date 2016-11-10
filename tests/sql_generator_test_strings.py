@@ -65,3 +65,21 @@ PROP_ATTRS_TL = [['204', 'accounting_period', 'D', 'US',
                                                                                                                                                                                                                                                                                                   'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'ZHS', 'US',
                                                                                                                                                                                                                                                                                                                                     'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
                                                                                                                                                                                                                                                                                                                                     'SYSDATE', '0', 'SYSDATE', '0']]
+PROP_SET_ATTR_GROUPS = ["SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = ",
+                        '204', " AND EID_INSTANCE_ATTRIBUTE = '", 'accounting_period', "'; \n"]
+
+
+PROP_GROUPS_B = ['204', 'FIN', '2.3',
+                 '1', '1', 'MSI', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
+
+PROP_GROUPS_TL = [['204', 'FIN', 'D', 'US', 'FIN', 'FIN', 'FIN', 'FIN', '0', 'SYSDATE', '0', 'SYSDATE', '0'],
+                  ['204', 'FIN', 'DK', 'US', 'FIN', 'FIN', 'FIN',
+                      'FIN', '0', 'SYSDATE', '0', 'SYSDATE', '0'],
+                  ['204', 'FIN', 'E', 'US', 'FIN', 'FIN', 'FIN', 'FIN', '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'F', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                               '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'NL', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                      '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'PT', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                                                             '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'PTB', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                                                                                                    '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'S', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                                                                                                                                           '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'US', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                                                                                                                                                                                  '0', 'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'FIN', 'ZHS', 'US', 'FIN', 'FIN', 'FIN', 'FIN',
+                                                                                                                                                                                                                                                                                                                                                         '0', 'SYSDATE', '0', 'SYSDATE', '0']]
