@@ -1,7 +1,7 @@
 import unittest
 from edak import sql_generator
 import table_data as td
-import sql_generator_test_strings as test_strings
+import sql_generator_test_strings as ts
 
 
 class SQL(unittest.TestCase):
@@ -11,10 +11,9 @@ class SQL(unittest.TestCase):
         SQL.sql = sql_generator.SQL(204, 'accounting_period',
                                     'mdex:string', 1, 'Accounting Period', 1, 'FIN')
 
-        SQL.instance_id = '204'
 
     def test_attr_b(self):
-        self.assertEqual(test_strings.ATTR_B_COLS + test_strings.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
+        self.assertEqual(ts.ATTR_B_COLS + ts.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                                        td.ATTRS_B['name'], td.ATTRS_B['columns']))
 
     def test_attr_tl_values_len(self):
@@ -26,22 +25,22 @@ class SQL(unittest.TestCase):
                           'Accounting Period', '0', 'SYSDATE', '0', 'SYSDATE', '0'], SQL.sql.attrs_tl[0])
 
     def test_attr_b_column_headers(self):
-        self.assertEqual(test_strings.ATTR_B_COLS, SQL.sql.attr_b(SQL.sql.attrs_b,
+        self.assertEqual(ts.ATTR_B_COLS, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                      td.ATTRS_B['name'], td.ATTRS_B['columns'])[0:562])
 
     def test_attrs_b_values(self):
-        self.assertEqual(test_strings.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
+        self.assertEqual(ts.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
                                                                      td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
 
     def test_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.attr_b(
-            [SQL.instance_id, 'accounting_period', 'D', 'Accounting Period'], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
-        self.assertEqual(test_strings.ATTR_TL_COLS, insert_statement[0:237])
+            ['204', 'accounting_period', 'D', 'Accounting Period'], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
+        self.assertEqual(ts.ATTR_TL_COLS, insert_statement[0:237])
 
     def test_attrs_tl(self):
         insert_statement = SQL.sql.attr_b(
             SQL.sql.attrs_tl[0], td.ATTRS_TL['name'], td.ATTRS_TL['columns'])
-        self.assertEqual(test_strings.ATTR_TL_VALS, insert_statement[237:421])
+        self.assertEqual(ts.ATTR_TL_VALS, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):
         self.assertEqual(3837, len(SQL.sql.attr_tl()))
@@ -65,7 +64,7 @@ class SQL(unittest.TestCase):
         self.assertEqual(5136, len(SQL.sql.attr_sql()))
 
     def test_groups_b_sql(self):
-        self.assertEqual(test_strings.ATTR_GROUPS_B, SQL.sql.groups_b_sql())
+        self.assertEqual(ts.ATTR_GROUPS_B, SQL.sql.groups_b_sql())
 
     def test_groups_tl_sql(self):
         self.assertEqual(2987, len(SQL.sql.groups_tl_sql()))
