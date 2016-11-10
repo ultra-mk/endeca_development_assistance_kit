@@ -29,11 +29,39 @@ ATTR_GROUPS_COLS = ("Insert into FND_EID_ATTR_GROUPS "
                     "LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)")
 
 ATTR_GROUPS_B = ("Insert into FND_EID_GROUPS_B (EID_INSTANCE_ID,EID_INSTANCE_GROUP,"
-                "EID_RELEASE_VERSION,EID_INSTANCE_GROUP_SEQ,EID_INSTANCE_GROUP_USER_SEQ,"
-                "GROUP_SOURCE,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,"
-                "CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)"
-                "\nvalues ( 204,'FIN','2.3',1,1,'MSI','N',0,0,SYSDATE,0,SYSDATE,0);")
+                 "EID_RELEASE_VERSION,EID_INSTANCE_GROUP_SEQ,EID_INSTANCE_GROUP_USER_SEQ,"
+                 "GROUP_SOURCE,OBSOLETED_FLAG,OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,"
+                 "CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)"
+                 "\nvalues ( 204,'FIN','2.3',1,1,'MSI','N',0,0,SYSDATE,0,SYSDATE,0);")
 
 COLUMN_NAME_STRING = ("  (EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,DISPLAY_NAME,"
-                          "ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,"
-                          "LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values")
+                      "ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,"
+                      "LAST_UPDATE_DATE,LAST_UPDATE_LOGIN) values")
+
+
+PROP_ATTRS_B = ['204', 'accounting_period', 'mdex:string',
+                '1', '2.3', 'MSI', 'N', 'N', 'N', 'N',
+                'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
+                'null', 'null', 'null', 'null', 'null', 'null']
+
+PROP_ATTRS_TL = [['204', 'accounting_period', 'D', 'US',
+                  'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                  'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'DK', 'US',
+                                                    'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                    'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'E', 'US',
+                                                                                      'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                      'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'F', 'US',
+                                                                                                                        'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                        'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'NL', 'US',
+                                                                                                                                                          'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                          'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'PT', 'US',
+                                                                                                                                                                                            'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                                                            'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'PTB', 'US',
+                                                                                                                                                                                                                              'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                                                                                              'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'S', 'US',
+                                                                                                                                                                                                                                                                'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                                                                                                                                'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'US', 'US',
+                                                                                                                                                                                                                                                                                                  'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                                                                                                                                                                  'SYSDATE', '0', 'SYSDATE', '0'], ['204', 'accounting_period', 'ZHS', 'US',
+                                                                                                                                                                                                                                                                                                                                    'Accounting Period', 'Accounting Period', 'Accounting Period', 'Accounting Period', '0',
+                                                                                                                                                                                                                                                                                                                                    'SYSDATE', '0', 'SYSDATE', '0']]

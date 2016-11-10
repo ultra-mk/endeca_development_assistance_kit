@@ -11,26 +11,17 @@ class SQL(unittest.TestCase):
         SQL.sql = sql_generator.SQL(204, 'accounting_period',
                                     'mdex:string', 1, 'Accounting Period', 1, 'FIN')
 
-
     def test_attr_b(self):
         self.assertEqual(ts.ATTR_B_COLS + ts.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
-                                                                                       td.ATTRS_B['name'], td.ATTRS_B['columns']))
-
-    def test_attr_tl_values_len(self):
-        self.assertEqual(10, len(SQL.sql.attrs_tl))
-
-    def test_attr_tl_values(self):
-        self.assertEqual(['204', 'accounting_period', 'D', 'US',
-                          'Accounting Period', 'Accounting Period', 'Accounting Period',
-                          'Accounting Period', '0', 'SYSDATE', '0', 'SYSDATE', '0'], SQL.sql.attrs_tl[0])
+                                                                         td.ATTRS_B['name'], td.ATTRS_B['columns']))
 
     def test_attr_b_column_headers(self):
         self.assertEqual(ts.ATTR_B_COLS, SQL.sql.attr_b(SQL.sql.attrs_b,
-                                                                     td.ATTRS_B['name'], td.ATTRS_B['columns'])[0:562])
+                                                        td.ATTRS_B['name'], td.ATTRS_B['columns'])[0:562])
 
     def test_attrs_b_values(self):
         self.assertEqual(ts.ATTR_B_VALS, SQL.sql.attr_b(SQL.sql.attrs_b,
-                                                                     td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
+                                                        td.ATTRS_B['name'], td.ATTRS_B['columns'])[562:761])
 
     def test_attrs_tl_column_headers(self):
         insert_statement = SQL.sql.attr_b(
@@ -56,7 +47,7 @@ class SQL(unittest.TestCase):
                          SQL.sql.insert_statement(td.ATTRS_B['name'], column_headers))
 
     def test_values(self):
-        values = ['204', 'accounting_period', 'mdex:string', '4','SYSDATE']
+        values = ['204', 'accounting_period', 'mdex:string', '4', 'SYSDATE']
         self.assertEqual("values ( 204,'accounting_period','mdex:string',4,SYSDATE);",
                          SQL.sql.values(*values))
 
@@ -68,6 +59,13 @@ class SQL(unittest.TestCase):
 
     def test_groups_tl_sql(self):
         self.assertEqual(2987, len(SQL.sql.groups_tl_sql()))
+
+    def test_prop_attrs_b(self):
+        self.assertEqual(ts.PROP_ATTRS_B, SQL.sql.attrs_b)
+
+    def test_prop_attrs_tl(self):
+        self.assertEqual(ts.PROP_ATTRS_TL, SQL.sql.attrs_tl)
+
 
 if __name__ == '__main__':
     unittest.main()
