@@ -24,8 +24,10 @@ class Excel_Writer(object):
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = 'endeca_attributes'
-        headers = ('eid_instance_id', 'eid_instance_attribute', 'datatype', 'profile_id', 'display_name')
-        ws['A1'].value, ws['B1'].value, ws['C1'].value, ws['D1'].value, ws['E1'].value = headers
+        headers = ('eid_instance_id', 'eid_instance_attribute',
+                   'datatype', 'profile_id', 'display_name')
+        ws['A1'].value, ws['B1'].value, ws['C1'].value, ws[
+            'D1'].value, ws['E1'].value = headers
         for i, e in enumerate(self.columns_and_datatype):
             ws.cell(row=i + 2, column=2).value = e[0]
             ws.cell(row=i + 2, column=3).value = e[1]
