@@ -50,4 +50,7 @@ class SQL_PARSER_NEW(object):
 
     @property  
     def columns(self):
-        return open(self.file_name, 'r').read().replace('\n','').replace('SELECT','').split(',')
+        text = open(self.file_name, 'r').read()
+        columns = text.replace('\n','').replace('SELECT','').split(',')
+        columns[-1] = columns[-1][0:columns[-1].find('FROM')].strip()
+        return columns

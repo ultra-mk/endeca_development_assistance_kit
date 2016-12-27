@@ -41,3 +41,9 @@ class PARSER(unittest.TestCase):
 ##additional tests for alternate implementation
     def test_first_column_SQL_PARSER_NEW(self):
         self.assertEqual('RCTA.CUSTOMER_TRX_ID', PARSER.new.columns[0])
+
+    def test_second_column_SQL_PARSER_NEW(self):
+        self.assertEqual('RCTA.PURCHASE_ORDER', PARSER.new.columns[1])
+
+    def test_last_column_SQL_PARSER_NEW(self):
+        self.assertEqual('HL.COUNTRY', PARSER.new.columns[-1])
