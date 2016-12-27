@@ -39,10 +39,15 @@ class SQL_PARSER(object):
         return [[c, dd.ORACLE_COLUMNS_TO_ENDECA[c] if c in dd.ORACLE_COLUMNS_TO_ENDECA else 'mdex:string'] for c in columns]
 
 #alternate implementation
+#first thing. don't need to split the file into lines. just split on commas. should give us what we need
+#a huge baked-in assumption is that everything will be uppercase. Need to look downstream and see if case matters. 
+#The aliases have to be the same case that they came in as. The issue is 'SELECT' vs 'select' and 
+#'FROM' vs 'from'
 class SQL_PARSER_NEW(object):
 
     def __init__(self, file_name):
-        self.file_text = open(file_name, 'r').read()
+        self.file_name = file_name
 
-    def get_selected_columns(self):
-        return self.file_text[0:self.file_text.find('FROM')]
+    @property  
+    def columns(self):
+        return open(self.file_name, 'r').read().replace('\n','').replace('SELECT','').split(',')
