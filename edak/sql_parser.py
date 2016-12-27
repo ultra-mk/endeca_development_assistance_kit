@@ -49,8 +49,8 @@ class SQL_PARSER_NEW(object):
         self.file_name = file_name
 
     @property  
-    def columns(self):
-        text = open(self.file_name, 'r').read()
+    def tables_columns(self):
+        text = open(self.file_name, 'r').read().upper()
         columns = text.replace('\n','').replace('SELECT','').split(',')
         columns[-1] = columns[-1][0:columns[-1].find('FROM')].strip()
-        return columns
+        return [i[i.index(' AS ') + 4:] if ' AS ' in i else i[i.index('.') + 1:] for i in columns]
