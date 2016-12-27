@@ -30,7 +30,11 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'TOTAL_SHIPPED_FCST_EQP_COST':'mdex:double','EQP_ETC_PROJ_CURR':'mdex:double','SHIPPED_QUANTITY': 'mdex:int','UNIT_PROJECT_CURR_DM_COST':'mdex:double',
 				 'SHIPPED_DATE':'mdex:dateTime','INVOICE_AMOUNT':'mdex:double', 'COUNT_OF_TICKETS':'mdex:int','TOTAL_INVOICE_AMOUNT':'mdex:double','REPAIR_COST':'mdex:double',
 				 'TOTAL_REPAIR_COSTS':'mdex:double', 'SO_PROMISE_DATE':'mdex:dateTime', 'DAYS_LEFT_LATE':'mdex:int', 'LAST_SHIP_DATE':'mdex:dateTime', 'INCIDENT_DATE':'mdex:dateTime',
-				 'OPEN_DATE':'mdex:dateTime', 'PART_AVAILABILITY_DATE':'mdex:dateTime', 'DAYS_SINCE_QUOTE':'mdex:int', 'INITIAL_PROMISE_DATE':'mdex:dateTime'}
+				 'OPEN_DATE':'mdex:dateTime', 'PART_AVAILABILITY_DATE':'mdex:dateTime', 'DAYS_SINCE_QUOTE':'mdex:int', 'INITIAL_PROMISE_DATE':'mdex:dateTime',
+				 'PROJ_FUNC_BURDENED_COST' :'mdex:double', 'PROJECT_BURDENED_COST' : 'mdex:double', 'TRANS_RAW_COST' :'mdex:double', 'FUNC_BURDENED_COST' : 'mdex:double',
+				 'TRANS_BURDENED_COST' : 'mdex:double', 'FUNC_BURDENED_COST':'mdex:double', 'PROJ_FUNC_RAW_COST':'mdex:double', 'FUNC_RAW_COST':'mdex:double',
+				 'PROJECT_RAW_COST' : 'mdex:double'}
+
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',
                             'mdex:dateTime': 'date', 'mdex:int': 'integer',

@@ -21,7 +21,7 @@
 1. add where clause to end of file
 
 ## SQL Parser
-Failure modes
+Failure modes - silly one - if it's "FROM" and not "FROM " the index won't ever be picked up. There needs to be a better way to find that index
 
 1. Multiple columns per line
 
