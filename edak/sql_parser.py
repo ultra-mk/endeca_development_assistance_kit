@@ -38,19 +38,21 @@ class SQL_PARSER(object):
     def generate_endeca_datatypes(self, columns):
         return [[c, dd.ORACLE_COLUMNS_TO_ENDECA[c] if c in dd.ORACLE_COLUMNS_TO_ENDECA else 'mdex:string'] for c in columns]
 
-#alternate implementation
-#first thing. don't need to split the file into lines. just split on commas. should give us what we need
-#a huge baked-in assumption is that everything will be uppercase. Need to look downstream and see if case matters. 
-#The aliases have to be the same case that they came in as. The issue is 'SELECT' vs 'select' and 
-#'FROM' vs 'from'
 class SQL_PARSER_NEW(object):
 
     def __init__(self, file_name):
         self.file_name = file_name
 
+    def find_index(self, sql_lines, search_item):
+        for index, line in enumerate(sql_lines):
+            if search_item in line:
+                return index
+
     @property  
     def tables_columns(self):
         text = open(self.file_name, 'r').read().upper()
         columns = text.replace('\n','').replace('SELECT','').split(',')
+        from_index = self.find_index(columns, 'FROM')
+        columns = columns[0:from_index + 1]
         columns[-1] = columns[-1][0:columns[-1].find('FROM')].strip()
         return [i[i.index(' AS ') + 4:] if ' AS ' in i else i[i.index('.') + 1:] for i in columns]

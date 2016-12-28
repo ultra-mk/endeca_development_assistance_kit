@@ -49,4 +49,8 @@ class PARSER(unittest.TestCase):
         self.assertEqual('SALES_ORDER', PARSER.new.tables_columns[3])
 
     def test_last_column_SQL_PARSER_NEW(self):
-        self.assertEqual('COUNTRY', PARSER.new.tables_columns[-1])
+        self.assertEqual('PART_NUMBER', PARSER.new.tables_columns[-1])
+
+    # def test_parse_sql_file_SQL_PARTSER_NEW(self):
+    #     self.assertEqual(['CUSTOMER_TRX_ID', 'PURCHASE_ORDER', 'DT_REVENUE', 'SALES_ORDER',
+    #                       'WWAPC', 'SALES_OFFICE', 'PART_NUMBER'], PARSER.new.tables_columns)
