@@ -118,8 +118,8 @@ def xml_reader_writer(reader, writer):
 def sql_parser_reader():
     sql_file = get_filename_from_user("SQL")
     sql = sql_parser.SQL_PARSER(sql_file)
-    return sql.generate_endeca_datatypes(sql.parse_sql_file())
-
+    # return sql.generate_endeca_datatypes(sql.parse_sql_file())
+    return sql.columns_datatypes
 
 def sql_parser_writer():
     excel_file = get_filename_from_user("Excel")
