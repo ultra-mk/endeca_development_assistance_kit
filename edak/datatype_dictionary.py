@@ -33,7 +33,7 @@ ORACLE_COLUMNS_TO_ENDECA = {'FULFILLMENT_DATE':'mdex:dateTime', 'GL_DATE' : 'mde
 				 'OPEN_DATE':'mdex:dateTime', 'PART_AVAILABILITY_DATE':'mdex:dateTime', 'DAYS_SINCE_QUOTE':'mdex:int', 'INITIAL_PROMISE_DATE':'mdex:dateTime',
 				 'PROJ_FUNC_BURDENED_COST' :'mdex:double', 'PROJECT_BURDENED_COST' : 'mdex:double', 'TRANS_RAW_COST' :'mdex:double', 'FUNC_BURDENED_COST' : 'mdex:double',
 				 'TRANS_BURDENED_COST' : 'mdex:double', 'FUNC_BURDENED_COST':'mdex:double', 'PROJ_FUNC_RAW_COST':'mdex:double', 'FUNC_RAW_COST':'mdex:double',
-				 'PROJECT_RAW_COST' : 'mdex:double'}
+				 'PROJECT_RAW_COST' : 'mdex:double', 'DT_REVENUE' : 'mdex:dateTime'}
 
 
 ENDECA_TO_XML = {'mdex:double': 'number', 'mdex:string': 'string', 'mdex:boolean': 'boolean',

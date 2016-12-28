@@ -40,17 +40,23 @@ class PARSER(unittest.TestCase):
 
 ##additional tests for alternate implementation
     def test_first_column_SQL_PARSER_NEW(self):
-        self.assertEqual('CUSTOMER_TRX_ID', PARSER.new.tables_columns[0])
+        self.assertEqual('CUSTOMER_TRX_ID', PARSER.new.columns[0])
 
     def test_second_column_SQL_PARSER_NEW(self):
-        self.assertEqual('PURCHASE_ORDER', PARSER.new.tables_columns[1])
+        self.assertEqual('PURCHASE_ORDER', PARSER.new.columns[1])
 
     def test_fourth_column_SQL_PARSER_NEW(self):
-        self.assertEqual('SALES_ORDER', PARSER.new.tables_columns[3])
+        self.assertEqual('SALES_ORDER', PARSER.new.columns[3])
 
     def test_last_column_SQL_PARSER_NEW(self):
-        self.assertEqual('PART_NUMBER', PARSER.new.tables_columns[-1])
+        self.assertEqual('PART_NUMBER', PARSER.new.columns[-1])
 
     def test_parse_sql_file_SQL_PARTSER_NEW(self):
         self.assertEqual(['CUSTOMER_TRX_ID', 'PURCHASE_ORDER', 'DT_REVENUE', 'SALES_ORDER',
-                          'WWAPC', 'SALES_OFFICE', 'PART_NUMBER'], PARSER.new.tables_columns)
+                          'WWAPC', 'SALES_OFFICE', 'PART_NUMBER'], PARSER.new.columns)
+
+    def test_generate_endeca_datatypes(self):
+        self.assertEqual([['CUSTOMER_TRX_ID', 'mdex:string'], ['PURCHASE_ORDER', 'mdex:string'], ['DT_REVENUE', 'mdex:dateTime'], ['SALES_ORDER', 'mdex:string'],
+                          ['WWAPC','mdex:string'], ['SALES_OFFICE','mdex:string'], ['PART_NUMBER', 'mdex:string']],
+                         PARSER.new.endeca_datatypes)
+

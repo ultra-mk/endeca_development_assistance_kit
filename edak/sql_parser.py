@@ -49,10 +49,14 @@ class SQL_PARSER_NEW(object):
                 return index
 
     @property  
-    def tables_columns(self):
+    def columns(self):
         text = open(self.file_name, 'r').read().upper()
         columns = text.replace('\n','').replace('SELECT','').split(',')
         from_index = self.find_index(columns, 'FROM')
         columns = columns[0:from_index + 1]
         columns[-1] = columns[-1][0:columns[-1].find('FROM')].strip()
         return [i[i.index(' AS ') + 4:] if ' AS ' in i else i[i.index('.') + 1:] for i in columns]
+
+    @property 
+    def endeca_datatypes(self):
+        return [[c, dd.ORACLE_COLUMNS_TO_ENDECA[c] if c in dd.ORACLE_COLUMNS_TO_ENDECA else 'mdex:string'] for c in self.columns]
