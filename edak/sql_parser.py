@@ -15,15 +15,19 @@ class SQL_PARSER(object):
                 return index
 
     def remove_subq(self, sql_lines):
-        return [re.sub("[\(].*?[\)]","",s) for s in sql_lines]
+        return [re.sub(".*[\)]","",s) for s in sql_lines]
 
     @property  
     def columns(self):
         text = open(self.file_name, 'r').read().upper()
         columns = text.replace('\n','').replace('SELECT','').split(',')
-        # columns = self.remove_subq(columns)
+        columns = self.remove_subq(columns)
         columns = columns[0:self.find_index(columns, 'FROM') + 1]
+        print columns[-1]
+        print ' AS ' in columns[-1]
         columns[-1] = columns[-1][0:columns[-1].find('FROM')].strip()
+        print columns[-1]
+        print ' AS ' in columns[-1]
         return [i[i.index(' AS ') + 4:] if ' AS ' in i else i[i.index('.') + 1:] for i in columns]
 
     @property 
