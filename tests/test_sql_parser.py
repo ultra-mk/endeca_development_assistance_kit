@@ -33,5 +33,8 @@ class PARSER(unittest.TestCase):
     def test_remove_subq(self):
         self.assertEqual(['PA_TRANS_ID', ' AS PA_GL_PERIOD'], PARSER.subq.remove_subq(['PA_TRANS_ID', '(SELECT DISTINCT PERIOD_NAME FROM APP.PA_PERIODS_ALL) AS PA_GL_PERIOD']))
 
-    # def test_subq_first_col(self):
-    #     self.assertEqual('PA_TRANS_ID', PARSER.subq.columns[0])
+    def test_subq_first_col(self):
+        self.assertEqual('PA_TRANS_ID', PARSER.subq.columns[0])
+
+    def test_subq_sec_col(self):
+        self.assertEqual('PA_GL_PERIOD', PARSER.subq.columns[1])
