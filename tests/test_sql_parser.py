@@ -38,3 +38,6 @@ class PARSER(unittest.TestCase):
 
     def test_subq_sec_col(self):
         self.assertEqual('PA_GL_PERIOD', PARSER.subq.columns[1])
+
+    def test_subq_third_col(self):
+        self.assertEqual('DISTRIBUTION_LINE_STATUS', PARSER.subq.columns[2])

@@ -24,8 +24,6 @@ class SQL_PARSER(object):
         columns = self.remove_subq(columns)
         columns = columns[0:self.find_index(columns, 'FROM') + 1]
         columns[-1] = columns[-1][0:columns[-1].find('FROM')]
-        #.strip() #this fixed all the issues with the subq and the rest of the tests passed. feel like I 
-        #need more robust test cases
         return [i[i.index(' AS ') + 4:] if ' AS ' in i else i[i.index('.') + 1:] for i in columns]
 
     @property 
