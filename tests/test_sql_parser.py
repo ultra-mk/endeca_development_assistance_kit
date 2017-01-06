@@ -44,3 +44,6 @@ class PARSER(unittest.TestCase):
 
     def test_subq_fourth_col(self):
         self.assertEqual('TOTAL_FCST_EQP_COST_PROJ_CURR', PARSER.subq.columns[3])
+
+    # def test_subq_fifth_col(self):
+    #     self.assertEqual('PROJECT_MANAGER', PARSER.subq.columns[4])
