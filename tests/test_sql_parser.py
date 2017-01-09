@@ -45,5 +45,12 @@ class PARSER(unittest.TestCase):
     def test_subq_fourth_col(self):
         self.assertEqual('TOTAL_FCST_EQP_COST_PROJ_CURR', PARSER.subq.columns[3])
 
+    def test_split_by_comma_unless_inside_paren(self):
+        self.assertEqual(['this','that(the, other thing)'], PARSER.subq.split_by_comma_unless_inside_paren('this,that(the, other thing)'))
+
+
+    def test_split_by_comma_diagnostic(self):
+        self.assertEqual(["as FIELD", " (SELECT FIELD, AS FUCK_ALL)"], PARSER.subq.split_by_comma_unless_inside_paren("as FIELD, (SELECT FIELD, AS FUCK_ALL)"))
+
     # def test_subq_fifth_col(self):
     #     self.assertEqual('PROJECT_MANAGER', PARSER.subq.columns[4])

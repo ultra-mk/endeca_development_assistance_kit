@@ -17,10 +17,17 @@ class SQL_PARSER(object):
     def remove_subq(self, sql_lines):
         return [re.sub(".*[\)]","",s) for s in sql_lines]
 
+    def split_by_comma_unless_inside_paren(self, text):
+        return re.split(',(?!(?:[^(]*\([^)]*\))*[^()]*\))', text)
+
     @property  
     def columns(self):
         text = open(self.file_name, 'r').read().upper()
         columns = text.replace('\n','').replace('SELECT','').split(',')
+        # pattern = r',(?!(?:[^(]*\([^)]*\))*[^()]*\))'
+        # print len(re.split(',(?!(?:[^(]*\([^)]*\))*[^()]*\))' ,text)) 
+        #this is not actually splitting anything
+        # print columns[1]
         columns = self.remove_subq(columns)
         columns = columns[0:self.find_index(columns, 'FROM') + 1]
         columns[-1] = columns[-1][0:columns[-1].find('FROM')]
