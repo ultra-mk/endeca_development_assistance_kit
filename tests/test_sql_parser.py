@@ -3,11 +3,39 @@ from edak import sql_parser as sp
 
 
 class PARSER(unittest.TestCase):
+    diag_text = ("PEIA.EXPENDITURE_ITEM_ID AS PA_TRANS_ID,"
+                 "(SELECT DISTINCT PERIOD_NAME FROM APPS.PA_PERIODS_ALL WHERE PCDLA.GL_DATE BETWEEN START_DATE AND END_DATE) AS PA_GL_PERIOD,"
+                 "CASE PCDLA.TRANSFER_STATUS_CODE"
+                 "WHEN 'A' THEN 'Accepted'"
+                 "WHEN 'R' THEN 'Rejected'"
+                 "WHEN 'P' THEN 'Pending'"
+                 "WHEN 'T' THEN 'Transferred'"
+                 "WHEN 'X' THEN 'Rejected In Transfer'"
+                 "WHEN 'V' THEN 'Received'"
+                 "ELSE 'N/A'"
+                "END AS DISTRIBUTION_LINE_STATUS,"
+"(MFB.UNIT_SELLING_PRICE * MFB.QUANTITY * 1.005) AS TOTAL_FCST_EQP_COST_PROJ_CURR,")
+# (SELECT DISTINCT PAPF.FULL_NAME FROM APPS.PER_ALL_PEOPLE_F PAPF, APPS.PA_PROJECT_PLAYERS PPP WHERE PAPF.PERSON_ID = PPP.PERSON_ID AND PPP.PROJECT_ROLE_TYPE = 'PROJECT MANAGER' AND PPP.END_DATE_ACTIVE IS NULL AND PPA.PROJECT_ID = PPP.PROJECT_ID) AS PROJECT_MANAGER"
+
+    diag_list = ["PEIA.EXPENDITURE_ITEM_ID AS PA_TRANS_ID",
+                "(SELECT DISTINCT PERIOD_NAME FROM APPS.PA_PERIODS_ALL WHERE PCDLA.GL_DATE BETWEEN START_DATE AND END_DATE) AS PA_GL_PERIOD",
+                 ( "CASE PCDLA.TRANSFER_STATUS_CODE"
+                 "WHEN 'A' THEN 'Accepted'"
+                 "WHEN 'R' THEN 'Rejected'"
+                 "WHEN 'P' THEN 'Pending'"
+                 "WHEN 'T' THEN 'Transferred'"
+                 "WHEN 'X' THEN 'Rejected In Transfer'"
+                 "WHEN 'V' THEN 'Received'"
+                 "ELSE 'N/A'"
+                "END AS DISTRIBUTION_LINE_STATUS"),
+                 "(MFB.UNIT_SELLING_PRICE * MFB.QUANTITY * 1.005) AS TOTAL_FCST_EQP_COST_PROJ_CURR",
+                 '']
 
     @classmethod
     def setUpClass(PARSER):
         PARSER.ins = sp.SQL_PARSER('sql_parser_test_doc.sql')
         PARSER.subq = sp.SQL_PARSER('sql_test_docs/subq_test.sql')
+
 
     def test_first_column(self):
         self.assertEqual('CUSTOMER_TRX_ID', PARSER.ins.columns[0])
@@ -52,5 +80,10 @@ class PARSER(unittest.TestCase):
     def test_split_by_comma_diagnostic(self):
         self.assertEqual(["as FIELD", " (SELECT FIELD, AS FUCK_ALL)"], PARSER.subq.split_by_comma_unless_inside_paren("as FIELD, (SELECT FIELD, AS FUCK_ALL)"))
 
+
+    def test_diag_text(self):
+        self.assertEqual(PARSER.diag_list, PARSER.subq.split_by_comma_unless_inside_paren(PARSER.diag_text))
+
+    
     # def test_subq_fifth_col(self):
     #     self.assertEqual('PROJECT_MANAGER', PARSER.subq.columns[4])
