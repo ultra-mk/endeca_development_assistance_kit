@@ -33,7 +33,7 @@ class PARSER(unittest.TestCase):
 
     @classmethod
     def setUpClass(PARSER):
-        PARSER.ins = sp.SQL_PARSER('sql_parser_test_doc.sql')
+        PARSER.ins = sp.SQL_PARSER('sql_test_docs/sql_parser_test_doc.sql')
         PARSER.subq = sp.SQL_PARSER('sql_test_docs/subq_test.sql')
 
 

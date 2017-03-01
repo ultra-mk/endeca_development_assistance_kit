@@ -12,4 +12,4 @@ class UTILS_TEST(unittest.TestCase):
 
     def test_open_file_split_into_lines(self):
         self.assertEqual(
-            'SELECT', utils.open_file_split_into_lines('sql_parser_test_doc.sql')[0])
+            'SELECT', utils.open_file_split_into_lines('sql_test_docs/sql_parser_test_doc.sql')[0])
