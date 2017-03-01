@@ -1,6 +1,6 @@
 import unittest
 from edak import sql_generator
-import table_data as td
+from edak import table_data as td
 import sql_generator_test_strings as ts
 
 
