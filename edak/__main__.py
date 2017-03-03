@@ -86,6 +86,8 @@ def sql_reader_writer(reader, writer):
         r.append(group_name)
         sql = sql_generator.SQL(*r)
         writer.save_text(sql.attr_sql())
+        
+### need to add arguments and combine these two methods.
     groups_b = sql.groups_b_sql()
     groups_tl = sql.groups_tl_sql()
     writer.save_text(groups_b + '\n' + groups_tl)

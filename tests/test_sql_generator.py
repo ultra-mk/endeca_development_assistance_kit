@@ -34,7 +34,7 @@ class SQL(unittest.TestCase):
         self.assertEqual(ts.ATTR_TL_VALS, insert_statement[237:421])
 
     def test_insert_attrs_tl_length(self):
-        self.assertEqual(3837, len(SQL.sql.attr_tl()))
+        self.assertEqual(3837, len(SQL.sql.attr_tl(SQL.sql.attrs_tl, td.ATTRS_TL['name'], td.ATTRS_TL['columns'])))
 
     def test_update_attr_groups(self):
         self.assertEqual("SET EID_INSTANCE_GROUP_ATTR_SEQ = 1, EID_INST_GROUP_ATTR_USER_SEQ = 1 WHERE EID_INSTANCE_ID = 204 AND EID_INSTANCE_ATTRIBUTE = 'accounting_period';",
@@ -60,6 +60,9 @@ class SQL(unittest.TestCase):
     def test_groups_tl_sql(self):
         self.assertEqual(2987, len(SQL.sql.groups_tl_sql()))
 
+    def test_attr_tl_with_args_len(self):
+        self.assertEqual(2987, len(SQL.sql.attr_tl(SQL.sql.groups_tl, td.GROUPS_TL['name'], td.GROUPS_TL['columns'])))
+
     def test_prop_attrs_b(self):
         self.assertEqual(ts.PROP_ATTRS_B, SQL.sql.attrs_b)
 
@@ -74,6 +77,9 @@ class SQL(unittest.TestCase):
 
     def test_prop_groups_tl(self):
         self.assertEqual(ts.PROP_GROUPS_TL, SQL.sql.groups_tl)
+
+    def test_attr_tl_with_args(self):
+        self.assertEqual(SQL.sql.groups_tl_sql(), SQL.sql.attr_tl(SQL.sql.groups_tl, td.GROUPS_TL['name'], td.GROUPS_TL['columns']))
 
 
 if __name__ == '__main__':

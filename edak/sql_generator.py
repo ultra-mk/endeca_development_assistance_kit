@@ -17,13 +17,10 @@ class SQL(object):
     def attr_b(self, values, table, columns):
         return ''.join([self.insert_statement(table, columns), self.values(*values)])
 
-    def attr_tl(self):
-        return '\n'.join([self.attr_b(t, td.ATTRS_TL['name'], td.ATTRS_TL['columns']) for t in self.attrs_tl])
+    def attr_tl(self, values, table, columns):
+        return '\n'.join([self.attr_b(v, table, columns) for v in values])
 
-##going to hold off on this refactor until the test suite is a bit nicer
-    # def attr_tl_with_args(self, values, table, columns):
-    #     return '\n'.join([self.attr_b(v, table, columns) for v in values])
-
+#these string methods need to be commonized as well.
     def attr_groups(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
 
@@ -41,14 +38,15 @@ class SQL(object):
 
     def attr_sql(self):
         return '\n'.join(['SET DEFINE OFF;', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
-                                                         td.ATTRS_B['columns']), self.attr_tl(),
+                                                         td.ATTRS_B['columns']), self.attr_tl(self.attrs_tl, td.ATTRS_TL['name'], td.ATTRS_TL['columns']),
                           self.attr_b(self.attrs_group, td.ATTR_GROUPS['name'],
                                       td.ATTR_GROUPS['columns']), self.attr_groups()])
 
     def groups_b_sql(self):
         return ''.join([self.attr_b(self.groups_b, td.GROUPS_B['name'],
                                     td.GROUPS_B['columns'])])
-#####this and attr_tl are exactly the same 
+
+#####need to fix how this is called in __main__
     def groups_tl_sql(self):
         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
                                       td.GROUPS_TL['columns']) for t in self.groups_tl])
