@@ -20,10 +20,10 @@ class SQL(object):
     def attr_tl(self, values, table, columns):
         return '\n'.join([self.attr_b(v, table, columns) for v in values])
 
-#these string methods need to be commonized as well.
     def attr_groups(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
 
+##these two methods need to be combined
     def insert_statement(self, table, *args):
         return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
 
@@ -46,7 +46,7 @@ class SQL(object):
         return ''.join([self.attr_b(self.groups_b, td.GROUPS_B['name'],
                                     td.GROUPS_B['columns'])])
 
-#####need to fix how this is called in __main__
+#####need to fix how this is called in __main__. It's kinda like a property.
     def groups_tl_sql(self):
         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
                                       td.GROUPS_TL['columns']) for t in self.groups_tl])
@@ -83,3 +83,4 @@ class SQL(object):
     def groups_tl(self):
         return [[self.eid_instance_id, self.group_name, l, 'US', self.group_name, self.group_name, self.group_name, self.group_name,
                  '0', 'SYSDATE', '0', 'SYSDATE', '0'] for l in SQL.LANGUAGES]
+
