@@ -15,7 +15,7 @@ class SQL(object):
         self.group_name = group_name
 
     def attr_b(self, table, columns, values):
-        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(self.format_value(i) for i in values),');'])
+        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(values),');'])
     # def attr_b(self, values, table, columns):
     #     return ''.join([self.insert_statement(table, columns), self.values(*values)])
 
@@ -55,10 +55,10 @@ class SQL(object):
 
     @property
     def attrs_b(self):
-        return [self.eid_instance_id, self.eid_instance_attribute, self.datatype,
+        return [self.format_value(i) for i in [self.eid_instance_id, self.eid_instance_attribute, self.datatype,
                 self.profile_id, '2.3', 'MSI', 'N', 'N', 'N', 'N',
                 'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
-                'null', 'null', 'null', 'null', 'null', 'null']
+                'null', 'null', 'null', 'null', 'null', 'null']]
 
     @property
     def attrs_tl(self):

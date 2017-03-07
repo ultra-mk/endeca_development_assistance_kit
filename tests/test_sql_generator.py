@@ -13,8 +13,8 @@ class SQL(unittest.TestCase):
     def test_attr_b(self):
         self.assertEqual(ts.ATTRS_B, SQL.sql.attr_b(td.ATTRS_B['name'], td.ATTRS_B['columns'], SQL.sql.attrs_b))
 
-    def test_attr_tl(self):
-        self.assertEqual('whut', 'butt')
+    # def test_attr_tl(self):
+    #     self.assertEqual(ts.ATTRS_TL, SQL.sql.attr_b(td.ATTRS_TL['name'], td.ATTRS_TL['columns'], SQL.sql.attrs_tl))
 
     # def test_attr_b(self):
     #     self.assertEqual(ts.ATTRS_B, SQL.sql.attr_b(SQL.sql.attrs_b, td.ATTRS_B['name'], td.ATTRS_B['columns']))

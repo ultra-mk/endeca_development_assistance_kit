@@ -10,10 +10,10 @@ ATTRS_B = ("Insert into FND_EID_PDR_ATTRS_B (EID_INSTANCE_ID,EID_INSTANCE_ATTRIB
                "'MSI','N','N','N','N','N','N','N',0,0,SYSDATE,0,SYSDATE,0,"
                "null,null,null,null,null,null);")
 
-# ATTR_TL_COLS = ("Insert into FND_EID_PDR_ATTRS_TL "
-#                 "(EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,"
-#                 "DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,"
-#                 "CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n")
+ATTRS_TL = ("Insert into FND_EID_PDR_ATTRS_TL "
+                "(EID_INSTANCE_ID,EID_INSTANCE_ATTRIBUTE,LANGUAGE,SOURCE_LANG,"
+                "DISPLAY_NAME,ATTRIBUTE_DESC,USER_DISPLAY_NAME,USER_ATTRIBUTE_DESC,"
+                "CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\n")
 
 # ATTR_TL_VALS = ("values ( 204,'accounting_period','D','US','Accounting Period',"
 #                 "'Accounting Period','Accounting Period','Accounting Period',0,"
