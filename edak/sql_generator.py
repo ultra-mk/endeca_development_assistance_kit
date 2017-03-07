@@ -14,8 +14,10 @@ class SQL(object):
         self.sequence_number = sequence_number
         self.group_name = group_name
 
-    def attr_b(self, values, table, columns):
-        return ''.join([self.insert_statement(table, columns), self.values(*values)])
+    def attr_b(self, table, columns, values):
+        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(self.format_value(i) for i in values),');'])
+    # def attr_b(self, values, table, columns):
+    #     return ''.join([self.insert_statement(table, columns), self.values(*values)])
 
     def attr_tl(self, values, table, columns):
         return '\n'.join([self.attr_b(v, table, columns) for v in values])
