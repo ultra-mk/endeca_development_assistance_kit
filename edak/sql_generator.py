@@ -2,7 +2,7 @@ import table_data as td
 
 
 class SQL(object):
-    LANGUAGES = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
+    LANGUAGES = ('D','DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, sequence_number, group_name):
         self.eid_instance_id = str(eid_instance_id)
@@ -15,24 +15,15 @@ class SQL(object):
         self.group_name = group_name
 
     def attr_b(self, table, columns, values):
-        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(values),');'])
-    # def attr_b(self, values, table, columns):
-    #     return ''.join([self.insert_statement(table, columns), self.values(*values)])
+        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(self._format_value(v) for v in values),');'])
 
-    def attr_tl(self, values, table, columns):
-        return '\n'.join([self.attr_b(v, table, columns) for v in values])
+    def attr_tl(self, table, columns, values):
+        return '\n'.join([self.attr_b(table, columns, v) for v in values])
 
     def attr_groups(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
 
-##these two methods need to be combined
-    def insert_statement(self, table, *args):
-        return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
-
-    def values(self, *args):
-        return 'values ( ' + ','.join([self.format_value(a) for a in args]) + ');'
-
-    def format_value(self, element):
+    def _format_value(self, element):
         if element in ['null', 'SYSDATE'] or element.isdigit():
             return element
         else:
@@ -55,10 +46,11 @@ class SQL(object):
 
     @property
     def attrs_b(self):
-        return [self.format_value(i) for i in [self.eid_instance_id, self.eid_instance_attribute, self.datatype,
+        return [self.eid_instance_id, self.eid_instance_attribute, self.datatype,
                 self.profile_id, '2.3', 'MSI', 'N', 'N', 'N', 'N',
                 'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
-                'null', 'null', 'null', 'null', 'null', 'null']]
+                'null', 'null', 'null', 'null', 'null', 'null']
+                # ]
 
     @property
     def attrs_tl(self):
