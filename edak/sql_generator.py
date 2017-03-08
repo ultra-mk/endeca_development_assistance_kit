@@ -13,12 +13,12 @@ class SQL(object):
         self.display_name = display_name
         self.sequence_number = sequence_number
         self.group_name = group_name
-#maybe change all the agruments to just take the dict instead of the fields
-    def attr_b(self, table, columns, values):
-        return ''.join(['Insert into ', table, ' (',','.join(columns), ')', '\nvalues ( ', ','.join(self._format_value(v) for v in values),');'])
 
-    def attr_tl(self, table, columns, values):
-        return '\n'.join([self.attr_b(table, columns, v) for v in values])
+    def attr_b(self, table, values):
+        return ''.join(['Insert into ', table['name'], ' (',','.join(table['columns']), ')', '\nvalues ( ', ','.join(self._format_value(v) for v in values),');'])
+
+    def attr_tl(self, table, values):
+        return '\n'.join([self.attr_b(table, v) for v in values])
 
     def update_sequence(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.sequence), '\n'])
@@ -47,7 +47,6 @@ class SQL(object):
                 self.profile_id, '2.3', 'MSI', 'N', 'N', 'N', 'N',
                 'N', 'N', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0',
                 'null', 'null', 'null', 'null', 'null', 'null']
-                # ]
 
     @property
     def attrs_tl(self):

@@ -11,19 +11,24 @@ class SQL(unittest.TestCase):
         SQL.sql = sql_generator.SQL(204, 'accounting_period',
                                     'mdex:string', 1, 'Accounting Period', 1, 'FIN')
     def test_attr_b(self):
-        self.assertEqual(ts.ATTRS_B, SQL.sql.attr_b(td.ATTRS_B['name'], td.ATTRS_B['columns'], SQL.sql.attrs_b))
+        self.assertEqual(ts.ATTRS_B, SQL.sql.attr_b(td.ATTRS_B, SQL.sql.attrs_b))
 
     def test_attr_tl(self):
-        self.assertEqual(ts.ATTRS_TL, SQL.sql.attr_tl(td.ATTRS_TL['name'], td.ATTRS_TL['columns'], SQL.sql.attrs_tl))
+        self.assertEqual(ts.ATTRS_TL, SQL.sql.attr_tl(td.ATTRS_TL, SQL.sql.attrs_tl))
     
     def test_attr_groups(self):
-        self.assertEqual(ts.ATTR_GROUPS, SQL.sql.attr_b(td.ATTR_GROUPS['name'], td.ATTR_GROUPS['columns'], SQL.sql.attrs_group))
+        self.assertEqual(ts.ATTR_GROUPS, SQL.sql.attr_b(td.ATTR_GROUPS, SQL.sql.attrs_group))
 
     def test_update_sequence(self):
         self.assertEqual(ts.UPDATE_SEQUENCE, SQL.sql.update_sequence())
 
     def test_groups_b(self):
-        self.assertEqual(ts.GROUPS_B, SQL.sql.attr_b(td.GROUPS_B['name'], td.GROUPS_B['columns'], SQL.sql.groups_b))
+        self.assertEqual(ts.GROUPS_B, SQL.sql.attr_b(td.GROUPS_B, SQL.sql.groups_b))
+
+    def test_groups_tl(self):
+        self.assertEqual(ts.GROUPS_TL, SQL.sql.attr_tl(td.GROUPS_TL, SQL.sql.groups_tl))
+
+##############################
 
     # def test_attr_sql(self):
     #     self.assertEqual(5136, len(SQL.sql.attr_sql()))
