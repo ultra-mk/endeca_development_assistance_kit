@@ -19,6 +19,12 @@ class SQL(unittest.TestCase):
     def test_attr_groups(self):
         self.assertEqual(ts.ATTR_GROUPS, SQL.sql.attr_b(td.ATTR_GROUPS['name'], td.ATTR_GROUPS['columns'], SQL.sql.attrs_group))
 
+    def test_update_sequence(self):
+        self.assertEqual(ts.UPDATE_SEQUENCE, SQL.sql.update_sequence())
+
+    def test_groups_b(self):
+        self.assertEqual(ts.GROUPS_B, SQL.sql.attr_b(td.GROUPS_B['name'], td.GROUPS_B['columns'], SQL.sql.groups_b))
+
     # def test_attr_sql(self):
     #     self.assertEqual(5136, len(SQL.sql.attr_sql()))
 
