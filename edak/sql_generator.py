@@ -31,11 +31,11 @@ class SQL(object):
 
 ##this is the main interface
     def attr_sql(self):
-        return '\n'.join(['SET DEFINE OFF;', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
-                                                         td.ATTRS_B['columns']), self.attr_tl(self.attrs_tl, td.ATTRS_TL['name'], td.ATTRS_TL['columns']),
-                          self.attr_b(self.attrs_group, td.ATTR_GROUPS['name'],
-                                      td.ATTR_GROUPS['columns']), self.attr_groups()])
-
+        attrs_b = self.attr_b(td.ATTRS_B, self.attrs_b)
+        attrs_tl = self.attr_tl(td.ATTRS_TL, self.attrs_tl)
+        attr_groups = self.attr_b(td.ATTR_GROUPS, self.attrs_group)
+        update_sequence = self.update_sequence()
+        return '\n'.join(['SET DEFINE OFF;', attrs_b, attrs_tl, attr_groups, update_sequence])
 # #####need to fix how this is called in __main__. It's kinda like a property.
 #     def groups_tl_sql(self):
 #         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
