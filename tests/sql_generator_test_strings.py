@@ -82,9 +82,12 @@ ATTRS_TL = ("Insert into FND_EID_PDR_ATTRS_TL "
                 "SYSDATE,0,SYSDATE,0);"
                 )
 
-                # ATTR_TL_VALS = ("values ( 204,'accounting_period','D','US','Accounting Period',"
-#                 "'Accounting Period','Accounting Period','Accounting Period',0,"
-#                 "SYSDATE,0,SYSDATE,0);")
+ATTR_GROUPS = ("Insert into FND_EID_ATTR_GROUPS (EID_INSTANCE_ID,EID_INSTANCE_GROUP,"
+                "EID_INSTANCE_ATTRIBUTE,EID_INSTANCE_GROUP_ATTR_SEQ,EID_INST_GROUP_ATTR_USER_SEQ,"
+                "GROUP_ATTRIBUTE_SOURCE,EID_RELEASE_VERSION,OBSOLETED_FLAG,"
+                "OBSOLETED_EID_RELEASE_VERSION,CREATED_BY,CREATION_DATE,LAST_UPDATED_BY,"
+                "LAST_UPDATE_DATE,LAST_UPDATE_LOGIN)\nvalues ( 204,'FIN','accounting_period',1,1,'MSI',"
+                "'2.3','N',0,0,SYSDATE,0,SYSDATE,0);")
 
 # this is not being used anywhere in the test suite
 # ATTR_GROUPS_COLS = ("Insert into FND_EID_ATTR_GROUPS "

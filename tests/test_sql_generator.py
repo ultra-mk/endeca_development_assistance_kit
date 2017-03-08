@@ -16,6 +16,9 @@ class SQL(unittest.TestCase):
     def test_attr_tl(self):
         self.assertEqual(ts.ATTRS_TL, SQL.sql.attr_tl(td.ATTRS_TL['name'], td.ATTRS_TL['columns'], SQL.sql.attrs_tl))
     
+    def test_attr_groups(self):
+        self.assertEqual(ts.ATTR_GROUPS, SQL.sql.attr_b(td.ATTR_GROUPS['name'], td.ATTR_GROUPS['columns'], SQL.sql.attrs_group))
+
     # def test_attr_sql(self):
     #     self.assertEqual(5136, len(SQL.sql.attr_sql()))
 
