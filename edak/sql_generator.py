@@ -23,24 +23,14 @@ class SQL(object):
     def update_sequence(self):
         return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.sequence), '\n'])
 
+    def build_sql(self, *args):
+        return '\n'.join(*args)
+
     def _format_value(self, element):
         if element in ['null', 'SYSDATE'] or element.isdigit():
             return element
         else:
             return "'" + element + "'"
-
-##this is the main interface
-    def attr_sql(self):
-        attrs_b = self.attr_b(td.ATTRS_B, self.attrs_b)
-        attrs_tl = self.attr_tl(td.ATTRS_TL, self.attrs_tl)
-        attr_groups = self.attr_b(td.ATTR_GROUPS, self.attrs_group)
-        update_sequence = self.update_sequence()
-        return '\n'.join(['SET DEFINE OFF;', attrs_b, attrs_tl, attr_groups, update_sequence])
-# #####need to fix how this is called in __main__. It's kinda like a property.
-#     def groups_tl_sql(self):
-#         return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
-#                                       td.GROUPS_TL['columns']) for t in self.groups_tl])
-
     @property
     def attrs_b(self):
         return [self.eid_instance_id, self.eid_instance_attribute, self.datatype,

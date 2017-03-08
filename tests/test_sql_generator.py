@@ -28,9 +28,13 @@ class SQL(unittest.TestCase):
     def test_groups_tl(self):
         self.assertEqual(ts.GROUPS_TL, SQL.sql.attr_tl(td.GROUPS_TL, SQL.sql.groups_tl))
 
-    def test_attr_sql(self):
-        self.assertEqual('\n'.join(['SET DEFINE OFF;', ts.ATTRS_B, ts.ATTRS_TL, ts.ATTR_GROUPS, ts.UPDATE_SEQUENCE]), SQL.sql.attr_sql())
+    def test_build_sql_attrs(self):
+        self.assertEqual('\n'.join(['SET DEFINE OFF;', ts.ATTRS_B, ts.ATTRS_TL, ts.ATTR_GROUPS, ts.UPDATE_SEQUENCE]), SQL.sql.build_sql(['SET DEFINE OFF;', SQL.sql.attr_b(td.ATTRS_B, SQL.sql.attrs_b), 
+                SQL.sql.attr_tl(td.ATTRS_TL, SQL.sql.attrs_tl), SQL.sql.attr_b(td.ATTR_GROUPS, SQL.sql.attrs_group),
+                SQL.sql.update_sequence()]))
 
+    def test_group_sql(self):
+        self.assertEqual('\n'.join([ts.GROUPS_B, ts.GROUPS_TL]), SQL.sql.build_sql([SQL.sql.attr_b(td.GROUPS_B, SQL.sql.groups_b), SQL.sql.attr_tl(td.GROUPS_TL, SQL.sql.groups_tl)]))
 
 if __name__ == '__main__':
     unittest.main()
