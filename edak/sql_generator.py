@@ -2,7 +2,7 @@ import table_data as td
 
 
 class SQL(object):
-    LANGUAGES = ('D', 'DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
+    LANGUAGES = ('D','DK', 'E', 'F', 'NL', 'PT', 'PTB', 'S', 'US', 'ZHS')
 
     def __init__(self, eid_instance_id, eid_instance_attribute, datatype, profile_id, display_name, sequence_number, group_name):
         self.eid_instance_id = str(eid_instance_id)
@@ -14,43 +14,23 @@ class SQL(object):
         self.sequence_number = sequence_number
         self.group_name = group_name
 
-    def attr_b(self, values, table, columns):
-        return ''.join([self.insert_statement(table, columns), self.values(*values)])
+    def attr_b(self, table, values):
+        return ''.join(['Insert into ', table['name'], ' (',','.join(table['columns']), ')', '\nvalues ( ', ','.join(self._format_value(v) for v in values),');'])
 
-    def attr_tl(self, values, table, columns):
-        return '\n'.join([self.attr_b(v, table, columns) for v in values])
+    def attr_tl(self, table, values):
+        return '\n'.join([self.attr_b(table, v) for v in values])
 
-    def attr_groups(self):
-        return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.set_attr_groups), '\n'])
+    def update_sequence(self):
+        return ''.join(['UPDATE ', td.ATTR_GROUPS['name'], ' ', ''.join(self.sequence), '\n'])
 
-##these two methods need to be combined
-    def insert_statement(self, table, *args):
-        return 'Insert into ' + table + ' (' + ','.join(*args) + ')\n'
+    def build_sql(self, *args):
+        return '\n'.join(*args)
 
-    def values(self, *args):
-        return 'values ( ' + ','.join([self.format_value(a) for a in args]) + ');'
-
-    def format_value(self, element):
+    def _format_value(self, element):
         if element in ['null', 'SYSDATE'] or element.isdigit():
             return element
         else:
             return "'" + element + "'"
-
-    def attr_sql(self):
-        return '\n'.join(['SET DEFINE OFF;', self.attr_b(self.attrs_b, td.ATTRS_B['name'],
-                                                         td.ATTRS_B['columns']), self.attr_tl(self.attrs_tl, td.ATTRS_TL['name'], td.ATTRS_TL['columns']),
-                          self.attr_b(self.attrs_group, td.ATTR_GROUPS['name'],
-                                      td.ATTR_GROUPS['columns']), self.attr_groups()])
-
-    def groups_b_sql(self):
-        return ''.join([self.attr_b(self.groups_b, td.GROUPS_B['name'],
-                                    td.GROUPS_B['columns'])])
-
-#####need to fix how this is called in __main__. It's kinda like a property.
-    def groups_tl_sql(self):
-        return '\n'.join([self.attr_b(t, td.GROUPS_TL['name'],
-                                      td.GROUPS_TL['columns']) for t in self.groups_tl])
-
     @property
     def attrs_b(self):
         return [self.eid_instance_id, self.eid_instance_attribute, self.datatype,
@@ -70,9 +50,9 @@ class SQL(object):
                 '1', 'MSI', '2.3', 'N', '0', '0', 'SYSDATE', '0', 'SYSDATE', '0']
 
     @property
-    def set_attr_groups(self):
+    def sequence(self):
         return ["SET EID_INSTANCE_GROUP_ATTR_SEQ = {0}, EID_INST_GROUP_ATTR_USER_SEQ = {0} WHERE EID_INSTANCE_ID = ".format(self.sequence_number),
-                self.eid_instance_id, " AND EID_INSTANCE_ATTRIBUTE = '", self.eid_instance_attribute, "'; \n"]
+                self.eid_instance_id, " AND EID_INSTANCE_ATTRIBUTE = '", self.eid_instance_attribute, "';"]
 
     @property
     def groups_b(self):
