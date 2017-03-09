@@ -7,6 +7,7 @@ import eql_generator
 import xml_generator
 import sql_parser
 import utils
+import table_data as td
 
 
 def main(args=None):
@@ -85,13 +86,10 @@ def sql_reader_writer(reader, writer):
         r.append(i + 1)
         r.append(group_name)
         sql = sql_generator.SQL(*r)
-        writer.save_text(sql.attr_sql())
-        
-### need to add arguments and combine these two methods. Assume we will always
-# groups_b with a groups_tl
-    groups_b = sql.groups_b_sql()
-    groups_tl = sql.groups_tl_sql()
-    writer.save_text(groups_b + '\n' + groups_tl)
+        writer.save_text(sql.build_sql(['SET DEFINE OFF;', sql.attr_b(td.ATTRS_B, sql.attrs_b), 
+                sql.attr_tl(td.ATTRS_TL, sql.attrs_tl), sql.attr_b(td.ATTR_GROUPS, sql.attrs_group),
+                sql.update_sequence()]))
+    writer.save_text(sql.build_sql([sql.attr_b(td.GROUPS_B, sql.groups_b), sql.attr_tl(td.GROUPS_TL, sql.groups_tl)]))
     print 'beep, boop your PLSQL is ready!'
 
 
